@@ -7,7 +7,9 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
-
+use Illuminate\Support\Str;
+use App\Mail\VerificationCodeMail;
+use Illuminate\Support\Facades\Mail;
 class UserController extends Controller
 {
     //
@@ -24,14 +26,15 @@ class UserController extends Controller
             'password' => ['required'],
             'phone' => ['nullable', 'string'],
         ]);
+
         $user = new User;
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->phone = $request->phone;
         $user->save();
-    
-        return view('login');
+
+        return redirect()->route('login')->with('status', 'Verification code sent to your email.');
     }
 
     public function showLoginForm()
@@ -56,7 +59,30 @@ class UserController extends Controller
             ])->withInput();
         }
     }
-    
+    public function showVerificationForm()
+{
+    return view('verify');
+}
+
+public function verify(Request $request)
+{
+    $request->validate([
+        'verification_code' => 'required|string|exists:users,verification_code',
+    ]);
+
+    $user = User::where('verification_code', $request->verification_code)->first();
+
+    if ($user) {
+        $user->email_verified_at = now();
+        $user->verification_code = null; 
+        $user->save();
+
+        return redirect()->route('home')->with('status', 'Email verified successfully.');
+    }
+
+    return back()->withErrors(['verification_code' => 'Invalid verification code.']);
+}
+
     
     
 }

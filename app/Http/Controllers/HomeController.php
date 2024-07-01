@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Review;
 use App\Models\Product;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -41,11 +42,18 @@ class HomeController extends Controller
                     }
                 }
                 $latestProduct = Product::orderBy('created_at', 'desc')->get();
+$images = DB::table('products')->select('image')->get();
+$encodedImages = [];
+
+foreach ($images as $image) {
+    $encodedImage = base64_encode($image->image);
+    $encodedImages[] = $encodedImage;
+}
 
                 $mostViewedProducts = Product::orderByDesc('views_count')->get();
                 $randomProducts = Product::inRandomOrder()->take(3)->get();
 
-                return view('index', compact('products', 'cartItems','latestProduct', 'mostViewedProducts','randomProducts'));
+                return view('index', compact('products', 'cartItems','latestProduct', 'mostViewedProducts','randomProducts','images'));
             }
         }
 
@@ -57,8 +65,17 @@ class HomeController extends Controller
         $subtotal = $cartItems->sum(function ($item) {
             return $item->product->price * $item->quantity;
         });
-
+        $randomProducts = Product::inRandomOrder()->take(3)->get();
+        $images = DB::table('products')->select('image')->get();
+        $encodedImages = [];
+        foreach ($images as $image) {
+            $encodedImage = base64_encode($image->image); 
+            $encodedImages[] = $encodedImage;
+        }
+        $reviews = Review::all(); 
+        $averageRating = $reviews->avg('rating');
+        $roundedRating = min(5, round($averageRating));
         //Return view data
-        return view('index', compact('products', 'latestProduct', 'mostViewedProducts', 'cartItems'));
+        return view('index', compact('products', 'latestProduct', 'mostViewedProducts', 'cartItems','randomProducts','encodedImages','reviews','roundedRating'));
     }
 }

@@ -69,7 +69,7 @@
       <div class="row align-items-center">
         <div class="col-6 col-sm-4 col-lg-3">
           <div class="header-logo-area">
-            <a href="index">
+            <a href="index.html">
               <img class="logo-main" src="assets/img/be-unique-logo.jpg" alt="Logo" />
               <img class="logo d-none" src="assets/img/logo-light.png" alt="Logo" />
             </a>
@@ -80,29 +80,29 @@
             <ul class="main-menu nav position-relative">
               <li class="has-submenu"><a href="#/">Home</a>
                 <ul class="submenu-nav">
-                  <li><a href="index">Home Demo 1</a></li>
-                  <li><a href="index-two">Home Demo 2</a></li>
+                  <li><a href="index.html">Home Demo 1</a></li>
+                  <li><a href="index-two.html">Home Demo 2</a></li>
                 </ul>
               </li>
               <li class="has-submenu full-width"><a href="#/">Shop</a>
                 <ul class="submenu-nav submenu-nav-mega">
                   <li class="mega-menu-item"><a href="#/" class="mega-title">Shop Layouts</a>
                     <ul>
-                      <li><a href="shop-3-grid">Shop All</a></li>
+                      <li><a href="shop-3-grid.html">Shop All</a></li>
                     </ul>
                   </li>
                   <li class="mega-menu-item"><a href="#/" class="mega-title">Shop Pages</a>
                     <ul>
-                      <li><a href="login">My Account</a></li>
-                      <li><a href="wishlist">Wishlist</a></li>
-                      <li><a href="cart">Cart</a></li>
-                      <li><a href="checkout">Checkout</a></li>
+                      <li><a href="login.html">My Account</a></li>
+                      <li><a href="wishlist.html">Wishlist</a></li>
+                      <li><a href="cart.html">Cart</a></li>
+                      <li><a href="checkout.html">Checkout</a></li>
                     </ul>
                   </li>
                 </ul>
               </li>
-              <li><a href="contact">Contact</a></li>
-              <li><a href="about-us">About</a></li>
+              <li><a href="contact.html">Contact</a></li>
+              <li><a href="about-us.html">About</a></li>
             </ul>
           </div>
         </div>
@@ -110,7 +110,7 @@
           <div class="header-action-area">
             <ul class="header-action">
               <li class="search-item">
-                <a class="action-item" href="page-search">
+                <a class="action-item" href="page-search.html">
                   <i class="zmdi zmdi-search icon"></i>
                 </a>
               </li>
@@ -133,7 +133,7 @@
                   <li class="account">
                     <a href="#/"><span class="current-account">My account</span></a>
                     <ul>
-                      <li><a href="login">Login</a></li>
+                      <li><a href="login.html">Login</a></li>
                     </ul>
                   </li>
                 </ul>
@@ -170,8 +170,8 @@
                     <h5>Total: <span class="money">$159.00</span></h5>
                   </div>
                   <div class="cart-btn">
-                    <a href="cart">View Cart</a>
-                    <a href="checkout">Checkout</a>
+                    <a href="cart.html">View Cart</a>
+                    <a href="checkout.html">Checkout</a>
                   </div>
                 </div>
               </li>
@@ -195,7 +195,7 @@
             <div class="page-header-content">
               <nav class="breadcrumb-area">
                 <ul class="breadcrumb">
-                  <li><a href="index">Home</a></li>
+                  <li><a href="index.html">Home</a></li>
                   <li class="breadcrumb-sep">/</li>
                   <li>404 Not Found</li>
                 </ul>
@@ -217,7 +217,7 @@
               <h1>404</h1>
               <h2>Opps! PAGE NOT BE FOUND</h2>
               <p>Sorry but the page you are looking for does not exist, have <br> been removed, name changed or is temporarity unavailable.</p>
-              <a class="btn-back" href="index">Back to home page</a>
+              <a class="btn-back" href="index.html">Back to home page</a>
             </div>
           </div>
         </div>
@@ -236,7 +236,7 @@
             <div class="widget-item">
               <div class="about-widget">
                 <div class="footer-logo-area">
-                  <a href="index">
+                  <a href="index.html">
                     <img class="logo-main footer-logo" src="assets/img/be-unique-logo.jpg" alt="Logo" />
                   </a>
                 </div>
@@ -255,11 +255,11 @@
               <h4 class="widget-title">INFORMATION</h4>
               <div class="widget-menu-wrap">
                 <ul class="nav-menu">
-                  <li><a href="shop">Specials</a></li>
-                  <li><a href="shop">New products</a></li>
-                  <li><a href="shop">Top sellers</a></li>
-                  <li><a href="shop">Our stores</a></li>
-                  <li><a href="contact">Contact us</a></li>
+                  <li><a href="shop.html">Specials</a></li>
+                  <li><a href="shop.html">New products</a></li>
+                  <li><a href="shop.html">Top sellers</a></li>
+                  <li><a href="shop.html">Our stores</a></li>
+                  <li><a href="contact.html">Contact us</a></li>
                 </ul>
               </div>
             </div>
@@ -271,11 +271,11 @@
               <h4 class="widget-title">QUICK LINKS</h4>
               <div class="widget-menu-wrap">
                 <ul class="nav-menu">
-                  <li><a href="login">New User</a></li>
-                  <li><a href="about-us">Help Center</a></li>
-                  <li><a href="about-us">Refund Policy</a></li>
-                  <li><a href="about-us">Report Spam</a></li>
-                  <li><a href="login">Account</a></li>
+                  <li><a href="login.html">New User</a></li>
+                  <li><a href="about-us.html">Help Center</a></li>
+                  <li><a href="about-us.html">Refund Policy</a></li>
+                  <li><a href="about-us.html">Report Spam</a></li>
+                  <li><a href="login.html">Account</a></li>
                 </ul>
               </div>
             </div>

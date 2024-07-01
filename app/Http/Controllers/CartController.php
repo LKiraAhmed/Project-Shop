@@ -23,33 +23,38 @@ class CartController extends Controller
       // store
     public function store(Request $request)
     {
-    $request->validate([
-        'product_id' => 'required|exists:products,id',
-        'quantity' => 'required|integer|min:1',
-    ]);
-
-    $userId = Auth::id();
-
-    if (!$userId) {
+       $cartItems=Cart::find($request->id);
+       if($cartItems){
+        $request->validate([
+            'product_id' => 'required|exists:products,id',
+            'quantity' => 'required|integer|min:1',
+        ]);
+    
+        $userId = Auth::id();
+    
+        if (!$userId) {
+            return redirect()->route('login')->with('error_message', 'Please login to add products to cart.');
+        }
+    
+        $existingCartItem = Cart::where('user_id', $userId)->where('product_id', $request->product_id)->first();
+    
+        if ($existingCartItem) {
+            $existingCartItem->update([
+                'quantity' => $existingCartItem->quantity + $request->quantity
+            ]);
+        } else {
+            Cart::create([
+                'user_id' => $userId,
+                'product_id' => $request->product_id,
+                'quantity' => $request->quantity,
+            ]);
+        }
+    
+        $cartItems = Cart::where('user_id', $userId)->get();
+        session(['cart' => $cartItems]);
+       }else{
         return redirect()->route('login')->with('error_message', 'Please login to add products to cart.');
     }
-
-    $existingCartItem = Cart::where('user_id', $userId)->where('product_id', $request->product_id)->first();
-
-    if ($existingCartItem) {
-        $existingCartItem->update([
-            'quantity' => $existingCartItem->quantity + $request->quantity
-        ]);
-    } else {
-        Cart::create([
-            'user_id' => $userId,
-            'product_id' => $request->product_id,
-            'quantity' => $request->quantity,
-        ]);
-    }
-
-    $cartItems = Cart::where('user_id', $userId)->get();
-    session(['cart' => $cartItems]);
 
     return redirect()->route('cart.index')->with('success_message', 'Product added to cart successfully!');
       }
@@ -80,4 +85,40 @@ class CartController extends Controller
 
         return redirect()->route('cart.index')->with('success_message', 'Item removed from cart successfully!');
     }
+    public function addToCart(Request $request)
+    {
+        $request->validate([
+            'product_id' => 'required|exists:products,id',
+            'quantity' => 'required',
+        ]);
+    
+        $userId = Auth::id();
+    
+        if (!$userId) {
+            return response()->json(['error' => 'Please login to add products to cart.'], 401);
+        }
+    
+        $existingCartItem = Cart::where('user_id', $userId)
+                                ->where('product_id', $request->product_id)
+                                ->first();
+    
+        if ($existingCartItem) {
+            $existingCartItem->update([
+                'quantity' => $existingCartItem->quantity + $request->quantity
+            ]);
+        } else {
+            Cart::create([
+                'user_id' => $userId,
+                'product_id' => $request->product_id,
+                'quantity' => $request->quantity,
+            ]);
+        }
+    
+        $cartItems = Cart::where('user_id', $userId)->get();
+        session(['cart' => $cartItems]);
+    
+        return response()->json(['message' => 'Product added to cart successfully.']);
+    }
+    
+
 }

@@ -223,7 +223,7 @@
                                               <td class="indecor-product-remove">
                                                   <form action="{{ route('cart.destroy', $cartItem->id) }}" method="POST">
                                                       @csrf
-                                                      @method('DELETE')
+                                                      {{-- @method('DELETE') --}}
                                                       <button type="submit" class="btn btn-link">
                                                           <i class="fa fa-times"></i>
                                                       </button>

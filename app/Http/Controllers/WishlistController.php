@@ -43,4 +43,6 @@ class WishlistController extends Controller
 
         return redirect()->back()->with('error_message', 'Product not found in wishlist!');
     }
+    
+
 }

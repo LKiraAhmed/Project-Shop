@@ -181,6 +181,7 @@
             }?>
 
                   <p><?php echo $description; ?></p>
+                  {{-- @endforeach --}}
                     <div class="product-action-simple">
                         <div class="product-quick-action">
                             <div class="product-quick-qty">                    
@@ -342,19 +343,20 @@
     </section>
 
 <!-- Start Product Single Area Wrapper -->
+
 <section class="product-area product-new-arrivals-area product-related-area">
-  <div class="container">
-      <div class="row">
-          <div class="col-lg-7 m-auto">
-              <div class="section-title text-center">
-                  <h2 class="title">Related Products</h2>
-              </div>
-          </div>
-      </div>
-      <div class="row">
-          <div class="col-12">
-              <div class="swiper-container product-slider-container">
-                  <div class="swiper-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 m-auto">
+                <div class="section-title text-center">
+                    <h2 class="title">Related Products</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="swiper-container product-slider-container">
+                    <div class="swiper-wrapper">
                       @foreach ($randomProducts as $randomProduct)
                       <div class="swiper-slide">
                           <!-- Start Shop Item -->
@@ -364,7 +366,7 @@
                                       <a href="{{ route('products.single', $randomProduct->id) }}">
                                           <img class="w-80" src="{{ Storage::url($randomProduct->image) }}" alt="{{ $randomProduct->name }}">
                                       </a>
-                                      <h4 class="title">{{$randomProduct->name}}</h4>
+                                      <h4 class="title">{{ $randomProduct->name }}</h4>
                                       @if ($randomProduct->sale_title)
                                       <span class="sale-title sticker">{{ $randomProduct->sale_title }}</span>
                                       @endif
@@ -373,26 +375,12 @@
                                       @endif
                                       <div class="product-action">
                                           <div class="addto-wrap">
-                                              <form action="{{ route('cart.store') }}" method="POST" class="add-cart">
-                                                  @csrf
-                                                  <input type="hidden" name="product_id" value="{{ $randomProduct->id }}">
-                                                  <input type="hidden" name="quantity" value="{{$randomProduct->quantity}}">
-                                                  <button>
-                                                      <a>
-                                                          <i class="zmdi zmdi-shopping-cart-plus icon"></i>
-                                                      </a>
-                                                  </button>
-                                              </form>
-                                              <form action="" class="add-wishlist">
-                                                  <a class="add-wishlist" href="#">
-                                                      <i class="zmdi zmdi-favorite-outline zmdi-hc-fw icon"></i>
-                                                  </a>
-                                              </form>
-                                              <form class="add-quick-view">
-                                                  <a href="#" onclick="openQuickViewModal('{{ $randomProduct->id }}')">
-                                                      <i class="zmdi zmdi-eye icon"></i>
-                                                  </a>
-                                              </form>
+                                              <a href="#" class="add-cart" onclick="addToCart({{ $randomProduct->id }});">
+                                                  <i class="zmdi zmdi-shopping-cart-plus icon"></i>
+                                              </a>
+                                              <a class="add-wishlist" href="#" onclick="addWishlist({{ $randomProduct->id }})">
+                                                  <i class="zmdi zmdi-favorite-outline zmdi-hc-fw icon"></i>
+                                              </a>
                                           </div>
                                       </div>
                                   </div>
@@ -402,17 +390,14 @@
                                               <a href="{{ route('products.single', $randomProduct->id) }}">{{ $randomProduct->name }}</a>
                                           </h4>
                                           <div class="star-content">
-                                          
-                                            @for ($i = 1; $i <= 5; $i++)
-                                            @if ($i <= $roundedRating)
-                                                <li class="fa fa-star"></li>
-                                            @else
-                                                <li class="fa fa-star-o"></li>
-                                            @endif
-                                        @endfor
-                                        
-                                        
-                                        </div>
+                                              @for ($i = 1; $i <= 5; $i++)
+                                                  @if ($i <= round($randomProduct->averageRating))
+                                                      <li class="fa fa-star"></li>
+                                                  @else
+                                                      <li class="fa fa-star-o"></li>
+                                                  @endif
+                                              @endfor
+                                          </div>
                                           <div class="prices">
                                               <span class="price">${{ $randomProduct->price }}</span>
                                               @if ($randomProduct->old_price)
@@ -426,17 +411,13 @@
                           <!-- End Shop Item -->
                       </div>
                       @endforeach
-                  </div>
-                  <!-- Add Pagination -->
-                  {{-- <div class="swiper-pagination"></div>
-                  <!-- Add Arrows -->
-                  <div class="swiper-button-next"></div>
-                  <div class="swiper-button-prev"></div> --}}
-              </div>
-          </div>
-      </div>
-  </div>
-</section>
+                      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </section>
 
 <!-- End Product Area Wrapper -->
 <!-- Start Quick View Menu -->
@@ -478,6 +459,47 @@
   </div>
   <div class="canvas-overlay" onclick="closeQuickViewModal()"></div>
 </aside>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    function addToCart(productId) {
+      const postData = {
+        product_id: productId,
+        quantity: 1 
+      };
+  
+      axios.post('{{ route('cart.add') }}', postData)  
+        .then(response => {
+          console.log(response.data);
+          window.location.href = '/cart';
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('An error occurred. Please try again.');
+        });
+    }
+    </script>
+  
+  
+    <script>
+      function addWishlist(productId) {
+          const postData = {
+              product_id: productId,
+          };
+      
+          axios.post('{{ route("wishlist.store") }}', postData)
+              .then(response => {
+                  console.log(response.data);
+                  window.location.href = '{{ route("wishlist.index") }}'; 
+              })
+              .catch(error => {
+                  console.error('Error:', error);
+                  alert('An error occurred. Please try again.');
+                });
+      }
+      </script>
+
+
 
 
 <!-- End Quick View Menu -->

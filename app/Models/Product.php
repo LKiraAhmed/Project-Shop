@@ -14,8 +14,12 @@ class Product extends Model
         'price',
         'discount',
         'description',
-        'views_count'
+        'views_count',
+        'size',
+        'catigorie_id',
+        'quantity'
     ];
+    
     public function carts(){
         return $this->hasMany(Cart::class,'id','product_id');
     }
@@ -25,4 +29,10 @@ class Product extends Model
     public function Wishlist(){
         return $this->hasMany(Wishlist::class,'id','product_id');
     }
+    public function category()
+    {
+        return $this->belongsTo(Catigory::class, 'category_id', 'id');
+    }
+    
+  
 }

@@ -29,12 +29,15 @@ class PageController extends Controller
             $latestProduct = Product::orderBy('created_at', 'desc')->get();
 
             $mostViewedProducts = Product::orderByDesc('views_count')->limit(10)->get();
+            $randomProducts = Product::inRandomOrder()->take(3)->get();
 
             foreach ($products as $product) {
                 $product->increment('views_count');
             }
-
-            return view($id, compact('products', 'cartItems', 'latestProduct', 'mostViewedProducts'));
+            $reviews = Review::all(); 
+            $averageRating = $reviews->avg('rating');
+            $roundedRating = min(5, round($averageRating));
+            return view($id, compact('products', 'cartItems', 'latestProduct', 'mostViewedProducts','randomProducts','reviews','roundedRating'));
         } else {
             return view('404');
         }

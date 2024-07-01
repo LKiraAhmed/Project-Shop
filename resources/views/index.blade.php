@@ -35,9 +35,11 @@
     <link href="assets/css/fancybox.min.css" rel="stylesheet" />
     <!--== Slicknav Min CSS ==-->
     <link href="assets/css/slicknav.css" rel="stylesheet" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!--== Main Style CSS ==-->
     <link href="assets/css/style.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <!--[if lt IE 9]>
     <script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -224,7 +226,22 @@
                 </div>
               </div>
             </div>
-         
+            <!--== End Feature Item ==-->
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <!--== Start Feature Item ==-->
+            <div class="feature-icon-box">
+              <div class="inner-content mb-0">
+                <div class="icon-box">
+                  <i class="icon ei ei-icon_creditcard"></i>
+                </div>
+                <div class="content">
+                  <h5 class="title">100% secure payment</h5>
+                  <p>Your payment are safe with us.</p>
+                </div>
+              </div>
+            </div>
+            <!--== End Feature Item ==-->
           </div>
         </div>
       </div>
@@ -257,29 +274,21 @@
                         <div class="product-item">
                           <div class="inner-content">
                             <div class="product-thumb">
-                              <a href="single-product-simple.html">
+                              <a href="{{ route('products.single', $product->id) }}">
                                 <img class="w-100 small-img" src="{{ Storage::url($product->image) }}" alt="{{ $product->name }}">
                               </a>
                               <span class="sale-title sticker">%{{ $product->price }}</span>
                               <span class="percent-count sticker">%{{ $product->discount }}</span>
                               <div class="product-action">
                                 <div class="addto-wrap">
-                                  <form action="{{ route('cart.store') }}" method="POST" class="add-cart">
-                                    @csrf
-                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                    <input type="hidden" name="quantity" value="1">
-                                    <button type="submit" class="add-cart">
-                                      <i class="zmdi zmdi-shopping-cart-plus icon"></i>
-                                  </form>
-                                  <form action="{{ route('wishlist.store') }}" method="POST" class="add-wishlist">
-                                    @csrf
-                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                    <button type="submit" class="add-wishlist">
-                                      <i class="zmdi zmdi-favorite-outline zmdi-hc-fw icon"></i>
-                                    </button>
-                                  </form>
-                                  <a href="javascript:void(0);" class="add-quick-view">
-                                    <i class="zmdi zmdi-eye icon"></i>
+                                  {{-- onclick="addToCart({{ $product->id }});" --}}
+                                  <a href="#" class="add-cart" onclick="addToCart({{ $product->id }});">
+                                    <i class="zmdi zmdi-shopping-cart-plus icon"></i> 
+                                  </a>                            
+                                <a class="add-wishlist" href="#" onclick="addWishlist({{ $product->id }})">
+                                  <i class="zmdi zmdi-favorite-outline zmdi-hc-fw icon"></i>
+                              </a>
+                                
                                   </a>
                                 </div>
                               </div>
@@ -309,23 +318,12 @@
                               @endif
                               <div class="product-action">
                                 <div class="addto-wrap">
-                                  <form action="{{ route('cart.store') }}" method="POST" class="add-cart">
-                                    @csrf
-                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                    <input type="hidden" name="quantity" value="1">
-                                    <button type="submit" class="add-cart">
-                                      <i class="zmdi zmdi-shopping-cart-plus icon"></i>
-                                  </form>
-                                  <form action="{{ route('wishlist.store') }}" method="POST" class="add-wishlist">
-                                    @csrf
-                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                    <button type="submit" class="add-wishlist">
-                                      <i class="zmdi zmdi-favorite-outline zmdi-hc-fw icon"></i>
-                                    </button>
-                                  </form>
-                                  <a href="javascript:void(0);" class="add-quick-view">
-                                    <i class="zmdi zmdi-eye icon"></i>
-                                  </a>
+                                  <a href="#" class="add-cart" onclick="addToCart({{ $product->id }});">
+                                    <i class="zmdi zmdi-shopping-cart-plus icon"></i> 
+                                </a>                                
+                                <a class="add-wishlist" href="#" onclick="addWishlist({{ $product->id }})">
+                                  <i class="zmdi zmdi-favorite-outline zmdi-hc-fw icon"></i>
+                              </a>
                                 </div>
                               </div>
                             </div>
@@ -378,35 +376,17 @@
                                 <span class="percent-count sticker">%{{ $product->discount }}</span>
                             @endif
                             <div class="product-action">
-                                <div class="addto-wrap">
-                                    <form action="{{ route('cart.store') }}" method="POST" class="add-cart">
-                                        @csrf
-                                        <input type="hidden" hidden name="product_id" value="{{ $product->id }}">
-                                        <input type="hidden" name="quantity" value="1"> 
-                                        <button type="submit" class="add-cart">
-                                           <a class="add-cart">
-                                            <i class="zmdi zmdi-shopping-cart-plus icon"></i>
-                                           </a>
-                                        </button>
-                                    </form>
-                                    <form action="{{ route('wishlist.store') }}" method="POST" class="add-wishlist">
-                                        @csrf
-                                        <input type="hidden" hidden name="product_id" value="{{ $product->id }}">
-                                        <button   type="submit" class="add-wishlist">
-                                          <a class="add-wishlist"><i class="zmdi zmdi-favorite-outline zmdi-hc-fw icon"></i></a>
-                                        </button>
-                                    </form>
-                                    <form action=""   class="add-quick-view">
-                                      
-                                    <button type="submit">
-                                      <a  class="add-quick-view">
-                                        <i class="zmdi zmdi-eye icon"></i>
-
-                                      </a>
-                                    </button>
-                                  </form>
-                                  
-                                </div>
+                              <div class="addto-wrap">
+                                {{-- onclick="addToCart({{ $product->id }});" --}}
+                                <a href="#" class="add-cart" onclick="addToCart({{ $product->id }});">
+                                  <i class="zmdi zmdi-shopping-cart-plus icon"></i> 
+                                </a>                            
+                              <a class="add-wishlist" href="#" onclick="addWishlist({{ $product->id }})">
+                                <i class="zmdi zmdi-favorite-outline zmdi-hc-fw icon"></i>
+                            </a>
+                              
+                                </a>
+                              </div>
                             </div>
                         </div>
                     </div>
@@ -607,6 +587,65 @@
 </div>
 
 <!--=======================Javascript============================-->
+{{-- <script>
+
+  function addToCart(event, productId) {
+      
+      const data = {
+          product_id: productId,
+          quantity: 1
+      };
+
+      axios.post('{{ route('cart.store') }}', data)
+          .then(response => {
+            console.log(response.data)
+          })
+          .catch(error => {
+              console.error('Error occurred:', error);
+              alert('Failed to add product to cart.');
+          });
+  }
+</script> --}}
+
+<script>
+  function addToCart(productId) {
+    const postData = {
+      product_id: productId,
+      quantity: 1 
+    };
+
+    axios.post('{{ route('cart.add') }}', postData)  
+      .then(response => {
+        console.log(response.data);
+        window.location.href = '/cart';
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred. Please try again.');
+      });
+  }
+  </script>
+
+
+  <script>
+    function addWishlist(productId) {
+        const postData = {
+            product_id: productId,
+        };
+    
+        axios.post('{{ route("wishlist.store") }}', postData)
+            .then(response => {
+                console.log(response.data);
+                window.location.href = '{{ route("wishlist.index") }}'; 
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+              });
+    }
+    </script>
+  
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <!--=== jQuery Modernizr Min Js ===-->
 <script src="assets/js/modernizr.js"></script>
