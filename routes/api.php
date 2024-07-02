@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReviewController;
@@ -19,3 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::post('/reviews/store', [ReviewController::class, 'store'])->name('reviews.store');
+Route::post('/cart/addToCart', [CartController::class, 'addToCart'])->name('cart.add');

@@ -607,30 +607,35 @@
   }
 </script> --}}
 
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
   function addToCart(productId) {
-    const postData = {
-      product_id: productId,
-      quantity: 1 
-    };
+      const postData = {
+          product_id: productId,
+          quantity: 1,
+          _token: '{{ csrf_token() }}'
+      };
 
-    axios.post('{{ route('cart.add') }}', postData)  
-      .then(response => {
-        console.log(response.data);
-        window.location.href = '/cart';
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        alert('An error occurred. Please try again.');
-      });
+      axios.post('{{ route('cart.store') }}', postData)
+          .then(response => {
+              console.log(response.data);
+              window.location.href = '/cart'; 
+          })
+          .catch(error => {
+              console.error('Error:', error);
+              alert('An error occurred. Please try again.'); 
+          });
   }
-  </script>
+</script>
+
+
 
 
   <script>
     function addWishlist(productId) {
         const postData = {
             product_id: productId,
+            token: '{{ csrf_token() }}'
         };
     
         axios.post('{{ route("wishlist.store") }}', postData)

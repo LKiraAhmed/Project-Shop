@@ -23,20 +23,20 @@ class CartController extends Controller
       // store
     public function store(Request $request)
     {
-       $cartItems=Cart::find($request->id);
-       if($cartItems){
         $request->validate([
             'product_id' => 'required|exists:products,id',
-            'quantity' => 'required|integer|min:1',
+            'quantity' => 'required',
         ]);
     
         $userId = Auth::id();
     
         if (!$userId) {
-            return redirect()->route('login')->with('error_message', 'Please login to add products to cart.');
+            return response()->json(['error' => 'Please login to add products to cart.'], 401);
         }
     
-        $existingCartItem = Cart::where('user_id', $userId)->where('product_id', $request->product_id)->first();
+        $existingCartItem = Cart::where('user_id', $userId)
+                                ->where('product_id', $request->product_id)
+                                ->first();
     
         if ($existingCartItem) {
             $existingCartItem->update([
@@ -51,21 +51,19 @@ class CartController extends Controller
         }
     
         $cartItems = Cart::where('user_id', $userId)->get();
-        session(['cart' => $cartItems]);
-       }else{
-        return redirect()->route('login')->with('error_message', 'Please login to add products to cart.');
-    }
+        session(['cart' => $cartItems]); 
 
     return redirect()->route('cart.index')->with('success_message', 'Product added to cart successfully!');
       }
+
       // update
       public function update(Request $request)
       {
           $request->validate([
-              'product_id' => 'required|array',
+              'product_id' => 'required',
               'product_id.*' => 'required|exists:products,id',
-              'quantity' => 'required|array',
-              'quantity.*' => 'required|integer|min:1',
+              'quantity' => 'required',
+              'quantity.*' => 'required',
           ]);
       
           foreach ($request->product_id as $key => $productId) {

@@ -265,15 +265,12 @@
                           @endif
                           <div class="product-action">
                             <div class="addto-wrap">
-                              <a class="add-cart" href="{{ route('cart.index') }}">
-                                <i class="zmdi zmdi-shopping-cart-plus icon"></i>
-                              </a>
-                              <a class="add-wishlist" href="">
-                                <i class="zmdi zmdi-favorite-outline zmdi-hc-fw icon"></i>
-                              </a>
-                              <a class="add-quick-view" href="javascript:void(0);">
-                                <i class="zmdi zmdi-search icon"></i>
-                              </a>
+                                <a href="#" class="add-cart" onclick="addToCart({{ $product->id }});">
+                                    <i class="zmdi zmdi-shopping-cart-plus icon"></i>
+                                </a>
+                                <a class="add-wishlist" href="#" onclick="addWishlist({{ $product->id }})">
+                                    <i class="zmdi zmdi-favorite-outline zmdi-hc-fw icon"></i>
+                                </a>
                             </div>
                           </div>
                         </div>
@@ -525,6 +522,48 @@
 <!--=======================Javascript============================-->
 
 <!--=== jQuery Modernizr Min Js ===-->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+  function addToCart(productId) {
+      const postData = {
+          product_id: productId,
+          quantity: 1,
+          _token: '{{ csrf_token() }}'
+      };
+
+      axios.post('{{ route('cart.store') }}', postData)
+          .then(response => {
+              console.log(response.data);
+              window.location.href = '/cart'; 
+          })
+          .catch(error => {
+              console.error('Error:', error);
+              alert('An error occurred. Please try again.'); 
+          });
+  }
+</script>
+
+
+
+
+  <script>
+    function addWishlist(productId) {
+        const postData = {
+            product_id: productId,
+            token: '{{ csrf_token() }}'
+        };
+    
+        axios.post('{{ route("wishlist.store") }}', postData)
+            .then(response => {
+                console.log(response.data);
+                window.location.href = '{{ route("wishlist.index") }}'; 
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+              });
+    }
+    </script>
 <script src="assets/js/modernizr.js"></script>
 <!--=== jQuery Min Js ===-->
 <script src="assets/js/jquery-main.js"></script>
