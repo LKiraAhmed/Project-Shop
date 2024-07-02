@@ -82,7 +82,7 @@
                                 @foreach($cartItems as $cartItem)
                                     <div class="cart-item">
                                         <div class="thumb">
-                                            <img class="w-100" src="{{ Storage::url($cartItem->product->image) }}" alt="{{ $cartItem->product->name }}">
+                                            <img class="w-100" src="/allFiels/{{ $cartItem->product->image }}" alt="{{ $cartItem->product->name }}">
                                         </div>
                                         <div class="content">
                                             <h5 class="title"><a href="#/">{{ $cartItem->product->name }}</a></h5>
@@ -122,7 +122,7 @@
             <div class="page-header-content">
               <nav class="breadcrumb-area">
                 <ul class="breadcrumb">
-                  <li><a href="index.html">Home</a></li>
+                  <li><a href="index">Home</a></li>
                   <li class="breadcrumb-sep">/</li>
                   <li>Product Details</li>
                 </ul>
@@ -147,7 +147,7 @@
                   <div class="product-thumb">
                     <div class="zoom zoom-hover">
                       <a class="lightbox-image" data-fancybox="gallery" href="assets/img/shop/product-single/3.jpg">
-                        <img class="w-100 h-100" src="{{ Storage::url($products->image) }}"   alt="{{$products->name}}">
+                        <img class="w-100 h-100" src="/allFiels/{{$products->image}}"   alt="{{$products->name}}">
                       </a>
                     </div>
                   </div>
@@ -357,60 +357,61 @@
             <div class="col-12">
                 <div class="swiper-container product-slider-container">
                     <div class="swiper-wrapper">
-                      @foreach ($randomProducts as $randomProduct)
-                      <div class="swiper-slide">
-                          <!-- Start Shop Item -->
-                          <div class="product-item">
-                              <div class="inner-content">
-                                  <div class="product-thumb">
-                                      <a href="{{ route('products.single', $randomProduct->id) }}">
-                                          <img class="w-80" src="{{ Storage::url($randomProduct->image) }}" alt="{{ $randomProduct->name }}">
-                                      </a>
-                                      <h4 class="title">{{ $randomProduct->name }}</h4>
-                                      @if ($randomProduct->sale_title)
-                                      <span class="sale-title sticker">{{ $randomProduct->sale_title }}</span>
-                                      @endif
-                                      @if ($randomProduct->percent_count)
-                                      <span class="percent-count sticker">{{ $randomProduct->percent_count }}</span>
-                                      @endif
-                                      <div class="product-action">
-                                          <div class="addto-wrap">
-                                              <a href="#" class="add-cart" onclick="addToCart({{ $randomProduct->id }});">
-                                                  <i class="zmdi zmdi-shopping-cart-plus icon"></i>
-                                              </a>
-                                              <a class="add-wishlist" href="#" onclick="addWishlist({{ $randomProduct->id }})">
-                                                  <i class="zmdi zmdi-favorite-outline zmdi-hc-fw icon"></i>
-                                              </a>
-                                          </div>
-                                      </div>
-                                  </div>
-                                  <div class="product-desc">
-                                      <div class="product-info">
-                                          <h4 class="title">
-                                              <a href="{{ route('products.single', $randomProduct->id) }}">{{ $randomProduct->name }}</a>
-                                          </h4>
-                                          <div class="star-content">
-                                              @for ($i = 1; $i <= 5; $i++)
-                                                  @if ($i <= round($randomProduct->averageRating))
-                                                      <li class="fa fa-star"></li>
-                                                  @else
-                                                      <li class="fa fa-star-o"></li>
-                                                  @endif
-                                              @endfor
-                                          </div>
-                                          <div class="prices">
-                                              <span class="price">${{ $randomProduct->price }}</span>
-                                              @if ($randomProduct->old_price)
-                                                  <span class="price-old">${{ $randomProduct->old_price }}</span>
-                                              @endif
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                          <!-- End Shop Item -->
-                      </div>
-                      @endforeach
+                        @foreach ($randomProducts as $randomProduct)
+                        <div class="swiper-slide">
+                            <!-- Start Shop Item -->
+                            <div class="product-item">
+                                <div class="inner-content">
+                                    <div class="product-thumb">
+                                        <a href="{{ route('products.single', $randomProduct->id) }}">
+                                            <img class="w-80" src="/allFiels/{{ $randomProduct->image }}" alt="{{ $randomProduct->name }}">
+                                        </a>
+                                        <h4 class="title">{{ $randomProduct->name }}</h4>
+                                        @if ($randomProduct->sale_title)
+                                            <span class="sale-title sticker">{{ $randomProduct->sale_title }}</span>
+                                        @endif
+                                        @if ($randomProduct->percent_count)
+                                            <span class="percent-count sticker">{{ $randomProduct->percent_count }}</span>
+                                        @endif
+                                        <div class="product-action">
+                                            <div class="addto-wrap">
+                                                <a href="#" class="add-cart" onclick="addToCart({{ $randomProduct->id }});">
+                                                    <i class="zmdi zmdi-shopping-cart-plus icon"></i>
+                                                </a>
+                                                <a class="add-wishlist" href="#" onclick="addWishlist({{ $randomProduct->id }})">
+                                                    <i class="zmdi zmdi-favorite-outline zmdi-hc-fw icon"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-desc">
+                                        <div class="product-info">
+                                            <h4 class="title">
+                                                <a href="{{ route('products.single', $randomProduct->id) }}">{{ $randomProduct->name }}</a>
+                                            </h4>
+                                            <div class="star-content">
+                                                @for ($i = 1; $i <= 5; $i++)
+                                                    @if ($i <= round($randomProduct->averageRating))
+                                                        <li class="fa fa-star"></li>
+                                                    @else
+                                                        <li class="fa fa-star-o"></li>
+                                                    @endif
+                                                @endfor
+                                            </div>
+                                            <div class="prices">
+                                                <span class="price">${{ $randomProduct->price }}</span>
+                                                @if ($randomProduct->old_price)
+                                                    <span class="price-old">${{ $randomProduct->old_price }}</span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Shop Item -->
+                        </div>
+                    @endforeach
+                    
                       
                     </div>
                 </div>
@@ -589,7 +590,7 @@
     function openQuickViewModal(productId) {
         var product = {!! json_encode($randomProducts->keyBy('id')->toArray()) !!}[productId];
         
-        $('#quick-view-image').attr('src', "{{ Storage::url('') }}" + product.image);
+        $('#quick-view-image').attr('src', "/allFiels/{{('') }}" + product.image);
         $('#quick-view-title').text(product.name);
         $('#quick-view-price').text('$' + product.price);
         $('#quick-view-price-old').text('$' + (product.old_price ? product.old_price : ''));
@@ -626,7 +627,7 @@
     function openQuickViewModal(productId) {
         var product = {!! json_encode($randomProducts->keyBy('id')->toArray()) !!}[productId];
         
-        $('#quick-view-image').attr('src', "{{ Storage::url('') }}" + product.image);
+        $('#quick-view-image').attr('src', "/allFiels/{{('') }}" + product.image);
         $('#quick-view-title').text(product.name);
         $('#quick-view-price').text('$' + product.price);
         $('#quick-view-price-old').text('$' + (product.old_price ? product.old_price : ''));

@@ -62,7 +62,7 @@
             <div class="widget-item">
               <div class="about-widget">
                 <div class="footer-logo-area">
-                  <a href="index.html">
+                  <a href="index">
                     <img class="logo-main footer-logo" src="assets/img/be-unique-logo.jpg" alt="Logo" />
                   </a>
                 </div>
@@ -81,11 +81,11 @@
               <h4 class="widget-title">INFORMATION</h4>
               <div class="widget-menu-wrap">
                 <ul class="nav-menu">
-                  <li><a href="shop.html">Specials</a></li>
-                  <li><a href="shop.html">New products</a></li>
-                  <li><a href="shop.html">Top sellers</a></li>
-                  <li><a href="shop.html">Our stores</a></li>
-                  <li><a href="contact.html">Contact us</a></li>
+                  <li><a href="shop">Specials</a></li>
+                  <li><a href="shop">New products</a></li>
+                  <li><a href="shop">Top sellers</a></li>
+                  <li><a href="shop">Our stores</a></li>
+                  <li><a href="contact">Contact us</a></li>
                 </ul>
               </div>
             </div>
@@ -97,11 +97,11 @@
               <h4 class="widget-title">QUICK LINKS</h4>
               <div class="widget-menu-wrap">
                 <ul class="nav-menu">
-                  <li><a href="login.html">New User</a></li>
-                  <li><a href="about-us.html">Help Center</a></li>
-                  <li><a href="about-us.html">Refund Policy</a></li>
-                  <li><a href="about-us.html">Report Spam</a></li>
-                  <li><a href="login.html">Account</a></li>
+                  <li><a href="login">New User</a></li>
+                  <li><a href="about-us">Help Center</a></li>
+                  <li><a href="about-us">Refund Policy</a></li>
+                  <li><a href="about-us">Report Spam</a></li>
+                  <li><a href="login">Account</a></li>
                 </ul>
               </div>
             </div>

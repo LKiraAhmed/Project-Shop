@@ -11,6 +11,7 @@ use App\Models\Cart;
 use App\Models\Catigory;
 use App\Models\Review;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\File;
 
 class ProductaddController extends Controller
 {
@@ -37,9 +38,10 @@ class ProductaddController extends Controller
             'quantity' => 'required',
             'catigorie_id' => 'nullable|exists:categories,id', 
         ]);
-    
-        $imagePath = $request->file('image')->store('product_images', 'public');
-    
+
+        $imagePath = time().'.'.$request->image->extension();
+        $request->image->move(public_path('allFiels'), $imagePath);
+
         $product = new Product;
         $product->name = $request->name;
         $product->price = $request->price;
@@ -60,14 +62,13 @@ class ProductaddController extends Controller
         $categories = Catigory::all();  
         return view('dashboard.updateproduct',compact('product','categories'));
     }
-   
     public function update(Request $request, $id)
     {
         $request->validate([
             'name' => 'required',
             'price' => 'required',
             'discount' => 'required',
-            'image' => 'required',
+            'image' => 'nullable|image',
             'description' => 'required',
             'size' => 'required',
             'catigorie_id' => 'nullable|exists:categories,id',
@@ -82,12 +83,16 @@ class ProductaddController extends Controller
         $product->description = $request->description;
         $product->size = $request->size;
         $product->quantity = $request->quantity;
-    
-        if ($request->hasFile('image')) {
-            Storage::disk('public')->delete($product->image); // Delete old image
-            $imagePath = $request->file('image')->store('product_images', 'public'); // Store new image
+        if ($request->image){
+            $oldImagePath = public_path('allFiels/'. $product->image);
+            if (file_exists($oldImagePath)) {
+                unlink($oldImagePath);
+            }
+            $imagePath = time() . '.' . $request->image->getClientOriginalExtension();
+            $request->image->move(public_path('allFiels'), $imagePath);
             $product->image = $imagePath;
-        }
+        }  
+        
     
         if ($request->has('catigorie_id')) {
             $product->catigorie_id = $request->catigorie_id;
@@ -95,22 +100,18 @@ class ProductaddController extends Controller
     
         $product->save();
     
-        $products = Product::all();
-        Session::put('products', $products);
-        return redirect()->route('dashboard.show')->with([
-            'success_message', 'Product updated successfully!',
-            $products
-        ]);
+        return redirect()->route('dashboard.show')->with('success_message', 'Product updated successfully!');
     }
     
     
     // destroy
     public function destroy($id)
     {
-        $product = Product::find($id);
+        $product = Product::findOrFail($id);
         if ($product) {
-            if ($product->image) {
-                Storage::disk('public')->delete($product->image);
+            $currentImagePath = public_path('allFiels/' . $product->image);
+            if (file_exists($currentImagePath)) {
+                unlink($currentImagePath);
             }
             $product->delete();
             return response()->json(['success' => 'Product deleted successfully!']);

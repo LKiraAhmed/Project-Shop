@@ -80,8 +80,7 @@
                     <ul class="main-menu nav position-relative">
                         <li class="has-submenu"><a href="#/">Home</a>
                             <ul class="submenu-nav">
-                                <li><a href="index">Home Demo 1</a></li>
-                                <li><a href="index-two">Home Demo 2</a></li>
+                                <li><a href="index">Home</a></li>
                             </ul>
                         </li>
                         <li class="has-submenu full-width"><a href="#/">Shop</a>
@@ -94,10 +93,10 @@
                                 <li class="mega-menu-item"><a href="#/" class="mega-title">Shop Pages</a>
                                     <ul>
                                       @auth
-                      <li><a href="{{ url('login') }}">{{ Auth::user()->name }}</a></li>
-                       @else
-                      <li><a href="{{ url('login') }}">Login</a></li>
-                       @endauth     
+                                      <li><a href="{{ url('login') }}">{{ Auth::user()->name }}</a></li>
+                                       @else
+                                      <li><a href="{{ url('login') }}">Login</a></li>
+                                       @endauth     
                                         <li><a href="{{url('login')}}"></a></li>
                                         <li><a href="wishlist">Wishlist</a></li>
                                         <li><a href="cart">Cart</a></li>
@@ -115,52 +114,30 @@
                 <div class="header-action-area">
                     <ul class="header-action">
                         <li class="search-item">
-                            <a class="action-item" href="{{url('search')}}">
-                                <i class="zmdi zmdi-search icon"></i>
-                            </a>
+                          <a class="action-item" href="{{url('search')}}">
+                            <i class="zmdi zmdi-search icon"></i>
+                        </a> 
                         </li>
-                        <li class="currency-menu">
-                            <a class="action-item" href="#/"><i class="zmdi zmdi-lock-outline icon"></i></a>
-                            <ul class="currency-dropdown">
-                                <li class="currency">
-                                    <a href="#/"><span class="current-currency">USD</span></a>
-                                    <ul>
-                                        <li class="active"><a href="#/">USD - US Dollar</a></li>
-                                        <li><a href="#/">EUR - Euro</a></li>
-                                        <li><a href="#/">GBP - British Pound</a></li>
-                                        <li><a href="#/">INR - Indian Rupee</a></li>
-                                        <li><a href="#/">BDT - Bangladesh Taka</a></li>
-                                        <li><a href="#/">JPY - Japan Yen</a></li>
-                                        <li><a href="#/">CAD - Canada Dollar</a></li>
-                                        <li><a href="#/">AUD - Australian Dollar</a></li>
-                                    </ul>
-                                </li>
-                                <li class="account">
-                                    <a href="#/"><span class="current-account">My account</span></a>
-                                    <ul>
-                                        <li><a href="login">Login</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
+                     
                         <li class="mini-cart">
                             <a class="action-item" href="#/">
                                 <i class="zmdi zmdi-shopping-cart-plus icon"></i>
-                               </a>
+                                <span class="cart-quantity">{{ count($cartItems) }}</span>
+                            </a>
                             <div class="mini-cart-dropdown">
-                                @foreach($cartItems as $cartItem)
-                                    <div class="cart-item">
-                                        <div class="thumb">
-                                            <img class="w-100" src="{{ Storage::url($cartItem->product->image) }}" alt="{{ $cartItem->product->name }}">
-                                        </div>
-                                        <div class="content">
-                                            <h5 class="title"><a href="#/">{{ $cartItem->product->name }}</a></h5>
-                                            <span class="product-quantity">{{ $cartItem->quantity }} ×</span>
-                                            <span class="product-price">${{ number_format($cartItem->product->price, 2) }}</span>
-                                            <a class="cart-trash" href="{{ route('cart.destroy', $cartItem->id) }}"><i class="fa fa-trash"></i></a>
-                                        </div>
-                                    </div>
-                                @endforeach
+                              @foreach($cartItems as $cartItem)
+                              <div class="cart-item">
+                                  <div class="thumb">
+                                      <img class="w-100" src="/allFiels/{{ $cartItem->product->image }}" alt="{{ $cartItem->product->name }}">
+                                  </div>
+                                  <div class="content">
+                                      <h5 class="title"><a href="#/">{{ $cartItem->product->name }}</a></h5>
+                                      <span class="product-quantity">{{ $cartItem->quantity }} ×</span>
+                                      <span class="product-price">${{ number_format($cartItem->product->price, 2) }}</span>
+                                      <a class="cart-trash" href="{{ route('cart.destroy', $cartItem->id) }}"><i class="fa fa-trash"></i></a>
+                                  </div>
+                              </div>
+                          @endforeach                          
                                 <div class="cart-total-money">
                                     <h5>Total: <span class="money">${{ $cartItems->sum(fn($item) => $item->product->price * $item->quantity) }}</span></h5>
                                 </div>
@@ -231,7 +208,7 @@
                                       </td>
                                       <td class="product-thumb">
                                           <a href="{{ route('products.single', $item->product->id) }}">
-                                              <img src="{{ Storage::url($item->product->image) }}" alt="{{ $item->product->name }}">
+                                              <img src="/allFiels/{{$item->product->image}}" alt="{{ $item->product->name }}">
                                           </a>
                                       </td>
                                       <td class="product-name">

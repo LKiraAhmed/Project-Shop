@@ -64,127 +64,98 @@
   <!--== End Preloader Content ==-->
 
   <!--== Start Header Wrapper ==-->
-  <header class="header-area sticky-header header-default">
+  <header class="header-area header-default">
     <div class="container">
-      <div class="row align-items-center">
-        <div class="col-6 col-sm-4 col-lg-3">
-          <div class="header-logo-area">
-            <a href="index">
-              <img class="logo-main" src="assets/img/be-unique-logo.jpg" alt="Logo" />
-              <img class="logo d-none" src="assets/img/logo-light.png" alt="Logo" />
-            </a>
-          </div>
-        </div>
-        <div class="col-sm-4 col-lg-7 d-none d-lg-block">
-          <div class="header-navigation-area">
-            <ul class="main-menu nav position-relative">
-              <li class="has-submenu"><a href="#/">Home</a>
-                <ul class="submenu-nav">
-                  <li><a href="index">Home Demo 1</a></li>
-                  <li><a href="index-two">Home Demo 2</a></li>
-                </ul>
-              </li>
-              <li class="has-submenu full-width"><a href="#/">Shop</a>
-                <ul class="submenu-nav submenu-nav-mega">
-                  <li class="mega-menu-item"><a href="#/" class="mega-title">Shop Layouts</a>
-                    <ul>
-                      <li><a href="shop-3-grid">Shop All</a></li>
-                      
-                    </ul>
-                  </li>
-                  <li class="mega-menu-item"><a href="#/" class="mega-title">Shop Pages</a>
-                    <ul>
-                      <li><a href="login">My Account</a></li>
-                      <li><a href="wishlist">Wishlist</a></li>
-                      <li><a href="cart">Cart</a></li>
-                      <li><a href="checkout">Checkout</a></li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-              <li><a href="contact">Contact</a></li>
-              <li><a href="about-us">About</a></li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-sm-7 col-lg-2 d-none d-sm-block text-end">
-          <div class="header-action-area">
-            <ul class="header-action">
-              <li class="search-item">
-                <a class="action-item" href="page-search">
-                  <i class="zmdi zmdi-search icon"></i>
-                </a>
-              </li>
-              <li class="currency-menu">
-                <a class="action-item" href="#/"><i class="zmdi zmdi-lock-outline icon"></i></a>
-                <ul class="currency-dropdown">
-                  <li class="currency">
-                    <a href="#/"><span class="current-currency">USD</span></a>
-                    <ul>
-                      <li class="active"><a href="#/">USD - US Dollar</a></li>
-                      <li class="#/"><a href="#/">EUR - Euro</a></li>
-                      <li class="#/"><a href="#/">GBP - British Pound</a></li>
-                      <li class="#/"><a href="#/">INR - Indian Rupee</a></li>
-                      <li class="#/"><a href="#/">BDT - Bangladesh Taka</a></li>
-                      <li class="#/"><a href="#/">JPY - Japan Yen</a></li>
-                      <li class="#/"><a href="#/">CAD - Canada Dollar</a></li>
-                      <li class="#/"><a href="#/">AUD - Australian Dollar</a></li>
-                    </ul>
-                  </li>
-                  <li class="account">
-                    <a href="#/"><span class="current-account">My account</span></a>
-                    <ul>
-                      <li><a href="login">Login</a></li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-              <li class="mini-cart">
-                <a class="action-item" href="#/">
-                  <i class="zmdi zmdi-shopping-cart-plus icon"></i>
-                  <span class="cart-quantity">2</span>
-                </a>
-                <div class="mini-cart-dropdown">
-                  <div class="cart-item">
-                    <div class="thumb">
-                      <img class="w-100" src="assets/img/shop/cart/1.jpg" alt="Image-HasTech">
-                    </div>
-                    <div class="content">
-                      <h5 class="title"><a href="#/">Literature Classical - s</a></h5>
-                      <span class="product-quantity">1 ×</span>
-                      <span class="product-price">$79.00</span>
-                      <a class="cart-trash" href="javascript:void(0);"><i class="fa fa-trash"></i></a>
-                    </div>
-                  </div>
-                  <div class="cart-item">
-                    <div class="thumb">
-                      <img class="w-100" src="assets/img/shop/cart/2.jpg" alt="Image-HasTech">
-                    </div>
-                    <div class="content">
-                      <h5 class="title"><a href="#/">Fit Wool Suit - m / gold</a></h5>
-                      <span class="product-quantity">1 ×</span>
-                      <span class="product-price">$80.00</span>
-                      <a class="cart-trash" href="javascript:void(0);"><i class="fa fa-trash"></i></a>
-                    </div>
-                  </div>
-                  <div class="cart-total-money">
-                    <h5>Total: <span class="money">$159.00</span></h5>
-                  </div>
-                  <div class="cart-btn">
-                    <a href="cart">View Cart</a>
-                    <a href="checkout">Checkout</a>
-                  </div>
+        <div class="row align-items-center">
+            <div class="col-6 col-sm-4 col-lg-3">
+                <div class="header-logo-area">
+                    <a href="index">
+                        <img class="logo-main" src="assets/img/be-unique-logo.jpg" alt="Logo" />
+                        <img class="logo d-none" src="assets/img/logo-light.png" alt="Logo" />
+                    </a>
                 </div>
-              </li>
-            </ul>
-          </div>
+            </div>
+            <div class="col-sm-4 col-lg-7 d-none d-lg-block">
+                <div class="header-navigation-area">
+                    <ul class="main-menu nav position-relative">
+                        <li class="has-submenu"><a href="#/">Home</a>
+                            <ul class="submenu-nav">
+                                <li><a href="index">Home</a></li>
+                            </ul>
+                        </li>
+                        <li class="has-submenu full-width"><a href="#/">Shop</a>
+                            <ul class="submenu-nav submenu-nav-mega">
+                                <li class="mega-menu-item"><a href="#/" class="mega-title">Shop Layouts</a>
+                                    <ul>
+                                        <li><a href="shop-3-grid">Shop All</a></li>
+                                    </ul>
+                                </li>
+                                <li class="mega-menu-item"><a href="#/" class="mega-title">Shop Pages</a>
+                                    <ul>
+                                      @auth
+                                      <li><a href="{{ url('login') }}">{{ Auth::user()->name }}</a></li>
+                                       @else
+                                      <li><a href="{{ url('login') }}">Login</a></li>
+                                       @endauth     
+                                        <li><a href="{{url('login')}}"></a></li>
+                                        <li><a href="wishlist">Wishlist</a></li>
+                                        <li><a href="cart">Cart</a></li>
+                                        <li><a href="checkout">Checkout</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><a href="contact">Contact</a></li>
+                        <li><a href="about-us">About</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-7 col-lg-2 d-none d-sm-block text-end">
+                <div class="header-action-area">
+                    <ul class="header-action">
+                        <li class="search-item">
+                          <a class="action-item" href="{{url('search')}}">
+                            <i class="zmdi zmdi-search icon"></i>
+                        </a> 
+                        </li>
+                     
+                        <li class="mini-cart">
+                            <a class="action-item" href="#/">
+                                <i class="zmdi zmdi-shopping-cart-plus icon"></i>
+                                <span class="cart-quantity">{{ count($cartItems) }}</span>
+                            </a>
+                            <div class="mini-cart-dropdown">
+                              @foreach($cartItems as $cartItem)
+                              <div class="cart-item">
+                                  <div class="thumb">
+                                      <img class="w-100" src="/allFiels/{{ $cartItem->product->image }}" alt="{{ $cartItem->product->name }}">
+                                  </div>
+                                  <div class="content">
+                                      <h5 class="title"><a href="#/">{{ $cartItem->product->name }}</a></h5>
+                                      <span class="product-quantity">{{ $cartItem->quantity }} ×</span>
+                                      <span class="product-price">${{ number_format($cartItem->product->price, 2) }}</span>
+                                      <a class="cart-trash" href="{{ route('cart.destroy', $cartItem->id) }}"><i class="fa fa-trash"></i></a>
+                                  </div>
+                              </div>
+                          @endforeach                          
+                                <div class="cart-total-money">
+                                    <h5>Total: <span class="money">${{ $cartItems->sum(fn($item) => $item->product->price * $item->quantity) }}</span></h5>
+                                </div>
+                                <div class="cart-btn">
+                                    <a href="{{ route('cart.index') }}">View Cart</a>
+                                    <a href="">Checkout</a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-6 col-sm-1 d-block d-lg-none text-end">
+                <button class="btn-menu" type="button"><i class="zmdi zmdi-menu"></i></button>
+            </div>
         </div>
-        <div class="col-6 col-sm-1 d-block d-lg-none text-end">
-          <button class="btn-menu" type="button"><i class="zmdi zmdi-menu"></i></button>
-        </div>
-      </div>
     </div>
-  </header>
+</header>
   <!--== End Header Wrapper ==-->
   
 <main class="main-content">
@@ -255,7 +226,7 @@
                       <div class="inner-content">
                         <div class="product-thumb">
                           <a href="{{ route('products.single', $product->id) }}">
-                            <img class="w-100" src="{{ Storage::url($product->image) }}" alt="{{ $product->name }}">
+                            <img class="w-100" src="/allFiels/{{$product->image}}" alt="{{ $product->name }}">
                           </a>
                           <h4 class="title">{{ $product->name }}</h4>
                           

@@ -88,8 +88,8 @@ class ProductController extends Controller
             'description' => 'required',
         ]);
 
-        $imagePath = $request->file('image')->store('product_images', 'public');
-
+        $imagePath = time().'.'.$request->image->extension();
+        $request->image->move(public_path('allFiels'), $imagePath);
         $product = new Product;
         $product->name = $request->name;
         $product->price = $request->price;
@@ -118,7 +118,8 @@ class ProductController extends Controller
 
         if ($request->hasFile('image')) {
             Storage::disk('public')->delete($product->image);
-            $imagePath = $request->file('image')->store('product_images', 'public');
+            $imagePath = time().'.'.$request->image->extension();
+            $request->image->move(public_path('allFiels'), $imagePath);
             $product->image = $imagePath;
         }
 

@@ -81,8 +81,7 @@
                     <ul class="main-menu nav position-relative">
                         <li class="has-submenu"><a href="#/">Home</a>
                             <ul class="submenu-nav">
-                                <li><a href="index">Home Demo 1</a></li>
-                                <li><a href="index-two">Home Demo 2</a></li>
+                                <li><a href="index">Home</a></li>
                             </ul>
                         </li>
                         <li class="has-submenu full-width"><a href="#/">Shop</a>
@@ -127,19 +126,19 @@
                                 <span class="cart-quantity">{{ count($cartItems) }}</span>
                             </a>
                             <div class="mini-cart-dropdown">
-                                @foreach($cartItems as $cartItem)
-                                    <div class="cart-item">
-                                        <div class="thumb">
-                                            <img class="w-100" src="{{ Storage::url($cartItem->product->image) }}" alt="{{ $cartItem->product->name }}">
-                                        </div>
-                                        <div class="content">
-                                            <h5 class="title"><a href="#/">{{ $cartItem->product->name }}</a></h5>
-                                            <span class="product-quantity">{{ $cartItem->quantity }} ×</span>
-                                            <span class="product-price">${{ number_format($cartItem->product->price, 2) }}</span>
-                                            <a class="cart-trash" href="{{ route('cart.destroy', $cartItem->id) }}"><i class="fa fa-trash"></i></a>
-                                        </div>
-                                    </div>
-                                @endforeach
+                              @foreach($cartItems as $cartItem)
+                              <div class="cart-item">
+                                  <div class="thumb">
+                                      <img class="w-100" src="/allFiels/{{ $cartItem->product->image }}" alt="{{ $cartItem->product->name }}">
+                                  </div>
+                                  <div class="content">
+                                      <h5 class="title"><a href="#/">{{ $cartItem->product->name }}</a></h5>
+                                      <span class="product-quantity">{{ $cartItem->quantity }} ×</span>
+                                      <span class="product-price">${{ number_format($cartItem->product->price, 2) }}</span>
+                                      <a class="cart-trash" href="{{ route('cart.destroy', $cartItem->id) }}"><i class="fa fa-trash"></i></a>
+                                  </div>
+                              </div>
+                          @endforeach                          
                                 <div class="cart-total-money">
                                     <h5>Total: <span class="money">${{ $cartItems->sum(fn($item) => $item->product->price * $item->quantity) }}</span></h5>
                                 </div>
@@ -158,7 +157,6 @@
         </div>
     </div>
 </header>
-
  <!--== End Header Wrapper ==-->
 
 <main class="main-content">
@@ -223,7 +221,7 @@
                       <div class="col-md-4">
                           <div class="product-item">
                             <a href="{{ route('products.single', $product->id) }}">
-                              <img class="w-80" src="{{ Storage::url($product->image) }}" alt="{{ $product->name }}">
+                              <img class="w-80" src="/allFiels/{{$product->image}}" alt="{{ $product->name }}">
                           </a>
                           <h4>{{ $product->name }}</h4>
                               <?php

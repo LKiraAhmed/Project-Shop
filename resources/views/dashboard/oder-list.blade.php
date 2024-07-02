@@ -52,7 +52,7 @@
                 <!-- section-menu-left -->
                 <div class="section-menu-left">
                     <div class="box-logo">
-                        <a href="index.html" id="site-logo-inner">
+                        <a href="index" id="site-logo-inner">
                             <img class="" id="logo_header" alt="" src="images/logo/logo.png" data-light="images/logo/logo.png" data-dark="images/logo/logo-dark.png" >
                         </a>
                         <div class="button-show-hide">
@@ -71,37 +71,37 @@
                                         </a>
                                         <ul class="sub-menu">
                                             <li class="sub-menu-item">
-                                                <a href="index.html" class="">
+                                                <a href="index" class="">
                                                     <div class="text">Home 01</div>
                                                 </a>
                                             </li>
                                             <li class="sub-menu-item">
-                                                <a href="home-2.html" class="">
+                                                <a href="home-2" class="">
                                                     <div class="text">Home 02</div>
                                                 </a>
                                             </li>
                                             <li class="sub-menu-item">
-                                                <a href="home-3.html" class="">
+                                                <a href="home-3" class="">
                                                     <div class="text">Home 03</div>
                                                 </a>
                                             </li>
                                             <li class="sub-menu-item">
-                                                <a href="home-4.html" class="">
+                                                <a href="home-4" class="">
                                                     <div class="text">Home 04</div>
                                                 </a>
                                             </li>
                                             <li class="sub-menu-item">
-                                                <a href="home-boxed.html" class="">
+                                                <a href="home-boxed" class="">
                                                     <div class="text">Home Boxed</div>
                                                 </a>
                                             </li>
                                             <li class="sub-menu-item">
-                                                <a href="home-menu-icon-hover.html" class="">
+                                                <a href="home-menu-icon-hover" class="">
                                                     <div class="text">Home Menu Icon Hover</div>
                                                 </a>
                                             </li>
                                             <li class="sub-menu-item">
-                                                <a href="home-menu-icon-default.html" class="">
+                                                <a href="home-menu-icon-default" class="">
                                                     <div class="text">Home Menu Icon Default</div>
                                                 </a>
                                             </li>
@@ -119,27 +119,27 @@
                                         </a>
                                         <ul class="sub-menu">
                                             <li class="sub-menu-item">
-                                                <a href="add-product.html" class="">
+                                                <a href="add-product" class="">
                                                     <div class="text">Add Product</div>
                                                 </a>
                                             </li>
                                             <li class="sub-menu-item">
-                                                <a href="product-list.html" class="">
+                                                <a href="product-list" class="">
                                                     <div class="text">Product List</div>
                                                 </a>
                                             </li>
                                             <li class="sub-menu-item">
-                                                <a href="product-detail-1.html" class="">
+                                                <a href="product-detail-1" class="">
                                                     <div class="text">Product Detail 1</div>
                                                 </a>
                                             </li>
                                             <li class="sub-menu-item">
-                                                <a href="product-detail-2.html" class="">
+                                                <a href="product-detail-2" class="">
                                                     <div class="text">Product Detail 2</div>
                                                 </a>
                                             </li>
                                             <li class="sub-menu-item">
-                                                <a href="product-detail-3.html" class="">
+                                                <a href="product-detail-3" class="">
                                                     <div class="text">Product Detail 3</div>
                                                 </a>
                                             </li>
@@ -152,12 +152,12 @@
                                         </a>
                                         <ul class="sub-menu">
                                             <li class="sub-menu-item">
-                                                <a href="category-list.html" class="">
+                                                <a href="category-list" class="">
                                                     <div class="text">Category list</div>
                                                 </a>
                                             </li>
                                             <li class="sub-menu-item">
-                                                <a href="new-category.html" class="">
+                                                <a href="new-category" class="">
                                                     <div class="text">New category</div>
                                                 </a>
                                             </li>
@@ -170,12 +170,12 @@
                                         </a>
                                         <ul class="sub-menu">
                                             <li class="sub-menu-item">
-                                                <a href="attributes.html" class="">
+                                                <a href="attributes" class="">
                                                     <div class="text">Attributes</div>
                                                 </a>
                                             </li>
                                             <li class="sub-menu-item">
-                                                <a href="add-attributes.html" class="">
+                                                <a href="add-attributes" class="">
                                                     <div class="text">Add attributes</div>
                                                 </a>
                                             </li>
@@ -188,17 +188,17 @@
                                         </a>
                                         <ul class="sub-menu" style="display: block;">
                                             <li class="sub-menu-item">
-                                                <a href="oder-list.html" class="active">
+                                                <a href="oder-list" class="active">
                                                     <div class="text">Order list</div>
                                                 </a>
                                             </li>
                                             <li class="sub-menu-item">
-                                                <a href="oder-detail.html" class="">
+                                                <a href="oder-detail" class="">
                                                     <div class="text">Order detail</div>
                                                 </a>
                                             </li>
                                             <li class="sub-menu-item">
-                                                <a href="oder-tracking.html" class="">
+                                                <a href="oder-tracking" class="">
                                                     <div class="text">Order tracking</div>
                                                 </a>
                                             </li>
@@ -211,22 +211,22 @@
                                         </a>
                                         <ul class="sub-menu">
                                             <li class="sub-menu-item">
-                                                <a href="all-user.html" class="">
+                                                <a href="all-user" class="">
                                                     <div class="text">All user</div>
                                                 </a>
                                             </li>
                                             <li class="sub-menu-item">
-                                                <a href="add-new-user.html" class="">
+                                                <a href="add-new-user" class="">
                                                     <div class="text">Add new user</div>
                                                 </a>
                                             </li>
                                             <li class="sub-menu-item">
-                                                <a href="login.html" class="">
+                                                <a href="login" class="">
                                                     <div class="text">Login</div>
                                                 </a>
                                             </li>
                                             <li class="sub-menu-item">
-                                                <a href="sign-up.html" class="">
+                                                <a href="sign-up" class="">
                                                     <div class="text">Sign up</div>
                                                 </a>
                                             </li>
@@ -239,25 +239,25 @@
                                         </a>
                                         <ul class="sub-menu">
                                             <li class="sub-menu-item">
-                                                <a href="all-roles.html" class="">
+                                                <a href="all-roles" class="">
                                                     <div class="text">All roles</div>
                                                 </a>
                                             </li>
                                             <li class="sub-menu-item">
-                                                <a href="create-role.html" class="">
+                                                <a href="create-role" class="">
                                                     <div class="text">Create role</div>
                                                 </a>
                                             </li>
                                         </ul>
                                     </li>
                                     <li class="menu-item">
-                                        <a href="gallery.html" class="">
+                                        <a href="gallery" class="">
                                             <div class="icon"><i class="icon-image"></i></div>
                                             <div class="text">Gallery</div>
                                         </a>
                                     </li>
                                     <li class="menu-item">
-                                        <a href="report.html" class="">
+                                        <a href="report" class="">
                                             <div class="icon"><i class="icon-pie-chart"></i></div>
                                             <div class="text">Report</div>
                                         </a>
@@ -274,24 +274,24 @@
                                         </a>
                                         <ul class="sub-menu">
                                             <li class="sub-menu-item">
-                                                <a href="countries.html" class="">
+                                                <a href="countries" class="">
                                                     <div class="text">Countries</div>
                                                 </a>
                                             </li>
                                             <li class="sub-menu-item">
-                                                <a href="states.html" class="">
+                                                <a href="states" class="">
                                                     <div class="text">States</div>
                                                 </a>
                                             </li>
                                             <li class="sub-menu-item">
-                                                <a href="cities.html" class="">
+                                                <a href="cities" class="">
                                                     <div class="text">Cities</div>
                                                 </a>
                                             </li>
                                         </ul>
                                     </li>
                                     <li class="menu-item">
-                                        <a href="setting.html" class="">
+                                        <a href="setting" class="">
                                             <div class="icon"><i class="icon-settings"></i></div>
                                             <div class="text">Setting</div>
                                         </a>
@@ -303,17 +303,17 @@
                                         </a>
                                         <ul class="sub-menu">
                                             <li class="sub-menu-item">
-                                                <a href="list-page.html" class="">
+                                                <a href="list-page" class="">
                                                     <div class="text">List page</div>
                                                 </a>
                                             </li>
                                             <li class="sub-menu-item">
-                                                <a href="new-page.html" class="">
+                                                <a href="new-page" class="">
                                                     <div class="text">New page</div>
                                                 </a>
                                             </li>
                                             <li class="sub-menu-item">
-                                                <a href="edit-page.html" class="">
+                                                <a href="edit-page" class="">
                                                     <div class="text">Edit page</div>
                                                 </a>
                                             </li>
@@ -325,7 +325,7 @@
                                 <div class="center-heading">Components</div>
                                 <ul class="menu-list">
                                     <li class="menu-item">
-                                        <a href="components.html" class="">
+                                        <a href="components" class="">
                                             <div class="icon"><i class="icon-database"></i></div>
                                             <div class="text">Components</div>
                                         </a>
@@ -412,7 +412,7 @@
                     <div class="header-dashboard">
                         <div class="wrap">
                             <div class="header-left">
-                                <a href="index.html">
+                                <a href="index">
                                     <img class="" id="logo_header_mobile" alt="" src="images/logo/logo.png" data-light="images/logo/logo.png" data-dark="images/logo/logo-dark.png" data-width="154px" data-height="52px" data-retina="images/logo/logo@2x.png">
                                 </a>
                                 <div class="button-show-hide">
@@ -441,7 +441,7 @@
                                                         </div>
                                                         <div class="flex items-center justify-between gap20 flex-grow">
                                                             <div class="name">
-                                                                <a href="product-list.html" class="body-text">Dog Food Rachael Ray Nutrish®</a>
+                                                                <a href="product-list" class="body-text">Dog Food Rachael Ray Nutrish®</a>
                                                             </div>
                                                         </div>
                                                     </li>
@@ -454,7 +454,7 @@
                                                         </div>
                                                         <div class="flex items-center justify-between gap20 flex-grow">
                                                             <div class="name">
-                                                                <a href="product-list.html" class="body-text">Natural Dog Food Healthy Dog Food</a>
+                                                                <a href="product-list" class="body-text">Natural Dog Food Healthy Dog Food</a>
                                                             </div>
                                                         </div>
                                                     </li>
@@ -467,7 +467,7 @@
                                                         </div>
                                                         <div class="flex items-center justify-between gap20 flex-grow">
                                                             <div class="name">
-                                                                <a href="product-list.html" class="body-text">Freshpet Healthy Dog Food and Cat</a>
+                                                                <a href="product-list" class="body-text">Freshpet Healthy Dog Food and Cat</a>
                                                             </div>
                                                         </div>
                                                     </li>
@@ -489,7 +489,7 @@
                                                         </div>
                                                         <div class="flex items-center justify-between gap20 flex-grow">
                                                             <div class="name">
-                                                                <a href="product-list.html" class="body-text">Sojos Crunchy Natural Grain Free...</a>
+                                                                <a href="product-list" class="body-text">Sojos Crunchy Natural Grain Free...</a>
                                                             </div>
                                                         </div>
                                                     </li>
@@ -502,7 +502,7 @@
                                                         </div>
                                                         <div class="flex items-center justify-between gap20 flex-grow">
                                                             <div class="name">
-                                                                <a href="product-list.html" class="body-text">Kristin Watson</a>
+                                                                <a href="product-list" class="body-text">Kristin Watson</a>
                                                             </div>
                                                         </div>
                                                     </li>
@@ -515,7 +515,7 @@
                                                         </div>
                                                         <div class="flex items-center justify-between gap20 flex-grow">
                                                             <div class="name">
-                                                                <a href="product-list.html" class="body-text">Mega Pumpkin Bone</a>
+                                                                <a href="product-list" class="body-text">Mega Pumpkin Bone</a>
                                                             </div>
                                                         </div>
                                                     </li>
@@ -528,7 +528,7 @@
                                                         </div>
                                                         <div class="flex items-center justify-between gap20 flex-grow">
                                                             <div class="name">
-                                                                <a href="product-list.html" class="body-text">Mega Pumpkin Bone</a>
+                                                                <a href="product-list" class="body-text">Mega Pumpkin Bone</a>
                                                             </div>
                                                         </div>
                                                     </li>
@@ -816,7 +816,7 @@
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="setting.html" class="user-item">
+                                                <a href="setting" class="user-item">
                                                     <div class="icon">
                                                         <i class="icon-settings"></i>
                                                     </div>
@@ -832,7 +832,7 @@
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="login.html" class="user-item">
+                                                <a href="login" class="user-item">
                                                     <div class="icon">
                                                         <i class="icon-log-out"></i>
                                                     </div>
@@ -856,7 +856,7 @@
                                     <h3>Order List</h3>
                                     <ul class="breadcrumbs flex items-center flex-wrap justify-start gap10">
                                         <li>
-                                            <a href="index.html"><div class="text-tiny">Dashboard</div></a>
+                                            <a href="index"><div class="text-tiny">Dashboard</div></a>
                                         </li>
                                         <li>
                                             <i class="icon-chevron-right"></i>
@@ -885,7 +885,7 @@
                                                 </div>
                                             </form>
                                         </div>
-                                        <a class="tf-button style-1 w208" href="oder-detail.html"><i class="icon-file-text"></i>Export all order</a>
+                                        <a class="tf-button style-1 w208" href="oder-detail"><i class="icon-file-text"></i>Export all order</a>
                                     </div>
                                     <div class="wg-table table-all-category">
                                         <ul class="table-title flex gap20 mb-14">
@@ -921,7 +921,7 @@
                                                 </div>
                                                 <div class="flex items-center justify-between gap20 flex-grow">
                                                     <div class="name">
-                                                        <a href="product-list.html" class="body-title-2">Kristin Watson</a>
+                                                        <a href="product-list" class="body-title-2">Kristin Watson</a>
                                                     </div>
                                                     <div class="body-text">#7712309</div>
                                                     <div class="body-text">$1,452.500</div>
@@ -952,7 +952,7 @@
                                                 </div>
                                                 <div class="flex items-center justify-between gap20 flex-grow">
                                                     <div class="name">
-                                                        <a href="product-list.html" class="body-title-2">Kristin Watson</a>
+                                                        <a href="product-list" class="body-title-2">Kristin Watson</a>
                                                     </div>
                                                     <div class="body-text">#7712309</div>
                                                     <div class="body-text">$1,452.500</div>
@@ -983,7 +983,7 @@
                                                 </div>
                                                 <div class="flex items-center justify-between gap20 flex-grow">
                                                     <div class="name">
-                                                        <a href="product-list.html" class="body-title-2">Kristin Watson</a>
+                                                        <a href="product-list" class="body-title-2">Kristin Watson</a>
                                                     </div>
                                                     <div class="body-text">#7712309</div>
                                                     <div class="body-text">$1,452.500</div>
@@ -1014,7 +1014,7 @@
                                                 </div>
                                                 <div class="flex items-center justify-between gap20 flex-grow">
                                                     <div class="name">
-                                                        <a href="product-list.html" class="body-title-2">Kristin Watson</a>
+                                                        <a href="product-list" class="body-title-2">Kristin Watson</a>
                                                     </div>
                                                     <div class="body-text">#7712309</div>
                                                     <div class="body-text">$1,452.500</div>
@@ -1045,7 +1045,7 @@
                                                 </div>
                                                 <div class="flex items-center justify-between gap20 flex-grow">
                                                     <div class="name">
-                                                        <a href="product-list.html" class="body-title-2">Kristin Watson</a>
+                                                        <a href="product-list" class="body-title-2">Kristin Watson</a>
                                                     </div>
                                                     <div class="body-text">#7712309</div>
                                                     <div class="body-text">$1,452.500</div>
@@ -1076,7 +1076,7 @@
                                                 </div>
                                                 <div class="flex items-center justify-between gap20 flex-grow">
                                                     <div class="name">
-                                                        <a href="product-list.html" class="body-title-2">Kristin Watson</a>
+                                                        <a href="product-list" class="body-title-2">Kristin Watson</a>
                                                     </div>
                                                     <div class="body-text">#7712309</div>
                                                     <div class="body-text">$1,452.500</div>
@@ -1107,7 +1107,7 @@
                                                 </div>
                                                 <div class="flex items-center justify-between gap20 flex-grow">
                                                     <div class="name">
-                                                        <a href="product-list.html" class="body-title-2">Kristin Watson</a>
+                                                        <a href="product-list" class="body-title-2">Kristin Watson</a>
                                                     </div>
                                                     <div class="body-text">#7712309</div>
                                                     <div class="body-text">$1,452.500</div>
@@ -1138,7 +1138,7 @@
                                                 </div>
                                                 <div class="flex items-center justify-between gap20 flex-grow">
                                                     <div class="name">
-                                                        <a href="product-list.html" class="body-title-2">Kristin Watson</a>
+                                                        <a href="product-list" class="body-title-2">Kristin Watson</a>
                                                     </div>
                                                     <div class="body-text">#7712309</div>
                                                     <div class="body-text">$1,452.500</div>
@@ -1169,7 +1169,7 @@
                                                 </div>
                                                 <div class="flex items-center justify-between gap20 flex-grow">
                                                     <div class="name">
-                                                        <a href="product-list.html" class="body-title-2">Kristin Watson</a>
+                                                        <a href="product-list" class="body-title-2">Kristin Watson</a>
                                                     </div>
                                                     <div class="body-text">#7712309</div>
                                                     <div class="body-text">$1,452.500</div>
@@ -1200,7 +1200,7 @@
                                                 </div>
                                                 <div class="flex items-center justify-between gap20 flex-grow">
                                                     <div class="name">
-                                                        <a href="product-list.html" class="body-title-2">Kristin Watson</a>
+                                                        <a href="product-list" class="body-title-2">Kristin Watson</a>
                                                     </div>
                                                     <div class="body-text">#7712309</div>
                                                     <div class="body-text">$1,452.500</div>

@@ -80,8 +80,7 @@
                             <ul class="main-menu nav position-relative">
                                 <li class="has-submenu"><a href="#/">Home</a>
                                     <ul class="submenu-nav">
-                                        <li><a href="index">Home Demo 1</a></li>
-                                        <li><a href="index-two">Home Demo 2</a></li>
+                                        <li><a href="index">Home</a></li>
                                     </ul>
                                 </li>
                                 <li class="has-submenu full-width"><a href="#/">Shop</a>
@@ -93,7 +92,12 @@
                                         </li>
                                         <li class="mega-menu-item"><a href="#/" class="mega-title">Shop Pages</a>
                                             <ul>
-                                                <li><a href="login">My Account</a></li>
+                                              @auth
+                                              <li><a href="{{ url('login') }}">{{ Auth::user()->name }}</a></li>
+                                               @else
+                                              <li><a href="{{ url('login') }}">Login</a></li>
+                                               @endauth     
+                                                <li><a href="{{url('login')}}"></a></li>
                                                 <li><a href="wishlist">Wishlist</a></li>
                                                 <li><a href="cart">Cart</a></li>
                                                 <li><a href="checkout">Checkout</a></li>
@@ -110,70 +114,36 @@
                         <div class="header-action-area">
                             <ul class="header-action">
                                 <li class="search-item">
-                                    <a class="action-item" href="page-search">
-                                        <i class="zmdi zmdi-search icon"></i>
-                                    </a>
+                                  <a class="action-item" href="{{url('search')}}">
+                                    <i class="zmdi zmdi-search icon"></i>
+                                </a> 
                                 </li>
-                                <li class="currency-menu">
-                                    <a class="action-item" href="#/"><i class="zmdi zmdi-lock-outline icon"></i></a>
-                                    <ul class="currency-dropdown">
-                                        <li class="currency">
-                                            <a href="#/"><span class="current-currency">USD</span></a>
-                                            <ul>
-                                                <li class="active"><a href="#/">USD - US Dollar</a></li>
-                                                <li class="#/"><a href="#/">EUR - Euro</a></li>
-                                                <li class="#/"><a href="#/">GBP - British Pound</a></li>
-                                                <li class="#/"><a href="#/">INR - Indian Rupee</a></li>
-                                                <li class="#/"><a href="#/">BDT - Bangladesh Taka</a></li>
-                                                <li class="#/"><a href="#/">JPY - Japan Yen</a></li>
-                                                <li class="#/"><a href="#/">CAD - Canada Dollar</a></li>
-                                                <li class="#/"><a href="#/">AUD - Australian Dollar</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="account">
-                                            <a href="#/"><span class="current-account">My account</span></a>
-                                            <ul>
-                                                <li><a href="login">Login</a></li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
+                             
                                 <li class="mini-cart">
                                     <a class="action-item" href="#/">
                                         <i class="zmdi zmdi-shopping-cart-plus icon"></i>
-                                        <span class="cart-quantity">2</span>
+                                        <span class="cart-quantity">{{ count($cartItems) }}</span>
                                     </a>
                                     <div class="mini-cart-dropdown">
-                                        <div class="cart-item">
-                                            <div class="thumb">
-                                                <img class="w-100" src="assets/img/shop/cart/1.jpg" alt="Image-HasTech">
-                                            </div>
-                                            <div class="content">
-                                                <h5 class="title"><a href="#/">Literature Classical - s</a></h5>
-                                                <span class="product-quantity">1 ×</span>
-                                                <span class="product-price">$79.00</span>
-                                                <a class="cart-trash" href="javascript:void(0);"><i
-                                                        class="fa fa-trash"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="cart-item">
-                                            <div class="thumb">
-                                                <img class="w-100" src="assets/img/shop/cart/2.jpg" alt="Image-HasTech">
-                                            </div>
-                                            <div class="content">
-                                                <h5 class="title"><a href="#/">Fit Wool Suit - m / gold</a></h5>
-                                                <span class="product-quantity">1 ×</span>
-                                                <span class="product-price">$80.00</span>
-                                                <a class="cart-trash" href="javascript:void(0);"><i
-                                                        class="fa fa-trash"></i></a>
-                                            </div>
-                                        </div>
+                                      @foreach($cartItems as $cartItem)
+                                      <div class="cart-item">
+                                          <div class="thumb">
+                                              <img class="w-100" src="/allFiels/{{ $cartItem->product->image }}" alt="{{ $cartItem->product->name }}">
+                                          </div>
+                                          <div class="content">
+                                              <h5 class="title"><a href="#/">{{ $cartItem->product->name }}</a></h5>
+                                              <span class="product-quantity">{{ $cartItem->quantity }} ×</span>
+                                              <span class="product-price">${{ number_format($cartItem->product->price, 2) }}</span>
+                                              <a class="cart-trash" href="{{ route('cart.destroy', $cartItem->id) }}"><i class="fa fa-trash"></i></a>
+                                          </div>
+                                      </div>
+                                  @endforeach                          
                                         <div class="cart-total-money">
-                                            <h5>Total: <span class="money">$159.00</span></h5>
+                                            <h5>Total: <span class="money">${{ $cartItems->sum(fn($item) => $item->product->price * $item->quantity) }}</span></h5>
                                         </div>
                                         <div class="cart-btn">
-                                            <a href="cart">View Cart</a>
-                                            <a href="checkout">Checkout</a>
+                                            <a href="{{ route('cart.index') }}">View Cart</a>
+                                            <a href="">Checkout</a>
                                         </div>
                                     </div>
                                 </li>

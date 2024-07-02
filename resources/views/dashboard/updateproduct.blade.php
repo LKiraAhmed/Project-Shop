@@ -52,7 +52,7 @@
                 <!-- section-menu-left -->
                 <div class="section-menu-left">
                     <div class="box-logo">
-                        <a href="index.html" id="site-logo-inner">
+                        <a href="index" id="site-logo-inner">
                             <img class="" id="logo_header" alt="" src="" data-light="" data-dark="">
                         </a>
                         <div class="button-show-hide">
@@ -64,14 +64,14 @@
                             <div class="center-item">
                                 <div class="center-heading">Main Home</div>
                                 <ul class="menu-list">
-                                    <li class="menu-item has-children ">
+                                    <li class="menu-item has-children">
                                         <a href="javascript:void(0);" class="menu-item-button">
                                             <div class="icon"><i class="icon-grid"></i></div>
                                             <div class="text">Dashboard</div>
                                         </a>
                                         <ul class="sub-menu" style="display: block;">
                                             <li class="sub-menu-item">
-                                                <a href="index.html" class="">
+                                                <a href="index" class="">
                                                     <div class="text">Home</div>
                                                 </a>
                                             </li>
@@ -83,19 +83,19 @@
                             <div class="center-item">
                                 <div class="center-heading">All page</div>
                                 <ul class="menu-list">
-                                    <li class="menu-item has-children active ">
+                                    <li class="menu-item has-children active">
                                         <a href="javascript:void(0);" class="menu-item-button">
                                             <div class="icon"><i class="icon-shopping-cart"></i></div>
                                             <div class="text">Ecommerce</div>
                                         </a>
                                         <ul class="sub-menu">
                                             <li class="sub-menu-item">
-                                                <a href="add-product.html" class="active">
+                                                <a href="add-product" class="active">
                                                     <div class="text">update product</div>
                                                 </a>
                                             </li>
                                             <li class="sub-menu-item">
-                                                <a href="product-list.html" class="">
+                                                <a href="product-list" class="">
                                                     <div class="text">Product List</div>
                                                 </a>
                                             </li>
@@ -108,12 +108,12 @@
                                         </a>
                                         <ul class="sub-menu">
                                             <li class="sub-menu-item">
-                                                <a href="category-list.html" class="">
+                                                <a href="category-list" class="">
                                                     <div class="text">Category list</div>
                                                 </a>
                                             </li>
                                             <li class="sub-menu-item">
-                                                <a href="new-category.html" class="">
+                                                <a href="new-category" class="">
                                                     <div class="text">New category</div>
                                                 </a>
                                             </li>
@@ -126,12 +126,12 @@
                                         </a>
                                         <ul class="sub-menu">
                                             <li class="sub-menu-item">
-                                                <a href="all-user.html" class="">
+                                                <a href="all-user" class="">
                                                     <div class="text">All user</div>
                                                 </a>
                                             </li>
                                             <li class="sub-menu-item">
-                                                <a href="add-new-user.html" class="">
+                                                <a href="add-new-user" class="">
                                                     <div class="text">Add new user</div>
                                                 </a>
                                             </li>
@@ -143,7 +143,7 @@
                                 <div class="center-heading">Setting</div>
                                 <ul class="menu-list">
                                     <li class="menu-item">
-                                        <a href="setting.html" class="">
+                                        <a href="setting" class="">
                                             <div class="icon"><i class="icon-settings"></i></div>
                                             <div class="text">Setting</div>
                                         </a>
@@ -190,7 +190,7 @@
                                                         </div>
                                                         <div class="flex items-center justify-between gap20 flex-grow">
                                                             <div class="name">
-                                                                <a href="product-list.html" class="body-text">Dog Food
+                                                                <a href="product-list" class="body-text">Dog Food
                                                                     Rachael Ray Nutrish®</a>
                                                             </div>
                                                         </div>
@@ -204,7 +204,7 @@
                                                         </div>
                                                         <div class="flex items-center justify-between gap20 flex-grow">
                                                             <div class="name">
-                                                                <a href="product-list.html" class="body-text">Natural
+                                                                <a href="product-list" class="body-text">Natural
                                                                     Dog Food Healthy Dog Food</a>
                                                             </div>
                                                         </div>
@@ -218,7 +218,7 @@
                                                         </div>
                                                         <div class="flex items-center justify-between gap20 flex-grow">
                                                             <div class="name">
-                                                                <a href="product-list.html" class="body-text">Freshpet
+                                                                <a href="product-list" class="body-text">Freshpet
                                                                     Healthy Dog Food and Cat</a>
                                                             </div>
                                                         </div>
@@ -241,7 +241,7 @@
                                                         </div>
                                                         <div class="flex items-center justify-between gap20 flex-grow">
                                                             <div class="name">
-                                                                <a href="product-list.html" class="body-text">Sojos
+                                                                <a href="product-list" class="body-text">Sojos
                                                                     Crunchy Natural Grain Free...</a>
                                                             </div>
                                                         </div>
@@ -255,7 +255,7 @@
                                                         </div>
                                                         <div class="flex items-center justify-between gap20 flex-grow">
                                                             <div class="name">
-                                                                <a href="product-list.html" class="body-text">Kristin
+                                                                <a href="product-list" class="body-text">Kristin
                                                                     Watson</a>
                                                             </div>
                                                         </div>
@@ -269,7 +269,7 @@
                                                         </div>
                                                         <div class="flex items-center justify-between gap20 flex-grow">
                                                             <div class="name">
-                                                                <a href="product-list.html" class="body-text">Mega
+                                                                <a href="product-list" class="body-text">Mega
                                                                     Pumpkin Bone</a>
                                                             </div>
                                                         </div>
@@ -283,7 +283,7 @@
                                                         </div>
                                                         <div class="flex items-center justify-between gap20 flex-grow">
                                                             <div class="name">
-                                                                <a href="product-list.html" class="body-text">Mega
+                                                                <a href="product-list" class="body-text">Mega
                                                                     Pumpkin Bone</a>
                                                             </div>
                                                         </div>
@@ -356,7 +356,7 @@
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="setting.html" class="user-item">
+                                                <a href="setting" class="user-item">
                                                     <div class="icon">
                                                         <i class="icon-settings"></i>
                                                     </div>
@@ -372,7 +372,7 @@
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="login.html" class="user-item">
+                                                <a href="login" class="user-item">
                                                     <div class="icon">
                                                         <i class="icon-log-out"></i>
                                                     </div>
@@ -396,7 +396,7 @@
                                     <h3>update product</h3>
                                     <ul class="breadcrumbs flex items-center flex-wrap justify-start gap10">
                                         <li>
-                                            <a href="index.html">
+                                            <a href="index">
                                                 <div class="text-tiny">Dashboard</div>
                                             </a>
                                         </li>
@@ -468,7 +468,7 @@
                                             <div class="body-title mb-10">Upload images</div>
                                             <div class="upload-image mb-16">
                                                 <div class="item">
-                                                    <img src="{{ Storage::url($product->image) }}" alt="">
+                                                    <img src="/allFiels/{{$product->image}}" alt="">
                                                 </div>
                                                 <div class="item up-load">
                                                     <label class="uploadfile" for="myFile">
