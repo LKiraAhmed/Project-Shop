@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 01, 2024 at 01:34 PM
+-- Generation Time: Jul 04, 2024 at 11:09 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -79,7 +79,9 @@ CREATE TABLE `categories` (
 
 INSERT INTO `categories` (`id`, `name`, `created_at`, `updated_at`) VALUES
 (1, 'shirt', NULL, NULL),
-(2, 'bantlon', '2024-07-01 13:06:53', '2024-07-01 13:06:53');
+(2, 'bantlon', '2024-07-01 13:06:53', '2024-07-01 13:06:53'),
+(3, 'test', '2024-07-04 15:54:46', '2024-07-04 15:54:46'),
+(4, 'sd', '2024-07-04 15:56:21', '2024-07-04 15:56:21');
 
 -- --------------------------------------------------------
 
@@ -209,10 +211,9 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `image`, `price`, `discount`, `description`, `size`, `quantity`, `catigorie_id`, `created_at`, `updated_at`, `views_count`) VALUES
-(1, 'SHIRTS', 0x70726f647563745f696d616765732f774e507858704c6153577362716d4f73767a6951464b7a466f5a4853745734636b766958447971722e6a7067, 350.00, 250.00, 'You need to add at least 4 images. Pay attention to the quality of the pictures you add, comply with the background color standards. Pictures must be in certain dimensions. Notice that the product shows all the details.', 'lg', 7, 1, '2024-07-01 08:53:42', '2024-07-01 16:46:31', 2),
-(3, 'shirt', 0x70726f647563745f696d616765732f334a35314c54477a43675138427468714f716f787265327768464a63314e425a744f32714c3130512e6a7067, 40.00, 30.00, 'You need to add at least 4 images. Pay attention to the quality of the pictures you add, comply with the background color standards. Pictures must be in certain dimensions. Notice that the product shows all the details.', 'md', 2, 1, '2024-07-01 08:54:42', '2024-07-01 16:46:31', 2),
-(4, 'shirt', 0x70726f647563745f696d616765732f66787364626b676e4f6c796e6f4b4b30456f545a637372796c38655845303148674b4442696f4a502e6a7067, 40.00, 30.00, 'You need to add at least 4 images. Pay attention to the quality of the pictures you add, comply with the background color standards. Pictures must be in certain dimensions. Notice that the product shows all the details.', 'md', 2, 1, '2024-07-01 08:55:14', '2024-07-01 16:46:31', 2),
-(5, 'shirt', 0x70726f647563745f696d616765732f767a69537768636a5053796d787a495a6156476e45774a786f444477336c4f614777456f583653682e6a7067, 20.00, 40.00, 'You need to add at least 4 images. Pay attention to the quality of the pictures you add, comply with the background color standards. Pictures must be in certain dimensions. Notice that the product shows all the details.', 'sm', 1, 1, '2024-07-01 09:03:46', '2024-07-01 16:46:31', 2);
+(29, 'test', 0x313732303037383737382e6a7067, 20.00, 10.00, 'You need to add at least 4 images. Pay attention to the quality of the pictures you add, comply with the background color standards. Pictures must be in certain dimensions. Notice that the product shows all the details.', 'md', 1, 1, '2024-07-04 14:39:39', '2024-07-04 14:42:58', 1),
+(30, 'test2', 0x313732303038333636332e6a7067, 20.00, 10.00, 'You need to add at least 4 images. Pay attention to the quality of the pictures you add, comply with the background color standards. Pictures must be in certain dimensions. Notice that the product shows all the details.', 'sm', 7, 2, '2024-07-04 16:01:03', '2024-07-04 16:01:03', 0),
+(31, 'test2', 0x313732303038333938352e6a7067, 20.00, 10.00, 'You need to add at least 4 images. Pay attention to the quality of the pictures you add, comply with the background color standards. Pictures must be in certain dimensions. Notice that the product shows all the details.', 'sm', 7, 2, '2024-07-04 16:06:25', '2024-07-04 16:06:25', 0);
 
 -- --------------------------------------------------------
 
@@ -230,6 +231,13 @@ CREATE TABLE `reviews` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `reviews`
+--
+
+INSERT INTO `reviews` (`id`, `user_id`, `product_id`, `rating`, `title`, `body`, `created_at`, `updated_at`) VALUES
+(2, 3, 29, 5, 'sssssssssssssssss', 'trest', '2024-07-04 14:43:18', '2024-07-04 14:43:18');
 
 -- --------------------------------------------------------
 
@@ -254,7 +262,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `phone`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(2, 'ahmed', 'lkiraww2@gmail.com', '012889613263', NULL, '$2y$12$1f5E41eXzrSsFAjo7kM21.3ayYb0YGBLEZqQ/5cxE9gmcc862WcQe', NULL, '2024-07-01 17:40:59', '2024-07-01 17:49:48');
+(2, 'ahmed', 'lkiraww2@gmail.com', '012889613263', NULL, '$2y$12$1f5E41eXzrSsFAjo7kM21.3ayYb0YGBLEZqQ/5cxE9gmcc862WcQe', NULL, '2024-07-01 17:40:59', '2024-07-01 17:49:48'),
+(3, 'ahmed', 'wega03726@gmail.com', 'wega03726@gmail.com', NULL, '$2y$12$lyqJAv1RXmoq2jFHScmnTugw.Ujl.kZRGsma9C3ujDKaBhnoayPeO', NULL, '2024-07-02 14:50:04', '2024-07-02 14:50:04');
 
 -- --------------------------------------------------------
 
@@ -377,13 +386,13 @@ ALTER TABLE `wishlists`
 -- AUTO_INCREMENT for table `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -413,25 +422,25 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `wishlists`
 --
 ALTER TABLE `wishlists`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
