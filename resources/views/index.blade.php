@@ -268,16 +268,14 @@
                 <div class="tab-pane fade show active" id="bestSeller" role="tabpanel" aria-labelledby="best-seller-tab">
                     <div class="row">
                         @foreach($products as $product)
-                        <div class="col-md-3 col-sm-6">
+                        <div class="col-md-3 col-sm-6 mb-4">
                             <!-- Start Shop Item -->
                             <div class="product-item">
                                 <div class="inner-content">
                                     <div class="product-thumb">
                                         <a href="{{ route('products.single', $product->id) }}">
-                                          <img class="w-100 small-img" src="/allFiels/{{ $product->image }}"  alt="{{ $product->name }}">
+                                            <img class="w-100 small-img" src="/allFiels/{{ $product->image }}" alt="{{ $product->name }}">
                                         </a>
-                                        <span class="sale-title sticker">Sale</span>
-                                        <span class="percent-count sticker">%{{ $product->discount }}</span>
                                         <div class="product-action">
                                             <div class="addto-wrap">
                                                 <a href="#" class="add-cart" onclick="addToCart({{ $product->id }});">
@@ -287,13 +285,162 @@
                                                     <i class="zmdi zmdi-favorite-outline zmdi-hc-fw icon"></i>
                                                 </a>
                                             </div>
-                                            <div class="product-desc">
-                                              <div class="product-info">
-                                                <h4 class="title">
-                                                  <a href="{{ route('products.single', $product->id) }}">
-                                                    <h4>{{$product->name}}</h4>
-                                                  </a>
-                                                </h4>
+                                        </div>
+                                    </div>
+                                    <div class="product-desc">
+                                        <div class="product-info">
+                                            <a href="{{ route('products.single', $product->id) }}">
+                                                <h4 class="title">{{ $product->name }}</h4>
+                                            </a>
+                                            <div class="product-description">
+                                                @php
+                                                    $description = $product->description;
+                                                    $max_length = 50;
+                                                    if (strlen($description) > $max_length) {
+                                                        $description = substr($description, 0, $max_length) . '...';
+                                                    }
+                                                @endphp
+                                                <p>{{ $description }}</p>
+                                            </div>
+                                            <div class="prices">
+                                                <span class="price">${{ $product->price }}</span>
+                                                <span class="price-old">${{ $product->discount }}</span>
+                                            </div>
+                                            <div class="star-content">
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star-o"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Shop Item -->
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+                
+                <div class="tab-pane fade" id="mostView" role="tabpanel" aria-labelledby="most-view-tab">
+                    <div class="row">
+                        @foreach($mostViewedProducts as $product)
+                        <div class="col-md-3 col-sm-6 mb-4">
+                            <!-- Start Shop Item -->
+                            <div class="product-item">
+                                <div class="inner-content">
+                                    <div class="product-thumb">
+                                        <a href="{{ route('products.single', $product->id) }}">
+                                            <img class="w-100 small-img" src="/allFiels/{{ $product->image }}" alt="{{ $product->name }}">
+                                        </a>
+                               
+                                        <div class="product-action">
+                                            <div class="addto-wrap">
+                                                <a href="#" class="add-cart" onclick="addToCart({{ $product->id }});">
+                                                    <i class="zmdi zmdi-shopping-cart-plus icon"></i>
+                                                </a>
+                                                <a class="add-wishlist" href="#" onclick="addWishlist({{ $product->id }})">
+                                                    <i class="zmdi zmdi-favorite-outline zmdi-hc-fw icon"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-desc">
+                                        <div class="product-info">
+                                            <a href="{{ route('products.single', $product->id) }}">
+                                                <h4 class="title">{{ $product->name }}</h4>
+                                            </a>
+                                            <div class="product-description">
+                                                @php
+                                                    $description = $product->description;
+                                                    $max_length = 50;
+                                                    if (strlen($description) > $max_length) {
+                                                        $description = substr($description, 0, $max_length) . '...';
+                                                    }
+                                                @endphp
+                                                <p>{{ $description }}</p>
+                                            </div>
+                                            <div class="prices">
+                                                <span class="price">${{ $product->price }}</span>
+                                                <span class="price-old">${{ $product->discount }}</span>
+                                            </div>
+                                            <div class="star-content">
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star-o"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Shop Item -->
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+                
+                <div class="tab-pane fade" id="newArrivals" role="tabpanel" aria-labelledby="new-arrivals-tab">
+                    <div class="row">
+                        <!-- Add your new arrivals product list here -->
+                    </div>
+                </div>
+                
+                <!--== End Product Area Wrapper ==-->
+                
+                <!--== Start Product Area Wrapper ==-->
+                <section class="product-area product-new-arrivals-area">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-7 m-auto">
+                                <div class="section-title text-center">
+                                    <h2 class="title">New Arrivals</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            @foreach($latestProduct as $product)
+                            <div class="col-md-3 col-sm-6 mb-4">
+                                <!-- Start Shop Item -->
+                                <div class="product-item">
+                                    <div class="inner-content">
+                                        <div class="product-thumb">
+                                            <a href="{{ route('products.single', $product->id) }}">
+                                                <img class="w-100" src="/allFiels/{{ $product->image }}" alt="{{ $product->name }}">
+                                            </a>
+                                    
+                                            <div class="product-action">
+                                                <div class="addto-wrap">
+                                                    <a href="#" class="add-cart" onclick="addToCart({{ $product->id }});">
+                                                        <i class="zmdi zmdi-shopping-cart-plus icon"></i>
+                                                    </a>
+                                                    <a class="add-wishlist" href="#" onclick="addWishlist({{ $product->id }})">
+                                                        <i class="zmdi zmdi-favorite-outline zmdi-hc-fw icon"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-desc">
+                                            <div class="product-info">
+                                                <a href="{{ route('products.single', $product->id) }}">
+                                                    <h4 class="title">{{ $product->name }}</h4>
+                                                </a>
+                                                <div class="product-description">
+                                                    @php
+                                                        $description = $product->description;
+                                                        $max_length = 50;
+                                                        if (strlen($description) > $max_length) {
+                                                            $description = substr($description, 0, $max_length) . '...';
+                                                        }
+                                                    @endphp
+                                                    <p>{{ $description }}</p>
+                                                </div>
+                                                <div class="prices">
+                                                    <span class="price">${{ $product->price }}</span>
+                                                    <span class="price-old">${{ $product->discount }}</span>
+                                                </div>
                                                 <div class="star-content">
                                                     <i class="fa fa-star"></i>
                                                     <i class="fa fa-star"></i>
@@ -301,156 +448,18 @@
                                                     <i class="fa fa-star"></i>
                                                     <i class="fa fa-star-o"></i>
                                                 </div>
-                                                <div class="prices">
-                                                    <span class="price">${{ $product->price }}</span>
-                                                    <span class="price-old">${{ $product->discount }}</span>
-                                                </div>
-                                              </div>
                                             </div>
-                                          </div>
-                            <!-- End Shop Item -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Shop Item -->
+                            </div>
+                            @endforeach
                         </div>
-                        @endforeach
                     </div>
-                </div>
-            </div>
-            
-
-                <div class="tab-pane fade" id="mostView" role="tabpanel" aria-labelledby="most-view-tab">
-                  <div class="row">
-                    @foreach($mostViewedProducts as $product)
-                      <div class="col-md-3 col-sm-6">
-                        <!-- Start Shop Item -->
-                        <div class="product-item">
-                          <div class="inner-content">
-                            <div class="product-thumb">
-                              <a href="{{ route('products.single', $product->id) }}">
-                                <img class="w-100 small-img" src="/allFiels/{{ $product->image }}"  alt="{{ $product->name }}">
-                              </a>
-                              @if ($product->discount)
-                                <span class="sale-title sticker">Sale</span>
-                                <span class="percent-count sticker">%{{ $product->discount }}</span>
-                              @endif
-                              <div class="product-action">
-                                <div class="addto-wrap">
-                                  <a href="#" class="add-cart" onclick="addToCart({{ $product->id }});">
-                                    <i class="zmdi zmdi-shopping-cart-plus icon"></i> 
-                                </a>                                
-                                <a class="add-wishlist" href="#" onclick="addWishlist({{ $product->id }})">
-                                  <i class="zmdi zmdi-favorite-outline zmdi-hc-fw icon"></i>
-                              </a>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="product-desc">
-                          <div class="product-info">
-                            <h4 class="title">
-                              <a href="{{ route('products.single', $product->id) }}">
-                                <h4>{{$product->name}}</h4>
-                              </a>
-                            </h4>
-                            <div class="star-content">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star-o"></i>
-                            </div>
-                            <div class="prices">
-                                <span class="price">${{ $product->price }}</span>
-                                <span class="price-old">${{ $product->discount }}</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                        <!-- End Shop Item -->
-                      </div>
-                    @endforeach              
-                  </div>
-                </div>
+                </section>
                 
-                <div class="tab-pane fade" id="newArrivals" role="tabpanel" aria-labelledby="new-arrivals-tab">
-                  <div class="row">
-                    <!-- Add your new arrivals product list here -->
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    
-
-    <!--== End Product Area Wrapper ==-->
-
   
-    <!--== Start Product Area Wrapper ==-->
-    <section class="product-area product-new-arrivals-area">
-      <div class="container">
-          <div class="row">
-              <div class="col-lg-7 m-auto">
-                  <div class="section-title text-center">
-                      <h2 class="title">New Arrivals</h2>
-                  </div>
-              </div>
-          </div>
-          <div class="row">
-            @foreach($latestProduct as $product)
-            <div class="col-md-3">
-                <!-- Start Shop Item -->
-                <div class="product-item">
-                    <div class="inner-content">
-                        <div class="product-thumb">
-                            <a href="{{ route('products.single', $product->id) }}">
-                                <img class="w-100" src="/allFiels/{{ $product->image }}"" alt="{{ $product->name }}">
-                            </a>
-                            @if ($product->discount)
-                                <span class="sale-title sticker">Sale</span>
-                                <span class="percent-count sticker">%{{ $product->discount }}</span>
-                            @endif
-                            <div class="product-action">
-                              <div class="addto-wrap">
-                                {{-- onclick="addToCart({{ $product->id }});" --}}
-                                <a href="#" class="add-cart" onclick="addToCart({{ $product->id }});">
-                                  <i class="zmdi zmdi-shopping-cart-plus icon"></i> 
-                                </a>                            
-                              <a class="add-wishlist" href="#" onclick="addWishlist({{ $product->id }})">
-                                <i class="zmdi zmdi-favorite-outline zmdi-hc-fw icon"></i>
-                            </a>
-                              
-                                </a>
-                              </div>
-                            </div>
-                            <div class="product-desc">
-                              <div class="product-info">
-                                <h4 class="title">
-                                  <a href="{{ route('products.single', $product->id) }}">
-                                    <h4>{{$product->name}}</h4>
-                                  </a>
-                                </h4>
-                                <div class="star-content">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star-o"></i>
-                                </div>
-                                <div class="prices">
-                                    <span class="price">${{ $product->price }}</span>
-                                    <span class="price-old">${{ $product->discount }}</span>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                <!-- End Shop Item -->
-            </div>
-        @endforeach
-          </div>
-      </div>
-  </section>
   
   
     <!--== End Product Area Wrapper ==-->

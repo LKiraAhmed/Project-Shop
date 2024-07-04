@@ -268,7 +268,9 @@
                         <form id="reviewForm" action="{{ route('reviews.store') }}" method="POST">
                             @csrf
                             <input type="hidden" name="product_id" value="{{ $products->id }}">
+                            @auth
                             <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                            @endauth
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
@@ -367,7 +369,6 @@
                                         <a href="{{ route('products.single', $randomProduct->id) }}">
                                             <img class="w-80" src="/allFiels/{{ $randomProduct->image }}" alt="{{ $randomProduct->name }}">
                                         </a>
-                                        <h4 class="title">{{ $randomProduct->name }}</h4>
                                         @if ($randomProduct->sale_title)
                                             <span class="sale-title sticker">{{ $randomProduct->sale_title }}</span>
                                         @endif
@@ -387,9 +388,19 @@
                                     </div>
                                     <div class="product-desc">
                                         <div class="product-info">
-                                            <h4 class="title">
-                                                <a href="{{ route('products.single', $randomProduct->id) }}">{{ $randomProduct->name }}</a>
-                                            </h4>
+                                            <a href="{{ route('products.single', $randomProduct->id) }}">
+                                                <h4 class="title">{{ $randomProduct->name }}</h4>
+                                            </a>
+                                            <div class="product-description">
+                                                @php
+                                                    $description = $randomProduct->description;
+                                                    $max_length = 50;
+                                                    if (strlen($description) > $max_length) {
+                                                        $description = substr($description, 0, $max_length) . '...';
+                                                    }
+                                                @endphp
+                                                <p>{{ $description }}</p>
+                                            </div>
                                             <div class="star-content">
                                                 @for ($i = 1; $i <= 5; $i++)
                                                     @if ($i <= round($randomProduct->averageRating))
