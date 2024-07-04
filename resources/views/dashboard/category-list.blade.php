@@ -440,7 +440,7 @@
                                                 </div>
                                             </form>
                                         </div>
-                                        <a class="tf-button style-1 w208" href="new-category "><i
+                                        <a class="tf-button style-1 w208" href="{{route('category.add')}} "><i
                                                 class="icon-plus"></i>Add new</a>
                                     </div>
                                     @foreach($categories as $categories)

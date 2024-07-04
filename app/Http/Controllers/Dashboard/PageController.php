@@ -22,7 +22,7 @@ class PageController extends Controller
 
             return view($viewPath, compact('products','users','categories'));
         } else {
-            return view('404');
+            return view('dashboard.404');
         }
     }
     

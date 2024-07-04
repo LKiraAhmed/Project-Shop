@@ -6,6 +6,7 @@ use App\Models\Cart;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Review;
 use App\Models\Product;
+use App\Models\User;
 
 class PageController extends Controller
 {
@@ -37,7 +38,8 @@ class PageController extends Controller
             $reviews = Review::all(); 
             $averageRating = $reviews->avg('rating');
             $roundedRating = min(5, round($averageRating));
-            return view($id, compact('products', 'cartItems', 'latestProduct', 'mostViewedProducts','randomProducts','reviews','roundedRating'));
+            $user=User::all();
+            return view($id, compact('user','products', 'cartItems', 'latestProduct', 'mostViewedProducts','randomProducts','reviews','roundedRating'));
         } else {
             return view('404');
         }

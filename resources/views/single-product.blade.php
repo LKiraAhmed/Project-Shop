@@ -16,15 +16,14 @@
   <!--== End Preloader Content ==-->
 
   <!--== Start Header Wrapper ==-->
- 
   <header class="header-area header-default">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-6 col-sm-4 col-lg-3">
                 <div class="header-logo-area">
                     <a href="index">
-                        <img class="logo-main" src="assets/img/be-unique-logo.jpg" alt="Logo" />
-                        <img class="logo d-none" src="assets/img/logo-light.png" alt="Logo" />
+                        <img class="logo-main" src="{{asset('assets/img/be-unique-logo.jpg')}}" alt="Logo" />
+                        <img class="logo d-none" src="{{asset('assets/img/logo-light.png')}}" alt="Logo" />
                     </a>
                 </div>
             </div>
@@ -33,8 +32,7 @@
                     <ul class="main-menu nav position-relative">
                         <li class="has-submenu"><a href="#/">Home</a>
                             <ul class="submenu-nav">
-                                <li><a href="index">Home Demo 1</a></li>
-                                <li><a href="index-two">Home Demo 2</a></li>
+                                <li><a href="index">Home</a></li>
                             </ul>
                         </li>
                         <li class="has-submenu full-width"><a href="#/">Shop</a>
@@ -79,19 +77,19 @@
                                 <span class="cart-quantity">{{ count($cartItems) }}</span>
                             </a>
                             <div class="mini-cart-dropdown">
-                                @foreach($cartItems as $cartItem)
-                                    <div class="cart-item">
-                                        <div class="thumb">
-                                            <img class="w-100" src="/allFiels/{{ $cartItem->product->image }}" alt="{{ $cartItem->product->name }}">
-                                        </div>
-                                        <div class="content">
-                                            <h5 class="title"><a href="#/">{{ $cartItem->product->name }}</a></h5>
-                                            <span class="product-quantity">{{ $cartItem->quantity }} ×</span>
-                                            <span class="product-price">${{ number_format($cartItem->product->price, 2) }}</span>
-                                            <a class="cart-trash" href="{{ route('cart.destroy', $cartItem->id) }}"><i class="fa fa-trash"></i></a>
-                                        </div>
-                                    </div>
-                                @endforeach
+                              @foreach($cartItems as $cartItem)
+                              <div class="cart-item">
+                                  <div class="thumb">
+                                      <img class="w-100" src="/allFiels/{{ $cartItem->product->image }}" alt="{{ $cartItem->product->name }}">
+                                  </div>
+                                  <div class="content">
+                                      <h5 class="title"><a href="#/">{{ $cartItem->product->name }}</a></h5>
+                                      <span class="product-quantity">{{ $cartItem->quantity }} ×</span>
+                                      <span class="product-price">${{ number_format($cartItem->product->price, 2) }}</span>
+                                      <a class="cart-trash" href="{{ route('cart.destroy', $cartItem->id) }}"><i class="fa fa-trash"></i></a>
+                                  </div>
+                              </div>
+                          @endforeach                          
                                 <div class="cart-total-money">
                                     <h5>Total: <span class="money">${{ $cartItems->sum(fn($item) => $item->product->price * $item->quantity) }}</span></h5>
                                 </div>
@@ -112,8 +110,18 @@
 </header>
 
   <!--== End Header Wrapper ==-->
-  
-  <main class="main-content">
+  {{-- @php
+  $products = App\Models\Product::with('reviews')
+      ->select('reviews.rating') // Add all necessary columns
+      ->selectRaw('AVG(reviews.rating) as average_rate')
+      ->leftJoin('reviews', 'products.id', '=', 'reviews.product_id')
+      ->groupBy('reviews.rating') // Group by all selected columns
+      ->get();
+
+  dd($products);
+@endphp --}}
+
+<main class="main-content">
     <!--== Start Page Header Area Wrapper ==-->
     <div class="page-header-area">
       <div class="container">
@@ -260,6 +268,7 @@
                         <form id="reviewForm" action="{{ route('reviews.store') }}" method="POST">
                             @csrf
                             <input type="hidden" name="product_id" value="{{ $products->id }}">
+                            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
@@ -298,12 +307,9 @@
                 
 <!--== End Reviews Form Item ==-->
 
-                    <!--== End Reviews Form Item ==-->
                     <div class="reviews-content-body">
-                      <!-- Iterate over each review item -->
                       @foreach ($reviews as $review)
                       <div class="review-item">
-                          <!-- Display star ratings (assuming $review->rating is the rating value) -->
                           <ul class="review-rating">
                             @for ($i = 1; $i <= 5; $i++)
                             @if ($i <= $review->rating)
@@ -313,19 +319,14 @@
                             @endif
                         @endfor
                           </ul>
-                          <!-- Display review title -->
                           <h3 class="title">{{ $review->title }}</h3>
-                          <!-- Display reviewer's name and date (assuming $review->user->name and $review->created_at for date) -->
                           <h5 class="sub-title"><span>{{ $review->user->name }}</span> on <span>{{ $review->created_at->format('M d, Y') }}</span></h5>
-                          <!-- Display review body -->
                           <p>{{ $review->body }}</p>
-                          <!-- Option to report as inappropriate (example link, adjust as per your application logic) -->
                           <a href="#">Report as Inappropriate</a>
                       </div>
                       @endforeach
                       
                   
-                      <!-- Pagination for reviews (example: assuming you have pagination logic) -->
                       <div class="review-pagination">
                           <span class="pagination-pag">1</span>
                           <span class="pagination-pag">2</span>
@@ -476,8 +477,6 @@
               window.location.href = '/cart'; 
           })
           .catch(error => {
-              console.error('Error:', error);
-              alert('An error occurred. Please try again.'); 
           });
   }
 </script>
@@ -498,8 +497,6 @@
                 window.location.href = '{{ route("wishlist.index") }}'; 
             })
             .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred. Please try again.');
               });
     }
     </script>

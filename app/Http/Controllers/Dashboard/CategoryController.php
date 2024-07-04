@@ -8,6 +8,9 @@ use App\Models\Catigory;
 class CategoryController extends Controller
 {
     //
+    public function add(){
+        return view('dashboard.new-category');
+    }
     public function index(){
         $categories = Catigory::all();
         return view("dashboard.category-list",compact("categories"));

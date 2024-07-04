@@ -180,7 +180,7 @@
                         }?>
             
                           <p>{{ $description }}</p>
-                          <a class="btn-slider" href="">Shop Now</a>
+                          <a class="btn-slider" href="{{route('products.single', $product->id)}}" >Shop Now</a>
                       </div>
                   </div>
               </div>
@@ -266,39 +266,56 @@
               </ul>
               <div class="tab-content product-category-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="bestSeller" role="tabpanel" aria-labelledby="best-seller-tab">
-                  <div class="row">
-                    @foreach($products as $product)
-                      <div class="col-md-3 col-sm-6">
-                        <!-- Start Shop Item -->
-                        <div class="product-item">
-                          <div class="inner-content">
-                            <div class="product-thumb">
-                              <a href="{{ route('products.single', $product->id) }}">
-                                <img class="w-100 small-img" src="/allFiels/{{ $product->image }} " alt="{{ $product->name }}">
-                              </a>
-                              <span class="sale-title sticker">%{{ $product->price }}</span>
-                              <span class="percent-count sticker">%{{ $product->discount }}</span>
-                              <div class="product-action">
-                                <div class="addto-wrap">
-                                  {{-- onclick="addToCart({{ $product->id }});" --}}
-                                  <a href="#" class="add-cart" onclick="addToCart({{ $product->id }});">
-                                    <i class="zmdi zmdi-shopping-cart-plus icon"></i> 
-                                  </a>                            
-                                <a class="add-wishlist" href="#" onclick="addWishlist({{ $product->id }})">
-                                  <i class="zmdi zmdi-favorite-outline zmdi-hc-fw icon"></i>
-                              </a>
-                                
-                                  </a>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
+                    <div class="row">
+                        @foreach($products as $product)
+                        <div class="col-md-3 col-sm-6">
+                            <!-- Start Shop Item -->
+                            <div class="product-item">
+                                <div class="inner-content">
+                                    <div class="product-thumb">
+                                        <a href="{{ route('products.single', $product->id) }}">
+                                          <img class="w-100 small-img" src="/allFiels/{{ $product->image }}"  alt="{{ $product->name }}">
+                                        </a>
+                                        <span class="sale-title sticker">Sale</span>
+                                        <span class="percent-count sticker">%{{ $product->discount }}</span>
+                                        <div class="product-action">
+                                            <div class="addto-wrap">
+                                                <a href="#" class="add-cart" onclick="addToCart({{ $product->id }});">
+                                                    <i class="zmdi zmdi-shopping-cart-plus icon"></i>
+                                                </a>
+                                                <a class="add-wishlist" href="#" onclick="addWishlist({{ $product->id }})">
+                                                    <i class="zmdi zmdi-favorite-outline zmdi-hc-fw icon"></i>
+                                                </a>
+                                            </div>
+                                            <div class="product-desc">
+                                              <div class="product-info">
+                                                <h4 class="title">
+                                                  <a href="{{ route('products.single', $product->id) }}">
+                                                    <h4>{{$product->name}}</h4>
+                                                  </a>
+                                                </h4>
+                                                <div class="star-content">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                </div>
+                                                <div class="prices">
+                                                    <span class="price">${{ $product->price }}</span>
+                                                    <span class="price-old">${{ $product->discount }}</span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                            <!-- End Shop Item -->
                         </div>
-                        <!-- End Shop Item -->
-                      </div>
-                    @endforeach
-                  </div>
+                        @endforeach
+                    </div>
                 </div>
+            </div>
+            
+
                 <div class="tab-pane fade" id="mostView" role="tabpanel" aria-labelledby="most-view-tab">
                   <div class="row">
                     @foreach($mostViewedProducts as $product)
@@ -310,7 +327,6 @@
                               <a href="{{ route('products.single', $product->id) }}">
                                 <img class="w-100 small-img" src="/allFiels/{{ $product->image }}"  alt="{{ $product->name }}">
                               </a>
-                              <h4>{{ $product->name }}</h4>
                               @if ($product->discount)
                                 <span class="sale-title sticker">Sale</span>
                                 <span class="percent-count sticker">%{{ $product->discount }}</span>
@@ -328,11 +344,33 @@
                             </div>
                           </div>
                         </div>
+                        <div class="product-desc">
+                          <div class="product-info">
+                            <h4 class="title">
+                              <a href="{{ route('products.single', $product->id) }}">
+                                <h4>{{$product->name}}</h4>
+                              </a>
+                            </h4>
+                            <div class="star-content">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star-o"></i>
+                            </div>
+                            <div class="prices">
+                                <span class="price">${{ $product->price }}</span>
+                                <span class="price-old">${{ $product->discount }}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                         <!-- End Shop Item -->
                       </div>
                     @endforeach              
                   </div>
                 </div>
+                
                 <div class="tab-pane fade" id="newArrivals" role="tabpanel" aria-labelledby="new-arrivals-tab">
                   <div class="row">
                     <!-- Add your new arrivals product list here -->
@@ -369,7 +407,6 @@
                             <a href="{{ route('products.single', $product->id) }}">
                                 <img class="w-100" src="/allFiels/{{ $product->image }}"" alt="{{ $product->name }}">
                             </a>
-                            <h4>{{ $product->name }}</h4>
                             @if ($product->discount)
                                 <span class="sale-title sticker">Sale</span>
                                 <span class="percent-count sticker">%{{ $product->discount }}</span>
@@ -387,9 +424,27 @@
                                 </a>
                               </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
+                            <div class="product-desc">
+                              <div class="product-info">
+                                <h4 class="title">
+                                  <a href="{{ route('products.single', $product->id) }}">
+                                    <h4>{{$product->name}}</h4>
+                                  </a>
+                                </h4>
+                                <div class="star-content">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star-o"></i>
+                                </div>
+                                <div class="prices">
+                                    <span class="price">${{ $product->price }}</span>
+                                    <span class="price-old">${{ $product->discount }}</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                 <!-- End Shop Item -->
             </div>
         @endforeach
@@ -418,7 +473,7 @@
             <div class="widget-item">
               <div class="about-widget">
                 <div class="footer-logo-area">
-                  <a href="index.html">
+                  <a href="index">
                     <img class="logo-main footer-logo" src="assets/img/be-unique-logo.png" alt="Logo" />
                   </a>
                 </div>
@@ -437,11 +492,11 @@
               <h4 class="widget-title">INFORMATION</h4>
               <div class="widget-menu-wrap">
                 <ul class="nav-menu">
-                  <li><a href="shop.html">Specials</a></li>
-                  <li><a href="shop.html">New products</a></li>
-                  <li><a href="shop.html">Top sellers</a></li>
-                  <li><a href="shop.html">Our stores</a></li>
-                  <li><a href="contact.html">Contact us</a></li>
+                  <li><a href="shop">Specials</a></li>
+                  <li><a href="shop">New products</a></li>
+                  <li><a href="shop">Top sellers</a></li>
+                  <li><a href="shop">Our stores</a></li>
+                  <li><a href="contact">Contact us</a></li>
                 </ul>
               </div>
             </div>
@@ -453,11 +508,11 @@
               <h4 class="widget-title">QUICK LINKS</h4>
               <div class="widget-menu-wrap">
                 <ul class="nav-menu">
-                  <li><a href="login.html">New User</a></li>
-                  <li><a href="about-us.html">Help Center</a></li>
-                  <li><a href="about-us.html">Refund Policy</a></li>
-                  <li><a href="about-us.html">Report Spam</a></li>
-                  <li><a href="login.html">Account</a></li>
+                  <li><a href="login">New User</a></li>
+                  <li><a href="about-us">Help Center</a></li>
+                  <li><a href="about-us">Refund Policy</a></li>
+                  <li><a href="about-us">Report Spam</a></li>
+                  <li><a href="login">Account</a></li>
                 </ul>
               </div>
             </div>

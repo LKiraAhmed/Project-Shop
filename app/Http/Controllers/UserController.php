@@ -52,7 +52,7 @@ class UserController extends Controller
         $credentials = $request->only('email', 'password');
     
         if (Auth::attempt($credentials)) {
-            return redirect()->route('home')->withCookie(cookie()->forever('email', $request->email));
+            return redirect()->route('home');
         } else {
             return back()->withErrors([
                 'email' => 'Invalid email or password.',

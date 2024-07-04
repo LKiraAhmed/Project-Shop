@@ -243,8 +243,8 @@
                                                   <div class="pro-qty">
                                                     <form action="{{ route('cart.update') }}" method="POST">
                                                       @csrf
-                                                      <input type="hidden" name="product_id[]" value="{{ $product->id }}">
-                                                      <input type="text" name="quantity[]" class="form-control quantity-input" value="{{ $cartItem->quantity }}">
+                                                      <input type="hidden" hidden name="product_id[]" value="{{ $product->id }}">
+                                                      <input type="type"   name="quantity[]" class="form-control quantity-input" value="{{ $cartItem->quantity }}">
                                                   </div>
                                               </td>
                                               <td class="product-subtotal">

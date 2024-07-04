@@ -53,7 +53,7 @@
                 <!-- section-menu-left -->
                 <div class="section-menu-left">
                     <div class="box-logo">
-                        <a href="index" id="site-logo-inner">
+                        <a href="{{route('dashboard.index')}}" id="site-logo-inner">
                             <img class="" id="logo_header" alt="" src="" data-light="" data-dark="">
                         </a>
                         <div class="button-show-hide">
@@ -72,7 +72,7 @@
                                         </a>
                                         <ul class="sub-menu" style="display: block;">
                                             <li class="sub-menu-item">
-                                                <a href="index" class="">
+                                                <a href="{{route('dashboard.index')}}" class="">
                                                     <div class="text">Home</div>
                                                 </a>
                                             </li>
@@ -91,12 +91,12 @@
                                         </a>
                                         <ul class="sub-menu">
                                             <li class="sub-menu-item">
-                                                <a href="add-product" class="">
+                                                <a href="{{route('dashboard.add-product')}}" class="">
                                                     <div class="text">Add Product</div>
                                                 </a>
                                             </li>
                                             <li class="sub-menu-item">
-                                                <a href="product-list" class="">
+                                                <a href="{{route('dashboard.show')}}|" class="">
                                                     <div class="text">Product List</div>
                                                 </a>
                                             </li>
@@ -109,30 +109,30 @@
                                         </a>
                                         <ul class="sub-menu">
                                             <li class="sub-menu-item">
-                                                <a href="category-list" class="">
+                                                <a href="{{route('category.index')}}" class="">
                                                     <div class="text">Category list</div>
                                                 </a>
                                             </li>
                                             <li class="sub-menu-item">
-                                                <a href="new-category" class="">
+                                                <a href="{{route('category.add')}}" class="">
                                                     <div class="text">New category</div>
                                                 </a>
                                             </li>
                                         </ul>
                                     </li>
-                                    <li class="menu-item has-children active">
+                                    <li class="menu-item has-children">
                                         <a href="javascript:void(0);" class="menu-item-button">
                                             <div class="icon"><i class="icon-user"></i></div>
                                             <div class="text">User</div>
                                         </a>
                                         <ul class="sub-menu">
                                             <li class="sub-menu-item">
-                                                <a href="all-user" class="">
+                                                <a href="{{route('users.index')}}" class="">
                                                     <div class="text">All user</div>
                                                 </a>
                                             </li>
                                             <li class="sub-menu-item">
-                                                <a href="add-new-user" class="active">
+                                                <a href="{{route('add-new-user')}}" class="">
                                                     <div class="text">Add new user</div>
                                                 </a>
                                             </li>
@@ -396,7 +396,7 @@
                                     <h3>Add New User</h3>
                                     <ul class="breadcrumbs flex items-center flex-wrap justify-start gap10">
                                         <li>
-                                            <a href="index">
+                                            <a href="{{route('dashboard.index')}}">
                                                 <div class="text-tiny">Dashboard</div>
                                             </a>
                                         </li>

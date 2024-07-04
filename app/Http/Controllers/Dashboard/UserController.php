@@ -11,6 +11,9 @@ use Illuminate\Validation\Rule;
 class UserController extends Controller
 {
     //
+    public function add(){
+        return view('dashboard.add-new-user');
+    }
     public function index(){
         $users=User::all();
         return view("dashboard.all-user",compact("users"));

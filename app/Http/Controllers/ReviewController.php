@@ -17,17 +17,15 @@ class ReviewController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'product_id' => 'required|exists:products,id', 
-            'rating' => 'required|integer|between:1,5',
-            'title' => 'required|string|max:255',
-            'body' => 'required|string|max:1500',
+            'product_id' => 'required', 
+            'rating' => 'required',
+            'title' => 'required',
+            'body' => 'required',
         ]);
     
-        $user_id = Auth::id();
+        $user_id =$request->user_id;
     
-        if ($user_id === null) {
-            return redirect()->route('login')->with('error', 'You need to be logged in to submit a review.');
-        }
+      
     
         $review = new Review();
         $review->product_id = $request->product_id;

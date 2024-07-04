@@ -53,7 +53,7 @@
                 <!-- section-menu-left -->
                 <div class="section-menu-left">
                     <div class="box-logo">
-                        <a href="index" id="site-logo-inner">
+                        <a href="{{route('dashboard.index')}}" id="site-logo-inner">
                             <img class=""  alt="" src=""
                                 data-light="" data-dark="">
                         </a>
@@ -73,7 +73,7 @@
                                         </a>
                                         <ul class="sub-menu" style="display: block;">
                                             <li class="sub-menu-item">
-                                                <a href="index" class="active">
+                                                <a href="{{route('dashboard.index')}}" class="active">
                                                     <div class="text">Home</div>
                                                 </a>
                                             </li>
@@ -92,12 +92,12 @@
                                         </a>
                                         <ul class="sub-menu">
                                             <li class="sub-menu-item">
-                                                <a href="add-product" class="">
+                                                <a href="{{route('dashboard.add-product')}}" class="">
                                                     <div class="text">Add Product</div>
                                                 </a>
                                             </li>
                                             <li class="sub-menu-item">
-                                                <a href="product-list" class="">
+                                                <a href="{{route('dashboard.show')}}|" class="">
                                                     <div class="text">Product List</div>
                                                 </a>
                                             </li>
@@ -110,12 +110,12 @@
                                         </a>
                                         <ul class="sub-menu">
                                             <li class="sub-menu-item">
-                                                <a href="category-list" class="">
+                                                <a href="{{route('category.index')}}" class="">
                                                     <div class="text">Category list</div>
                                                 </a>
                                             </li>
                                             <li class="sub-menu-item">
-                                                <a href="new-category" class="">
+                                                <a href="{{route('category.add')}}" class="">
                                                     <div class="text">New category</div>
                                                 </a>
                                             </li>
@@ -128,12 +128,12 @@
                                         </a>
                                         <ul class="sub-menu">
                                             <li class="sub-menu-item">
-                                                <a href="all-user" class="">
+                                                <a href="{{route('users.index')}}" class="">
                                                     <div class="text">All user</div>
                                                 </a>
                                             </li>
                                             <li class="sub-menu-item">
-                                                <a href="add-new-user" class="">
+                                                <a href="{{route('add-new-user')}}" class="">
                                                     <div class="text">Add new user</div>
                                                 </a>
                                             </li>

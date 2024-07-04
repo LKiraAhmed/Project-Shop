@@ -33,6 +33,11 @@ class Product extends Model
     {
         return $this->belongsTo(Catigory::class, 'category_id', 'id');
     }
-    
+
+    // // Accessor for average rating
+    // public function getAverageRatingAttribute()
+    // {
+    //     return $this->reviews()->avg('rate');
+    // }
   
 }

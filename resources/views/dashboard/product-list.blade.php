@@ -73,7 +73,7 @@
                                         </a>
                                         <ul class="sub-menu" style="display: block;">
                                             <li class="sub-menu-item">
-                                                <a href="index" class="">
+                                                <a href="{{route('dashboard.index')}}" class="">
                                                     <div class="text">Home</div>
                                                 </a>
                                             </li>
@@ -85,19 +85,19 @@
                             <div class="center-item">
                                 <div class="center-heading">All page</div>
                                 <ul class="menu-list">
-                                    <li class="menu-item has-children active">
+                                    <li class="menu-item has-children">
                                         <a href="javascript:void(0);" class="menu-item-button">
                                             <div class="icon"><i class="icon-shopping-cart"></i></div>
                                             <div class="text">Ecommerce</div>
                                         </a>
                                         <ul class="sub-menu">
                                             <li class="sub-menu-item">
-                                                <a href="add-product" class="">
+                                                <a href="{{route('dashboard.add-product')}}" class="">
                                                     <div class="text">Add Product</div>
                                                 </a>
                                             </li>
                                             <li class="sub-menu-item">
-                                                <a href="product-list" class="active">
+                                                <a href="{{route('dashboard.show')}}|" class="">
                                                     <div class="text">Product List</div>
                                                 </a>
                                             </li>
@@ -110,12 +110,12 @@
                                         </a>
                                         <ul class="sub-menu">
                                             <li class="sub-menu-item">
-                                                <a href="category-list" class="">
+                                                <a href="{{route('category.index')}}" class="">
                                                     <div class="text">Category list</div>
                                                 </a>
                                             </li>
                                             <li class="sub-menu-item">
-                                                <a href="new-category" class="">
+                                                <a href="{{route('category.add')}}" class="">
                                                     <div class="text">New category</div>
                                                 </a>
                                             </li>
@@ -128,12 +128,12 @@
                                         </a>
                                         <ul class="sub-menu">
                                             <li class="sub-menu-item">
-                                                <a href="all-user" class="">
+                                                <a href="{{route('users.index')}}" class="">
                                                     <div class="text">All user</div>
                                                 </a>
                                             </li>
                                             <li class="sub-menu-item">
-                                                <a href="add-new-user" class="">
+                                                <a href="{{route('add-new-user')}}" class="">
                                                     <div class="text">Add new user</div>
                                                 </a>
                                             </li>
@@ -442,7 +442,7 @@
                                                 </div>
                                             </form>
                                         </div>
-                                        <a class="tf-button style-1 w208" href="add-product"><i class="icon-plus"></i>Add new</a>
+                                        <a class="tf-button style-1 w208" href="{{route('dashboard.add-product')}}"><i class="icon-plus"></i>Add new</a>
                                     </div>
                                     <div class="wg-table table-product-list">
                                         <ul class="table-title flex gap20 mb-14">
