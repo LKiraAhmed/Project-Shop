@@ -23,7 +23,7 @@ class CartController extends Controller
         return view('cart', compact('cartItems', 'subtotal'));
     }
       // store
-      public function sotre(Request $request)
+      public function store(Request $request)
       {
           $request->validate([
               'product_id' => 'required|exists:products,id',
