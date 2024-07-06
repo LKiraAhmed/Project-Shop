@@ -15,6 +15,7 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,400i,500,500i,600,700,800,900" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,500,600,700" rel="stylesheet">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
     <!--== Bootstrap CSS ==-->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
@@ -208,9 +209,7 @@
                                   </tr>
                               </thead>
                               <tbody>
-                                  @php
-                                      $total = 0;
-                                  @endphp
+                                  @php $total = 0; @endphp
                                   @foreach ($cartItems as $cartItem)
                                       @php
                                           $product = $cartItem->product;
@@ -240,10 +239,9 @@
                                               <span class="price">${{ number_format($product->price, 2) }}</span>
                                           </td>
                                           <td class="indecor-product-quantity">
-                                            <div class="pro-qty">
-                                              <input type="text" id="quantity5" title="Quantity" value="{{ $cartItem->quantity }}">
-                                             
-                                          </div>
+                                              <div class="pro-qty">
+                                                  <input type="text" id="quantity {{ $cartItem->id }}" title="Quantity" value="{{ $cartItem->quantity }}" oninput="updateCart({{ $cartItem->id }})">
+                                              </div>
                                           </td>
                                           <td class="indecor-product-subtotal">
                                               <span class="price">${{ number_format($subtotal, 2) }}</span>
@@ -269,7 +267,6 @@
           </div>
       </div>
   </section>
-  
   
     <!--== End Product Area Wrapper ==-->
   </main>
@@ -403,26 +400,36 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <script>
-  const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+  async function updateCart(productId) {
+      const quantityInput = document.getElementById(`quantity${productId}`);
+      const quantity = quantityInput.value;
+      const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-  function updateCartItem(route, cartItemId, newQuantity) {
-      const requestData = {
-          product_id: productId,
-          quantity: newQuantity,
-          _token: '{{ csrf_token() }}'
-      };
-
-      axios.post('{{ route('cart.updateCart') }}', requestData)
-          .then(response => {
-              console.log(response.data);
-              
-          })
-          .catch(error => {
-              console.error('Error:', error);
+      try {
+          const response = await fetch('{{ route('cart.updateCart') }}', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'X-CSRF-TOKEN': token
+              },
+              body: JSON.stringify({
+                  product_id: productId,
+                  quantity: quantity
+              })
           });
+
+          const data = await response.json();
+
+          if (response.ok) {
+              console.log(data.message);
+          } else {
+              console.error(data.message);
+          }
+      } catch (error) {
+          console.error('Error:', error);
+      }
   }
 </script>
-
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
