@@ -221,7 +221,6 @@
                                           <td class="indecor-product-remove">
                                               <form action="{{ route('cart.destroy', $cartItem->id) }}" method="POST">
                                                   @csrf
-                                                  @method('DELETE')
                                                   <button type="submit" class="btn btn-link">
                                                       <i class="fa fa-times"></i>
                                                   </button>
@@ -242,7 +241,8 @@
                                           </td>
                                           <td class="indecor-product-quantity">
                                             <div class="pro-qty">
-                                              <input type="number" id="quantityInput{{ $product->id }}" value="{{ $cartItem->quantity }}" step="any" onchange="updateCartItem('{{ route('cart.updateCart') }}', '{{ $product->id }}', this.value)">
+                                              <input type="text" id="quantity5" title="Quantity" value="{{ $cartItem->quantity }}">
+                                             
                                           </div>
                                           </td>
                                           <td class="indecor-product-subtotal">

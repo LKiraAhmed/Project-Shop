@@ -222,16 +222,19 @@
                                                 <div class="product-action-simple">
                                                     <div class="product-quick-action">
                                                         <div class="product-quick-qty">  
-                                                            <div class="pro-qty">
-                                                                <input type="number" id="quantity5" name="quantity" title="Quantity" value="{{ $products->quantity }}" >
-                                                            </div>                  
                                                             <form action="{{ route('cart.store') }}" method="POST" class="product-form">
                                                                 @csrf
-                                                                
-                                                                <input type="hidden" name="product_id" value="{{ $products->id }}">
-                                                                <button type="submit" class="btn-product-add">ADD TO CART</button>
-                                                            
-                                                            </form>
+                                                                        <div class="pro-qty">
+                                                                            <input type="number" id="quantity5" name="quantity" title="Quantity" class="form-control" value="{{ $products->quantity }}">
+                                                                        </div>                  
+                                                                    </div>
+                                                                    
+                                                                    
+                                                                        <input type="hidden" name="product_id" value="{{ $products->id }}">
+                                                                        <button type="submit" class="btn btn-primary btn-product-add">ADD TO CART</button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
                                                 
                                                             <div class="product-wishlist">
                                                                 @auth
