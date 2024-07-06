@@ -35,7 +35,6 @@
     <link href="assets/css/fancybox.min.css" rel="stylesheet" />
     <!--== Slicknav Min CSS ==-->
     <link href="assets/css/slicknav.css" rel="stylesheet" />
-    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!--== Main Style CSS ==-->
     <link href="assets/css/style.css" rel="stylesheet" />
@@ -66,15 +65,14 @@
   <!--== End Preloader Content ==-->
 
   <!--== Start Header Wrapper ==-->
-  
   <header class="header-area header-default">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-6 col-sm-4 col-lg-3">
                 <div class="header-logo-area">
                     <a href="index">
-                        <img class="logo-main" src="assets/img/be-unique-logo.jpg" alt="Logo" />
-                        <img class="logo d-none" src="assets/img/logo-light.png" alt="Logo" />
+                        <img class="logo-main" src="{{asset('assets/img/be-unique-logo.jpg')}}" alt="Logo" />
+                        <img class="logo d-none" src="{{asset('assets/img/logo-light.png')}}" alt="Logo" />
                     </a>
                 </div>
             </div>
@@ -83,17 +81,17 @@
                     <ul class="main-menu nav position-relative">
                         <li class="has-submenu"><a href="#/">Home</a>
                             <ul class="submenu-nav">
-                                <li><a href="index">Home</a></li>
+                                <li><a href="{{route('home')}}">Home</a></li>
                             </ul>
                         </li>
-                        <li class="has-submenu full-width"><a href="#/">Shop</a>
+                        <li class="has-submenu full-width"><a href="">Shop</a>
                             <ul class="submenu-nav submenu-nav-mega">
-                                <li class="mega-menu-item"><a href="#/" class="mega-title">Shop Layouts</a>
+                                <li class="mega-menu-item"><a href="" class="mega-title">Shop Layouts</a>
                                     <ul>
-                                        <li><a href="shop-3-grid">Shop All</a></li>
+                                        <li><a href="{{route('shop-3-grid')}}">Shop All</a></li>
                                     </ul>
                                 </li>
-                                <li class="mega-menu-item"><a href="#/" class="mega-title">Shop Pages</a>
+                                <li class="mega-menu-item"><a href="#" class="mega-title">Shop Pages</a>
                                     <ul>
                                       @auth
                                       <li><a href="{{ url('login') }}">{{ Auth::user()->name }}</a></li>
@@ -101,15 +99,15 @@
                                       <li><a href="{{ url('login') }}">Login</a></li>
                                        @endauth     
                                         <li><a href="{{url('login')}}"></a></li>
-                                        <li><a href="wishlist">Wishlist</a></li>
-                                        <li><a href="cart">Cart</a></li>
-                                        <li><a href="checkout">Checkout</a></li>
+                                        <li><a href="{{route('wishlist.index')}}">Wishlist</a></li>
+                                        <li><a href="{{route('cart.index')}}">Cart</a></li>
+                                        <li><a href="{{url('checkout')}}">Checkout</a></li>
                                     </ul>
                                 </li>
                             </ul>
                         </li>
-                        <li><a href="contact">Contact</a></li>
-                        <li><a href="about-us">About</a></li>
+                        <li><a href="{{url('contact')}}">Contact</a></li>
+                        <li><a href="{{urL('about-us')}}">About</a></li>
                     </ul>
                 </div>
             </div>
@@ -167,20 +165,21 @@
       <div class="swiper-container swiper-slide-gap home-slider-container default-slider-container">
         <div class="swiper-wrapper home-slider-wrapper slider-default">
           @foreach($randomProducts as $product)
+         @php
+          $description = $product->description;
+          $max_length = 100; 
+          if (strlen($description) > $max_length) {
+        $description = substr($description, 0, $max_length) .'...';}
+         @endphp
+        
               <div class="swiper-slide">
                   <div class="slider-content-area" data-bg-img="/allFiels/{{ $product->image }}">
                       <div class="slider-content">
-                          <h5 class="sub-title">{{ $product->subtitle }}</h5>
-                          <h2 class="title">{{ $product->title }}</h2>>
-                          <?php
-                          $description = $product->description;
-                          $max_length = 100; 
-                          if (strlen($description) > $max_length) {
-                        $description = substr($description, 0, $max_length) . '...';
-                        }?>
-            
-                          <p>{{ $description }}</p>
-                          <a class="btn-slider" href="{{route('products.single', $product->id)}}" >Shop Now</a>
+                        
+                          <h5 class="sub-title">{{ $product->name }}</h5>
+                          <h2 class="title">{{ $product->price }}</h2>>
+                      
+                        <p>{{$description}}</p>
                       </div>
                   </div>
               </div>
@@ -278,7 +277,7 @@
                                         </a>
                                         <div class="product-action">
                                             <div class="addto-wrap">
-                                                <a href="#" class="add-cart" onclick="addToCart({{ $product->id }});">
+                                                <a href="#" class="add-cart" onclick="addToCart({{ $product->id }})">
                                                     <i class="zmdi zmdi-shopping-cart-plus icon"></i>
                                                 </a>
                                                 <a class="add-wishlist" href="#" onclick="addWishlist({{ $product->id }})">
@@ -307,11 +306,26 @@
                                                 <span class="price-old">${{ $product->discount }}</span>
                                             </div>
                                             <div class="star-content">
+                                              @php
+                                              $averageRating = $product->reviews->avg('rating'); 
+                                              $maxRating = $product->reviews->max('rating');
+                                              $mostCommonRating = $product->reviews
+                                                                  ->groupBy('rating')
+                                                                  ->sortByDesc(function ($group) {
+                                                                      return count($group);
+                                                                  })
+                                                                  ->keys()
+                                                                  ->first();
+                                          
+                                              $displayRating = ($averageRating >= $maxRating) ? $averageRating : $mostCommonRating;
+                                              @endphp
+                                              @for ($i = 1; $i <= 5; $i++)
+                                              @if ($i <= $displayRating)
                                                 <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
+                                               @else
                                                 <i class="fa fa-star-o"></i>
+                                                @endif
+                                                @endfor
                                             </div>
                                         </div>
                                     </div>
@@ -325,6 +339,9 @@
                 
                 <div class="tab-pane fade" id="mostView" role="tabpanel" aria-labelledby="most-view-tab">
                     <div class="row">
+                      @php
+                             $mostViewedProducts =App\Models\Product::orderByDesc('views_count')->limit(10)->get();
+                      @endphp
                         @foreach($mostViewedProducts as $product)
                         <div class="col-md-3 col-sm-6 mb-4">
                             <!-- Start Shop Item -->
@@ -337,10 +354,10 @@
                                
                                         <div class="product-action">
                                             <div class="addto-wrap">
-                                                <a href="#" class="add-cart" onclick="addToCart({{ $product->id }});">
+                                                <a href="" class="add-cart" onclick="addToCart({{ $product->id }});">
                                                     <i class="zmdi zmdi-shopping-cart-plus icon"></i>
                                                 </a>
-                                                <a class="add-wishlist" href="#" onclick="addWishlist({{ $product->id }})">
+                                                <a class="add-wishlist" href="" onclick="addWishlist({{ $product->id }})">
                                                     <i class="zmdi zmdi-favorite-outline zmdi-hc-fw icon"></i>
                                                 </a>
                                             </div>
@@ -366,11 +383,26 @@
                                                 <span class="price-old">${{ $product->discount }}</span>
                                             </div>
                                             <div class="star-content">
+                                              @php
+                                              $averageRating = $product->reviews->avg('rating'); 
+                                              $maxRating = $product->reviews->max('rating');
+                                              $mostCommonRating = $product->reviews
+                                                                  ->groupBy('rating')
+                                                                  ->sortByDesc(function ($group) {
+                                                                      return count($group);
+                                                                  })
+                                                                  ->keys()
+                                                                  ->first();
+                                          
+                                              $displayRating = ($averageRating >= $maxRating) ? $averageRating : $mostCommonRating;
+                                              @endphp
+                                              @for ($i = 1; $i <= 5; $i++)
+                                              @if ($i <= $displayRating)
                                                 <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
+                                               @else
                                                 <i class="fa fa-star-o"></i>
+                                                @endif
+                                                @endfor
                                             </div>
                                         </div>
                                     </div>
@@ -442,11 +474,26 @@
                                                     <span class="price-old">${{ $product->discount }}</span>
                                                 </div>
                                                 <div class="star-content">
+                                                  @php
+                                                  $averageRating = $product->reviews->avg('rating'); 
+                                                  $maxRating = $product->reviews->max('rating');
+                                                  $mostCommonRating = $product->reviews
+                                                                      ->groupBy('rating')
+                                                                      ->sortByDesc(function ($group) {
+                                                                          return count($group);
+                                                                      })
+                                                                      ->keys()
+                                                                      ->first();
+                                              
+                                                  $displayRating = ($averageRating >= $maxRating) ? $averageRating : $mostCommonRating;
+                                                  @endphp
+                                                  @for ($i = 1; $i <= 5; $i++)
+                                                  @if ($i <= $displayRating)
                                                     <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
+                                                   @else
                                                     <i class="fa fa-star-o"></i>
+                                                    @endif
+                                                    @endfor
                                                 </div>
                                             </div>
                                         </div>
@@ -672,14 +719,15 @@
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
-  function addToCart(productId) {
+    function addToCart(productId) {
+      const token = '{{ csrf_token() }}';
       const postData = {
           product_id: productId,
           quantity: 1,
-          _token: '{{ csrf_token() }}'
+          _token: token
       };
 
-      axios.post('{{ route('cart.store') }}', postData)
+      axios.post('{{ route('cart.addToCart') }}', postData)
           .then(response => {
               console.log(response.data);
               window.location.href = '/cart'; 

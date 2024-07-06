@@ -23,9 +23,11 @@ class Product extends Model
     public function carts(){
         return $this->hasMany(Cart::class,'id','product_id');
     }
-    public function reviews(){
-        return $this->hasMany(Review::class,'id','product_id');
+    public function reviews()
+    {
+        return $this->hasMany(Review::class, 'product_id', 'id');
     }
+    
     public function Wishlist(){
         return $this->hasMany(Wishlist::class,'id','product_id');
     }
@@ -35,9 +37,9 @@ class Product extends Model
     }
 
     // // Accessor for average rating
-    // public function getAverageRatingAttribute()
-    // {
-    //     return $this->reviews()->avg('rate');
-    // }
+    public function getAverageRatingAttribute()
+    {
+        return $this->reviews()->avg('rating');
+    }
   
 }

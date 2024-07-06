@@ -14,6 +14,7 @@
     <!--== Google Fonts ==-->
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,400i,500,500i,600,700,800,900" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,500,600,700" rel="stylesheet">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!--== Bootstrap CSS ==-->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
@@ -96,17 +97,17 @@
                     <ul class="main-menu nav position-relative">
                         <li class="has-submenu"><a href="#/">Home</a>
                             <ul class="submenu-nav">
-                                <li><a href="index">Home</a></li>
+                                <li><a href="{{route('home')}}">Home</a></li>
                             </ul>
                         </li>
-                        <li class="has-submenu full-width"><a href="#/">Shop</a>
+                        <li class="has-submenu full-width"><a href="">Shop</a>
                             <ul class="submenu-nav submenu-nav-mega">
-                                <li class="mega-menu-item"><a href="#/" class="mega-title">Shop Layouts</a>
+                                <li class="mega-menu-item"><a href="" class="mega-title">Shop Layouts</a>
                                     <ul>
-                                        <li><a href="shop-3-grid">Shop All</a></li>
+                                        <li><a href="{{route('shop-3-grid')}}">Shop All</a></li>
                                     </ul>
                                 </li>
-                                <li class="mega-menu-item"><a href="#/" class="mega-title">Shop Pages</a>
+                                <li class="mega-menu-item"><a href="#" class="mega-title">Shop Pages</a>
                                     <ul>
                                       @auth
                                       <li><a href="{{ url('login') }}">{{ Auth::user()->name }}</a></li>
@@ -114,15 +115,15 @@
                                       <li><a href="{{ url('login') }}">Login</a></li>
                                        @endauth     
                                         <li><a href="{{url('login')}}"></a></li>
-                                        <li><a href="wishlist">Wishlist</a></li>
-                                        <li><a href="cart">Cart</a></li>
-                                        <li><a href="checkout">Checkout</a></li>
+                                        <li><a href="{{route('wishlist.index')}}">Wishlist</a></li>
+                                        <li><a href="{{route('cart.index')}}">Cart</a></li>
+                                        <li><a href="{{url('checkout')}}">Checkout</a></li>
                                     </ul>
                                 </li>
                             </ul>
                         </li>
-                        <li><a href="contact">Contact</a></li>
-                        <li><a href="about-us">About</a></li>
+                        <li><a href="{{url('contact')}}">Contact</a></li>
+                        <li><a href="{{urL('about-us')}}">About</a></li>
                     </ul>
                 </div>
             </div>
@@ -194,71 +195,64 @@
           <div class="row">
               <div class="col-12">
                   <div class="shopping-cart-wrap">
-                          <div class="cart-table table-responsive">
-                              <table class="table">
-                                  <thead>
-                                      <tr>
-                                          <th class="indecor-product-remove">Remove</th>
-                                          <th class="indecor-product-thumbnail">Image</th>
-                                          <th class="indecor-product-name">Product</th>
-                                          <th class="indecor-product-price">Price</th>
-                                          <th class="indecor-product-quantity">Quantity</th>
-                                          <th class="indecor-product-subtotal">Subtotal</th>
-                                      </tr>
-                                  </thead>
-                                  <tbody>
+                      <div class="cart-table table-responsive">
+                          <table class="table">
+                              <thead>
+                                  <tr>
+                                      <th class="indecor-product-remove">Remove</th>
+                                      <th class="indecor-product-thumbnail">Image</th>
+                                      <th class="indecor-product-name">Product</th>
+                                      <th class="indecor-product-price">Price</th>
+                                      <th class="indecor-product-quantity">Quantity</th>
+                                      <th class="indecor-product-subtotal">Subtotal</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  @php
+                                      $total = 0;
+                                  @endphp
+                                  @foreach ($cartItems as $cartItem)
                                       @php
-                                          $total = 0;
+                                          $product = $cartItem->product;
+                                          $subtotal = $product->price * $cartItem->quantity;
+                                          $total += $subtotal;
                                       @endphp
-                                      @foreach ($cartItems as $cartItem)
-                                          @php
-                                              $product = $cartItem->product;
-                                              $subtotal = $product->price * $cartItem->quantity;
-                                              $total += $subtotal;
-                                          @endphp
-                                          <tr>
-                                              <td class="indecor-product-remove">
-                                                  <form action="{{ route('cart.destroy', $cartItem->id) }}" method="POST">
-                                                      @csrf
-                                                      {{-- @method('DELETE') --}}
-                                                      <button type="submit" class="btn btn-link">
-                                                          <i class="fa fa-times"></i>
-                                                      </button>
-                                                  </form>
-                                              </td>
-                                              <td class="indecor-product-thumbnail">
-                                                  <a href="{{ route('products.single', $product->id) }}">
-                                                      <img src="/allFiels/{{ $product->image }}" alt="{{ $product->name }}">
-                                                  </a>
-                                              </td>
-                                              <td class="indecor-product-name">
-                                                  <h4 class="title">
-                                                      <a href="{{ route('products.single', $product->id) }}">{{ $product->name }}</a>
-                                                  </h4>
-                                              </td>
-                                              <td class="indecor-product-price">
-                                                  <span class="price">${{ number_format($product->price, 2) }}</span>
-                                              </td>
-                                              <td class="indecor-product-quantity">
-                                                  <div class="pro-qty">
-                                                    <form action="{{ route('cart.update') }}" method="POST">
-                                                      @csrf
-                                                      <input type="hidden" hidden name="product_id[]" value="{{ $product->id }}">
-                                                      <input type="type"   name="quantity[]" class="form-control quantity-input" value="{{ $cartItem->quantity }}">
-                                                  </div>
-                                              </td>
-                                              <td class="product-subtotal">
-                                                  <span class="price">${{ number_format($subtotal, 2) }}</span>
-                                              </td>
-                                          </tr>
-                                      @endforeach
-                                  </tbody>
-                              </table>
-                          </div>
-  
-                          <button type="submit" class="btn btn-save">Update Quantity</button>
-                        </form>
-  
+                                      <tr>
+                                          <td class="indecor-product-remove">
+                                              <form action="{{ route('cart.destroy', $cartItem->id) }}" method="POST">
+                                                  @csrf
+                                                  @method('DELETE')
+                                                  <button type="submit" class="btn btn-link">
+                                                      <i class="fa fa-times"></i>
+                                                  </button>
+                                              </form>
+                                          </td>
+                                          <td class="indecor-product-thumbnail">
+                                              <a href="{{ route('products.single', $product->id) }}">
+                                                  <img src="/allFiels/{{ $product->image }}" alt="{{ $product->name }}">
+                                              </a>
+                                          </td>
+                                          <td class="indecor-product-name">
+                                              <h4 class="title">
+                                                  <a href="{{ route('products.single', $product->id) }}">{{ $product->name }}</a>
+                                              </h4>
+                                          </td>
+                                          <td class="indecor-product-price">
+                                              <span class="price">${{ number_format($product->price, 2) }}</span>
+                                          </td>
+                                          <td class="indecor-product-quantity">
+                                            <div class="pro-qty">
+                                              <input type="number" id="quantityInput{{ $product->id }}" value="{{ $cartItem->quantity }}" step="any" onchange="updateCartItem('{{ route('cart.updateCart') }}', '{{ $product->id }}', this.value)">
+                                          </div>
+                                          </td>
+                                          <td class="indecor-product-subtotal">
+                                              <span class="price">${{ number_format($subtotal, 2) }}</span>
+                                          </td>
+                                      </tr>
+                                  @endforeach
+                              </tbody>
+                          </table>
+                      </div>
                       <div class="cart-total">
                           <h4>Cart Totals</h4>
                           <ul>
@@ -275,7 +269,6 @@
           </div>
       </div>
   </section>
-  
   
   
     <!--== End Product Area Wrapper ==-->
@@ -405,6 +398,58 @@
 </div>
 
 <!--=======================Javascript============================-->
+<!-- Include Axios library -->
+<!-- Include Axios library -->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script>
+  const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+  function updateCartItem(route, cartItemId, newQuantity) {
+      const requestData = {
+          product_id: productId,
+          quantity: newQuantity,
+          _token: '{{ csrf_token() }}'
+      };
+
+      axios.post('{{ route('cart.updateCart') }}', requestData)
+          .then(response => {
+              console.log(response.data);
+              
+          })
+          .catch(error => {
+              console.error('Error:', error);
+          });
+  }
+</script>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+      const updateButtons = document.querySelectorAll('.update-cart');
+
+      updateButtons.forEach(button => {
+          button.addEventListener('click', function() {
+              const cartItemId = this.getAttribute('data-cart-id');
+              const newQuantity = document.querySelector(`[data-cart-id="${cartItemId}"]`).value;
+
+              axios.put(`{{route('cart.updateCart')}}`, {
+                  quantity: newQuantity
+              })
+              .then(response => {
+                  alert(response.data.message);
+              })
+              .catch(error => {
+                  console.error('Error updating cart:', error);
+                  alert('Failed to update cart. Please try again.');
+              });
+          });
+      });
+  });
+</script>
+
+
+
 <script>
   document.addEventListener('DOMContentLoaded', function () {
       document.querySelectorAll('.quantity').forEach(input => {

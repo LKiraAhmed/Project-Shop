@@ -16,6 +16,7 @@
   <!--== End Preloader Content ==-->
 
   <!--== Start Header Wrapper ==-->
+  
   <header class="header-area header-default">
     <div class="container">
         <div class="row align-items-center">
@@ -32,17 +33,17 @@
                     <ul class="main-menu nav position-relative">
                         <li class="has-submenu"><a href="#/">Home</a>
                             <ul class="submenu-nav">
-                                <li><a href="index">Home</a></li>
+                                <li><a href="{{route('home')}}">Home</a></li>
                             </ul>
                         </li>
-                        <li class="has-submenu full-width"><a href="#/">Shop</a>
+                        <li class="has-submenu full-width"><a href="">Shop</a>
                             <ul class="submenu-nav submenu-nav-mega">
-                                <li class="mega-menu-item"><a href="#/" class="mega-title">Shop Layouts</a>
+                                <li class="mega-menu-item"><a href="" class="mega-title">Shop Layouts</a>
                                     <ul>
-                                        <li><a href="shop-3-grid">Shop All</a></li>
+                                        <li><a href="{{route('shop-3-grid')}}">Shop All</a></li>
                                     </ul>
                                 </li>
-                                <li class="mega-menu-item"><a href="#/" class="mega-title">Shop Pages</a>
+                                <li class="mega-menu-item"><a href="#" class="mega-title">Shop Pages</a>
                                     <ul>
                                       @auth
                                       <li><a href="{{ url('login') }}">{{ Auth::user()->name }}</a></li>
@@ -50,15 +51,15 @@
                                       <li><a href="{{ url('login') }}">Login</a></li>
                                        @endauth     
                                         <li><a href="{{url('login')}}"></a></li>
-                                        <li><a href="wishlist">Wishlist</a></li>
-                                        <li><a href="cart">Cart</a></li>
-                                        <li><a href="checkout">Checkout</a></li>
+                                        <li><a href="{{route('wishlist.index')}}">Wishlist</a></li>
+                                        <li><a href="{{route('cart.index')}}">Cart</a></li>
+                                        <li><a href="{{url('checkout')}}">Checkout</a></li>
                                     </ul>
                                 </li>
                             </ul>
                         </li>
-                        <li><a href="contact">Contact</a></li>
-                        <li><a href="about-us">About</a></li>
+                        <li><a href="{{url('contact')}}">Contact</a></li>
+                        <li><a href="{{urL('about-us')}}">About</a></li>
                     </ul>
                 </div>
             </div>
@@ -108,7 +109,6 @@
         </div>
     </div>
 </header>
-
   <!--== End Header Wrapper ==-->
   {{-- @php
   $products = App\Models\Product::with('reviews')
@@ -145,205 +145,263 @@
 
     <!--== Start Product Single Area Wrapper ==-->
     <section class="product-area product-single-area">
-      <div class="container pt-60 pb-0">
-        <div class="row">
-          <div class="col-12">
-            <div class="product-single-item" data-margin-bottom="63">
-              <div class="row">
-                <div class="col-lg-6">
-                  <!--== Start Product Thumbnail Area ==-->
-                  <div class="product-thumb">
-                    <div class="zoom zoom-hover">
-                      <a class="lightbox-image" data-fancybox="gallery" href="assets/img/shop/product-single/3.jpg">
-                        <img class="w-100 h-100" src="/allFiels/{{$products->image}}"   alt="{{$products->name}}">
-                      </a>
-                    </div>
-                  </div>
-                  <!--== End Product Thumbnail Area ==-->
-                </div>
-                <div class="col-lg-6">
-                  <!--== Start Product Info Area ==-->
-                  <div class="product-single-info">
-                    <h4 class="title">{{$products->name}}</h4>
-                    <div class="prices">
-                      <span class="price">{{$products->price}}</span>
-                      <span class="price-old">{{$products->discount}}</span>
-                    </div>
-                    <div class="rating-box-wrap">
-                      <div class="rating-box">
-                        <i class="fa fa-star-o"></i>
-                        <i class="fa fa-star-o"></i>
-                        <i class="fa fa-star-o"></i>
-                        <i class="fa fa-star-o"></i>
-                        <i class="fa fa-star-o"></i>
-                      </div>
-                      <div class="review-status">
-                        <a href="javascript:void(0)">( 1 Customer Review )</a>
-                      </div>
-                    </div>
-                    <?php
-              $description = $products->description;
-              $max_length = 100; 
-              if (strlen($description) > $max_length) {
-            $description = substr($description, 0, $max_length) . '...';
-            }?>
-
-                  <p><?php echo $description; ?></p>
-                  {{-- @endforeach --}}
-                    <div class="product-action-simple">
-                        <div class="product-quick-action">
-                            <div class="product-quick-qty">                    
-                                <form action="{{ route('cart.store') }}" method="POST" class="product-form">
-                                    @csrf
-                                    <div class="pro-qty">
-                                        <input type="text" id="quantity" name="quantity" title="Quantity" value="1">
+        <div class="container pt-60 pb-0">
+            <div class="row">
+                <div class="col-12">
+                    <div class="product-single-item" data-margin-bottom="63">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <!--== Start Product Thumbnail Area ==-->
+                                <div class="product-thumb">
+                                    <div class="zoom zoom-hover">
+                                        <a class="lightbox-image" data-fancybox="gallery" href="/allFiels/{{$products->image}}">
+                                            <img class="w-100 h-100" src="/allFiels/{{$products->image}}" alt="{{$products->name}}">
+                                        </a>
                                     </div>
-                                    <input type="hidden" name="product_id" value="{{ $products->id }}">
-                                    <button type="submit" class="btn-product-add">ADD TO CART</button>
-                                </form>
-                                
-                            <div class="product-wishlist">
-                                @auth
-                                    <form action="{{ route('wishlist.store') }}" method="POST" id="wishlistForm">
-                                        @csrf
-                                        <input type="hidden" name="product_id" value="{{ $products->id }}">
-                                        <a href="#" class="btn-wishlist" onclick="document.getElementById('wishlistForm').submit(); return false;">Add to wishlist</a>
-                                    </form>
-                                @else
-                                    <a href="{{ route('login') }}" class="btn-wishlist">Login to add to wishlist</a>
-                                @endauth
+                                </div>
+                                <!--== End Product Thumbnail Area ==-->
                             </div>
-                            
-                            <div class="payment-button">
-                                <a href="#/" class="btn-payment">Buy it now</a>
+                            <div class="col-lg-6">
+                                <!--== Start Product Info Area ==-->
+                                <div class="product-single-info">
+                                    <h4 class="title">{{$products->name}}</h4>
+                                    <div class="prices">
+                                        <span class="price">{{$products->price}}</span>
+                                        <span class="price-old">{{$products->discount}}</span>
+                                    </div>
+                                    <div class="rating-box-wrap">
+                                        <div class="rating-box">
+                                            @php
+                                            $averageRating = $products->reviews->avg('rating'); 
+                                            $maxRating = $products->reviews->max('rating');
+                                            
+                                           
+                                            $mostCommonRating = $products->reviews
+                                                                ->groupBy('rating')
+                                                                ->sortByDesc(function ($group) {
+                                                                    return count($group);
+                                                                })
+                                                                ->keys()
+                                                                ->first();
+                                        
+                                         
+                                            $displayRating = ($averageRating >= $maxRating) ? $averageRating : $mostCommonRating;
+                                        @endphp
+                                        
+                                       
+                                            @for ($i = 1; $i <= 5; $i++)
+                                                @if ($i <= $displayRating)
+                                                <i class="fa fa-star"></i>
+
+                                                @else
+                                                <i class="fa fa-star-o"></i>
+                                                @endif
+                                            @endfor
+                                        
+                                            {{-- <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i> --}}
+                                        </div>
+                                        <div class="review-status">
+                                            <a href="javascript:void(0)">( {{$products->reviews->count()}} Customer Reviews )</a>
+                                        </div>
+                                    </div>
+                                    <?php
+                                        $description = $products->description;
+                                        $max_length = 100; 
+                                        if (strlen($description) > $max_length) {
+                                            $description = substr($description, 0, $max_length) . '...';
+                                        }
+                                    ?>
+                                    <p><?php echo $description; ?></p>
+                                    <div class="product-action-simple">
+                                        <div class="product-quick-action">
+                                            <div class="product-quick-qty">                    
+                                                <div class="product-action-simple">
+                                                    <div class="product-quick-action">
+                                                        <div class="product-quick-qty">  
+                                                            <div class="pro-qty">
+                                                                <input type="number" id="quantity5" name="quantity" title="Quantity" value="{{ $products->quantity }}" >
+                                                            </div>                  
+                                                            <form action="{{ route('cart.store') }}" method="POST" class="product-form">
+                                                                @csrf
+                                                                
+                                                                <input type="hidden" name="product_id" value="{{ $products->id }}">
+                                                                <button type="submit" class="btn-product-add">ADD TO CART</button>
+                                                            
+                                                            </form>
+                                                
+                                                            <div class="product-wishlist">
+                                                                @auth
+                                                                    <form action="{{ route('wishlist.store') }}" method="POST" id="wishlistForm">
+                                                                        @csrf
+                                                                        <input type="hidden" name="product_id" value="{{ $products->id }}">
+                                                                        <a href="#" class="btn-wishlist" onclick="document.getElementById('wishlistForm').submit(); return false;">Add to wishlist</a>
+                                                                    </form>
+                                                                @else
+                                                                    <a href="{{ route('login') }}" class="btn-wishlist">Wishlist</a>
+                                                                @endauth
+                                                            </div>
+                                                
+                                                            <div class="payment-button">
+                                                                <a href="{{ route('checkout') }}" class="btn-payment">Buy it now</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--== End Product Info Area ==-->
                             </div>
                         </div>
                     </div>
-                  </div>
-                  <!--== End Product Info Area ==-->
                 </div>
-              </div>
             </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-12">
-            <div class="product-review-tabs-content">
-              <ul class="nav product-tab-nav" id="ReviewTab" role="tablist">
-                <li role="presentation">
-                  <a class="active" id="description-tab" data-bs-toggle="pill" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</a>
-                </li><li role="presentation">
-                  <a id="reviews-tab" data-bs-toggle="pill" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Reviews</a>
-                </li><li role="presentation">
-                  <a id="shipping-policy-tab" data-bs-toggle="pill" href="#shipping-policy" role="tab" aria-controls="shipping-policy" aria-selected="false">Shipping Policy</a>
-                </li><li role="presentation">
-                </li>
-              </ul>
-              <div class="tab-content product-tab-content" id="ReviewTabContent">
-                <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
-                  <div class="product-description">
-                    <p class="mb-0">{{$products->description}}</p>
-                  </div>
-                </div>
-                <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
-                  <div class="product-review-content">
-                    <div class="review-content-header">
-                      <h3>Customer Reviews</h3>
-                      <div class="review-info">
-                        <ul class="review-rating">
-                          <li class="fa fa-star"></li>
-                          <li class="fa fa-star"></li>
-                          <li class="fa fa-star"></li>
-                          <li class="fa fa-star"></li>
-                          <li class="fa fa-star-o"></li>
+            <div class="row">
+                <div class="col-12">
+                    <div class="product-review-tabs-content">
+                        <ul class="nav product-tab-nav" id="ReviewTab" role="tablist">
+                            <li role="presentation">
+                                <a class="active" id="description-tab" data-bs-toggle="pill" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</a>
+                            </li>
+                            <li role="presentation">
+                                <a id="reviews-tab" data-bs-toggle="pill" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Reviews</a>
+                            </li>
+                            <li role="presentation">
+                                <a id="shipping-policy-tab" data-bs-toggle="pill" href="#shipping-policy" role="tab" aria-controls="shipping-policy" aria-selected="false">Shipping Policy</a>
+                            </li>
                         </ul>
-                      </div>
-                    </div>
-
-                    <!--== Start Reviews Form Item ==-->
-                   <!--== Start Reviews Form Item ==-->
-                   <div class="reviews-form-area show">
-                    <h4 class="title">Write a review</h4>
-                    <div class="reviews-form-content">
-                        <form id="reviewForm" action="{{ route('reviews.store') }}" method="POST">
-                            @csrf
-                            <input type="hidden" name="product_id" value="{{ $products->id }}">
-                            @auth
-                            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                            @endauth
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <span class="title">Rating</span>
-                                        <ul class="review-rating" id="ratingStars">
-                                          <li class="fa fa-star-o star" data-rating="1"></li>
-                                          <li class="fa fa-star-o star" data-rating="2"></li>
-                                          <li class="fa fa-star-o star" data-rating="3"></li>
-                                          <li class="fa fa-star-o star" data-rating="4"></li>
-                                          <li class="fa fa-star-o star" data-rating="5"></li>
-                                      </ul>
-                                      <input type="hidden" name="rating" id="ratingInput">
-                                  </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="for_review-title">Review Title</label>
-                                        <input id="for_review-title" name="title" class="form-control" type="text" placeholder="Give your review a title">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="for_comment">Body of Review (1500)</label>
-                                        <textarea id="for_comment" name="body" class="form-control" placeholder="Write your comments here"></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-submit-btn">
-                                        <button type="submit" class="btn-submit">Post comment</button>
-                                    </div>
+                        <div class="tab-content product-tab-content" id="ReviewTabContent">
+                            <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+                                <div class="product-description">
+                                    <p class="mb-0">{{$products->description}}</p>
                                 </div>
                             </div>
-                        </form>
+                            <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+                                <div class="product-review-content">
+                                    <div class="review-content-header">
+                                        <h3>Customer Reviews</h3>
+                                        <div class="review-info">
+                                            <ul class="review-rating">
+                                                <li class="fa fa-star"></li>
+                                                <li class="fa fa-star"></li>
+                                                <li class="fa fa-star"></li>
+                                                <li class="fa fa-star"></li>
+                                                <li class="fa fa-star-o"></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    @php
+                                        $productId = $products->id;
+                                        $product = App\Models\Product::with(['reviews.user'])
+                                            ->select('products.id', 'products.name', 'products.description', 'products.price', 'products.created_at', 'products.updated_at')
+                                            ->selectRaw('AVG(reviews.rating) as average_rate')
+                                            ->leftJoin('reviews', 'products.id', '=', 'reviews.product_id')
+                                            ->where('products.id', $productId)
+                                            ->groupBy('products.id', 'products.name', 'products.description', 'products.price', 'products.created_at', 'products.updated_at')
+                                            ->first();
+                                    @endphp                           
+                                    <!--== Start Reviews Form Item ==-->
+                                    <div class="reviews-form-area show">
+                                        <h4 class="title">Write a review</h4>
+                                        <div class="reviews-form-content">
+                                            <form id="reviewForm" action="{{ route('reviews.store') }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                                @auth
+                                                    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                                @endauth
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <span class="title">Rating</span>
+                                                            <ul class="review-rating" id="ratingStars">
+                                                                <li class="fa fa-star-o star" data-rating="1"></li>
+                                                                <li class="fa fa-star-o star" data-rating="2"></li>
+                                                                <li class="fa fa-star-o star" data-rating="3"></li>
+                                                                <li class="fa fa-star-o star" data-rating="4"></li>
+                                                                <li class="fa fa-star-o star" data-rating="5"></li>
+                                                            </ul>
+                                                            <input type="hidden" name="rating" id="ratingInput">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label for="for_review-title">Review Title</label>
+                                                            <input id="for_review-title" name="title" class="form-control" type="text" placeholder="Give your review a title">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label for="for_comment">Body of Review (1500)</label>
+                                                            <textarea id="for_comment" name="body" class="form-control" placeholder="Write your comments here"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-submit-btn">
+                                                            <button type="submit" class="btn-submit">Post comment</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    @foreach ($reviews as $review)
+                    <div class="reviews-content-body">
+                        <!--== Start Reviews Content Item ==-->
+                        <div class="review-item">
+                          <ul class="review-rating">
+                                                 @for ($i = 1; $i <= 5; $i++)
+                                                    @if ($i <= $review->rating)
+                                                        <li class="fa fa-star"></li>
+                                                    @else
+                                                        <li class="fa fa-star-o"></li>
+                                                    @endif
+                                                @endfor
+                          </ul>
+                          <h3 class="title">{{ $review-> body }}</h3>
+                          <h5 class="sub-title"><span>{{$review->user->name}}</span>    on <span>{{ $review->created_at->format('M d, Y') }}</span></h5>
+                          <p>{{ $review->title }}</p>
+                          <a href="#/">Report as Inappropriate</a>
+                        </div>
+                        @endforeach
+                        <!--== End Reviews Content Item ==-->
+                                {{-- <div class="reviews-content-body">
+                                        <div class="review-item">
+                                            <ul class="review-rating">
+                                                @for ($i = 1; $i <= 5; $i++)
+                                                    @if ($i <= $review->rating)
+                                                        <li class="fa fa-star"></li>
+                                                    @else
+                                                        <li class="fa fa-star-o"></li>
+                                                    @endif
+                                                @endfor
+                                            </ul>
+                                            <h1>{{$review->user->name}}</h1>
+                                            <h3 class="title">{{ $review->title }}</h3>
+                                            <h5 class="sub-title"><span>{{ $review->body}}</span></h5>
+                                            <p>{{ $review->body }}</p>
+                                            on <span>{{ $review->created_at->format('M d, Y') }}</span>
+                                            <a href="#">Report as Inappropriate</a>
+                                        </div>
+                                    <div class="review-pagination">
+                                        <span class="pagination-pag">1</span>
+                                        <span class="pagination-pag">2</span>
+                                        <span class="pagination-next">Next »</span>
+                                    </div> --}}
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                
-<!--== End Reviews Form Item ==-->
-
-                    <div class="reviews-content-body">
-                      @foreach ($reviews as $review)
-                      <div class="review-item">
-                          <ul class="review-rating">
-                            @for ($i = 1; $i <= 5; $i++)
-                            @if ($i <= $review->rating)
-                                <li class="fa fa-star"></li>
-                            @else
-                                <li class="fa fa-star-o"></li>
-                            @endif
-                        @endfor
-                          </ul>
-                          <h3 class="title">{{ $review->title }}</h3>
-                          <h5 class="sub-title"><span>{{ $review->user->name }}</span> on <span>{{ $review->created_at->format('M d, Y') }}</span></h5>
-                          <p>{{ $review->body }}</p>
-                          <a href="#">Report as Inappropriate</a>
-                      </div>
-                      @endforeach
-                      
-                  
-                      <div class="review-pagination">
-                          <span class="pagination-pag">1</span>
-                          <span class="pagination-pag">2</span>
-                          <span class="pagination-next">Next »</span>
-                      </div>
-                  </div>
-                  
-                  </div>
-                </div>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
     </section>
+    
 
 <!-- Start Product Single Area Wrapper -->
 
@@ -390,8 +448,33 @@
                                         <div class="product-info">
                                             <a href="{{ route('products.single', $randomProduct->id) }}">
                                                 <h4 class="title">{{ $randomProduct->name }}</h4>
-                                            </a>
-                                            <div class="product-description">
+                                             </a>
+                                             <div class="star-content">
+                                                @php
+                                                $averageRating = $randomProduct->reviews->avg('rating'); 
+                                                $maxRating = $randomProduct->reviews->max('rating');
+                                                $mostCommonRating = $randomProduct->reviews
+                                                                    ->groupBy('rating')
+                                                                    ->sortByDesc(function ($group) {
+                                                                        return count($group);
+                                                                    })
+                                                                    ->keys()
+                                                                    ->first();
+                                            
+                                                $displayRating = ($averageRating >= $maxRating) ? $averageRating : $mostCommonRating;
+                                                @endphp
+                                            
+                                                <ul class="review-rating">
+                                                    @for ($i = 1; $i <= 5; $i++)
+                                                        @if ($i <= $displayRating)
+                                                        <i class="fa fa-star"></i>
+                                                        @else
+                                                            <li class="fa fa-star-o"></li>
+                                                        @endif
+                                                    @endfor
+                                                </ul>
+                                            </div>
+                                           <div class="product-description">
                                                 @php
                                                     $description = $randomProduct->description;
                                                     $max_length = 50;
@@ -401,20 +484,11 @@
                                                 @endphp
                                                 <p>{{ $description }}</p>
                                             </div>
-                                            <div class="star-content">
-                                                @for ($i = 1; $i <= 5; $i++)
-                                                    @if ($i <= round($randomProduct->averageRating))
-                                                        <li class="fa fa-star"></li>
-                                                    @else
-                                                        <li class="fa fa-star-o"></li>
-                                                    @endif
-                                                @endfor
-                                            </div>
+                                           
                                             <div class="prices">
                                                 <span class="price">${{ $randomProduct->price }}</span>
-                                                @if ($randomProduct->old_price)
-                                                    <span class="price-old">${{ $randomProduct->old_price }}</span>
-                                                @endif
+                                      
+                                                    <span class="price-old">${{ $randomProduct->discount }}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -472,7 +546,25 @@
   </div>
   <div class="canvas-overlay" onclick="closeQuickViewModal()"></div>
 </aside>
-
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const stars = document.querySelectorAll('.star');
+        stars.forEach((star, index) => {
+            star.addEventListener('click', () => {
+                document.getElementById('ratingInput').value = star.getAttribute('data-rating');
+                stars.forEach((s, i) => {
+                    if (i <= index) {
+                        s.classList.remove('fa-star-o');
+                        s.classList.add('fa-star');
+                    } else {
+                        s.classList.remove('fa-star');
+                        s.classList.add('fa-star-o');
+                    }
+                });
+            });
+        });
+    });
+</script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
   function addToCart(productId) {

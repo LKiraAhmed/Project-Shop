@@ -14,51 +14,10 @@ class HomeController extends Controller
 {
     public function index(Request $request)
     {
-        $emailCookie = $request->cookie('email');
-
-        if ($emailCookie) {
-            $user = User::where('email', $emailCookie)->first();
-
-            if ($user) {
-                $cartItems = Cart::where('user_id', $user->id)->with('product')->get();
-                $subtotal = $cartItems->sum(function ($item) {
-                    return $item->product->price * $item->quantity;
-                });
-
-                $products = Product::all();
-
-                foreach ($products as $product) {
-                    $reviews = Review::where('product_id', $product->id)->get();
-                    $product->reviews = $reviews;
-                    $product->averageRating = $reviews->avg('rating');
-                    
-                 
-                }
-                foreach ($products as $product) {
-                    $mostViewedProduct = Product::find($product->id);
-                    if ($mostViewedProduct) {
-                        $mostViewedProduct->views_count += 1;
-                        $mostViewedProduct->save();
-                    }
-                }
-                $latestProduct = Product::orderBy('created_at', 'desc')->get();
-$images = DB::table('products')->select('image')->get();
-$encodedImages = [];
-
-foreach ($images as $image) {
-    $encodedImage = base64_encode($image->image);
-    $encodedImages[] = $encodedImage;
-}
-
-                $mostViewedProducts = Product::orderByDesc('views_count')->get();
-                $randomProducts = Product::inRandomOrder()->take(3)->get();
-
-                return view('index', compact('products', 'cartItems','latestProduct', 'mostViewedProducts','randomProducts','images'));
-            }
-        }
+       
 
         // 
-        $products = Product::all();
+        $products = Product::with(['reviews'])->select('*')->get();
         $latestProduct = Product::orderBy('created_at', 'desc')->get();
         $mostViewedProducts = Product::orderBy('views_count', 'desc')->get(); //      
         $cartItems = Cart::where('user_id', Auth::id())->with('product')->get();
@@ -78,4 +37,107 @@ foreach ($images as $image) {
         //Return view data
         return view('index', compact('products', 'latestProduct', 'mostViewedProducts', 'cartItems','randomProducts','encodedImages','reviews','roundedRating'));
     }
+
+
+    public function show(){
+        $cartItems = Cart::where('user_id', Auth::id())->with('product')->get();
+        $subtotal = $cartItems->sum(function($item) {
+            return $item->product->price * $item->quantity;
+        });
+
+        $products = Product::all();
+
+        foreach ($products as $product) {
+            $reviews = Review::where('product_id', $product->id)->get();
+            $product->reviews = $reviews;
+            $product->averageRating = $reviews->avg('rating');
+        }
+
+     
+
+        foreach ($products as $product) {
+            $product->increment('views_count');
+        }
+        $reviews = Review::all(); 
+        $averageRating = $reviews->avg('rating');
+        $roundedRating = min(5, round($averageRating));
+        $user=User::all();
+        return view('shop-3-grid',compact('user','products', 'cartItems','reviews','roundedRating'));
+    }
+
+    public function checkout(){
+        $cartItems = Cart::where('user_id', Auth::id())->with('product')->get();
+        $subtotal = $cartItems->sum(function($item) {
+            return $item->product->price * $item->quantity;
+        });
+
+        $products = Product::all();
+
+        foreach ($products as $product) {
+            $reviews = Review::where('product_id', $product->id)->get();
+            $product->reviews = $reviews;
+            $product->averageRating = $reviews->avg('rating');
+        }
+
+      
+
+        foreach ($products as $product) {
+            $product->increment('views_count');
+        }
+        $reviews = Review::all(); 
+        $averageRating = $reviews->avg('rating');
+        $roundedRating = min(5, round($averageRating));
+        $user=User::all();
+        return view('checkout',compact('user','products', 'cartItems','reviews','roundedRating'));
+    }
+    public function contact(){
+        $cartItems = Cart::where('user_id', Auth::id())->with('product')->get();
+        $subtotal = $cartItems->sum(function($item) {
+            return $item->product->price * $item->quantity;
+        });
+
+        $products = Product::all();
+
+        foreach ($products as $product) {
+            $reviews = Review::where('product_id', $product->id)->get();
+            $product->reviews = $reviews;
+            $product->averageRating = $reviews->avg('rating');
+        }
+
+    
+
+        foreach ($products as $product) {
+            $product->increment('views_count');
+        }
+        $reviews = Review::all(); 
+        $averageRating = $reviews->avg('rating');
+        $roundedRating = min(5, round($averageRating));
+        $user=User::all();
+        return view('contact',compact('user','products', 'cartItems','reviews','roundedRating'));
+    }
+    public function aboutus(){
+        $cartItems = Cart::where('user_id', Auth::id())->with('product')->get();
+        $subtotal = $cartItems->sum(function($item) {
+            return $item->product->price * $item->quantity;
+        });
+
+        $products = Product::all();
+
+        foreach ($products as $product) {
+            $reviews = Review::where('product_id', $product->id)->get();
+            $product->reviews = $reviews;
+            $product->averageRating = $reviews->avg('rating');
+        }
+
+
+        foreach ($products as $product) {
+            $product->increment('views_count');
+        }
+        $reviews = Review::all(); 
+        $averageRating = $reviews->avg('rating');
+        $roundedRating = min(5, round($averageRating));
+        $user=User::all();
+        return view('about-us',compact('user','products', 'cartItems','reviews','roundedRating'));
+    }
+
 }

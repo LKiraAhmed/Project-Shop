@@ -14,10 +14,12 @@ class PageController extends Controller
     public function index($id, Request $request)
     {
         if (view()->exists($id)) {
+           
             $cartItems = Cart::where('user_id', Auth::id())->with('product')->get();
             $subtotal = $cartItems->sum(function($item) {
                 return $item->product->price * $item->quantity;
             });
+
 
             $products = Product::all();
 
@@ -30,7 +32,7 @@ class PageController extends Controller
             $latestProduct = Product::orderBy('created_at', 'desc')->get();
 
             $mostViewedProducts = Product::orderByDesc('views_count')->limit(10)->get();
-            $randomProducts = Product::inRandomOrder()->take(3)->get();
+            $randomProducts = Product::with(['reviews'])->inRandomOrder()->limit(4)->get();
 
             foreach ($products as $product) {
                 $product->increment('views_count');
@@ -39,9 +41,7 @@ class PageController extends Controller
             $averageRating = $reviews->avg('rating');
             $roundedRating = min(5, round($averageRating));
             $user=User::all();
-            return view($id, compact('user','products', 'cartItems', 'latestProduct', 'mostViewedProducts','randomProducts','reviews','roundedRating'));
-        } else {
-            return view('404');
+            return view('404',compact('user','products', 'cartItems', 'latestProduct', 'mostViewedProducts','randomProducts','reviews','roundedRating'));
         }
     }
     

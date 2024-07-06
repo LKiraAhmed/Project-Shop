@@ -21,12 +21,13 @@ class ReviewController extends Controller
             'rating' => 'required',
             'title' => 'required',
             'body' => 'required',
+            'user_id'=>'required'
         ]);
     
         $user_id =$request->user_id;
-    
-      
-    
+        if(!$user_id){
+            return redirect()->route('login');
+        }
         $review = new Review();
         $review->product_id = $request->product_id;
         $review->user_id = $user_id;

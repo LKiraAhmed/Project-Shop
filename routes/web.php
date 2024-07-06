@@ -31,7 +31,7 @@ use App\Http\Controllers\Admin\ProductController as ProductControllerSigle;
 // Route::post('/dashboard/add-product/update', [ProductaddController::class, 'update'])->name('dashboard.update');
 
 //products
-Route::get('/dashboard/index',function(){
+Route::get('/dashboard',function(){
     return view('dashboard.index');
 })->name('dashboard.index');
 Route::get('/dashboard/add-product', [ProductaddController::class, 'index'])->name('dashboard.add-product');
@@ -64,13 +64,18 @@ Route::get('/dashboard/{page}', [DashboardPageController::class, 'index'])->name
 
 // Home page
 Route::get('/',[HomeController::class,'index'])->name('home');
+Route::get('/show',[HomeController::class,'show'])->name('shop-3-grid');
 
-
+Route::get('/checkout',[HomeController::class,'checkout'])->name('checkout');
+Route::get('/contact',[HomeController::class,'contact'])->name('contact');
+Route::get('/about-us',[HomeController::class,'aboutus'])->name('about-us');
+//
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/cart/add', [CartController::class, 'store'])->name('cart.store');
 Route::post('/cart/{cartItem}', [CartController::class, 'destroy'])->name('cart.destroy');
-Route::post('/cart/update', [CartController::class,'update'])->name('cart.update');
+// Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
 
+//
 Route::get('products/single/{id}', [ProductControllerSigle::class, 'index'])->name('products.single');
 Route::get('search', [ProductControllerSigle::class, 'search'])->name('products.search'); 
 Route::get('products/latest', [ProductControllerSigle::class, 'showLatestProduct'])->name('latest');

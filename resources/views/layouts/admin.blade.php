@@ -63,7 +63,7 @@
               <div class="about-widget">
                 <div class="footer-logo-area">
                   <a href="index">
-                    <img class="logo-main footer-logo" src="assets/img/be-unique-logo.jpg" alt="Logo" />
+                    <img class="logo-main footer-logo" src="{{asset('assets/img/be-unique-logo.jpg')}}" alt="Logo" />
                   </a>
                 </div>
                 <p class="desc">Lorem ipsum dolor sit amet, consectet adipi elit, sed do eius tempor incididun ut labore gthydolore.</p>

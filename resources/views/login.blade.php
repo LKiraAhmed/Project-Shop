@@ -78,66 +78,40 @@
                 </div>
             </div>
             <div class="col-sm-4 col-lg-7 d-none d-lg-block">
-                <div class="header-navigation-area">
-                    <ul class="main-menu nav position-relative">
-                        <li class="has-submenu"><a href="#/">Home</a>
-                            <ul class="submenu-nav">
-                                <li><a href="index">Home</a></li>
-                            </ul>
-                        </li>
-                        <li class="has-submenu full-width"><a href="#/">Shop</a>
-                            <ul class="submenu-nav submenu-nav-mega">
-                                <li class="mega-menu-item"><a href="#/" class="mega-title">Shop Layouts</a>
-                                    <ul>
-                                        <li><a href="shop-3-grid">Shop All</a></li>
-                                    </ul>
-                                </li>
-                                <li class="mega-menu-item"><a href="#/" class="mega-title">Shop Pages</a>
-                                    <ul>
-                                      @auth
-                                      <li><a href="{{ url('login') }}">{{ Auth::user()->name }}</a></li>
-                                       @else
-                                      <li><a href="{{ url('login') }}">Login</a></li>
-                                       @endauth     
-                                        <li><a href="{{url('login')}}"></a></li>
-                                        <li><a href="wishlist">Wishlist</a></li>
-                                        <li><a href="cart">Cart</a></li>
-                                        <li><a href="checkout">Checkout</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                        <li><a href="contact">Contact</a></li>
-                        <li><a href="about-us">About</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-sm-7 col-lg-2 d-none d-sm-block text-end">
-                <div class="header-action-area">
-                    <ul class="header-action">
-                        <li class="search-item">
-                          <a class="action-item" href="{{url('search')}}">
-                            <i class="zmdi zmdi-search icon"></i>
-                        </a> 
-                        </li>
-                     
-                        <li class="mini-cart">
-                            <a class="action-item" href="#/">
-                                <i class="zmdi zmdi-shopping-cart-plus icon"></i>
-                                <span class="cart-quantity"></span>
-                            </a>
-                            <div class="mini-cart-dropdown">
-                                                 
-                                <div class="cart-total-money">
-                                </div>
-                                <div class="cart-btn">
-                                    <a href="">Checkout</a>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+              <div class="header-navigation-area">
+                  <ul class="main-menu nav position-relative">
+                      <li class="has-submenu"><a href="#/">Home</a>
+                          <ul class="submenu-nav">
+                              <li><a href="{{route('home')}}">Home</a></li>
+                          </ul>
+                      </li>
+                      <li class="has-submenu full-width"><a href="">Shop</a>
+                          <ul class="submenu-nav submenu-nav-mega">
+                              <li class="mega-menu-item"><a href="" class="mega-title">Shop Layouts</a>
+                                  <ul>
+                                      <li><a href="{{route('shop-3-grid')}}">Shop All</a></li>
+                                  </ul>
+                              </li>
+                              <li class="mega-menu-item"><a href="#" class="mega-title">Shop Pages</a>
+                                  <ul>
+                                    @auth
+                                    <li><a href="{{ url('login') }}">{{ Auth::user()->name }}</a></li>
+                                     @else
+                                    <li><a href="{{ url('login') }}">Login</a></li>
+                                     @endauth     
+                                      <li><a href="{{url('login')}}"></a></li>
+                                      <li><a href="{{route('wishlist.index')}}">Wishlist</a></li>
+                                      <li><a href="{{route('cart.index')}}">Cart</a></li>
+                                      <li><a href="{{url('checkout')}}">Checkout</a></li>
+                                  </ul>
+                              </li>
+                          </ul>
+                      </li>
+                      <li><a href="{{url('contact')}}">Contact</a></li>
+                      <li><a href="{{urL('about-us')}}">About</a></li>
+                  </ul>
+              </div>
+          </div>
             <div class="col-6 col-sm-1 d-block d-lg-none text-end">
                 <button class="btn-menu" type="button"><i class="zmdi zmdi-menu"></i></button>
             </div>

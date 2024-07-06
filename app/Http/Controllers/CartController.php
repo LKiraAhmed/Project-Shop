@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Log;
 use App\Models\Cart;
 use App\Models\Product;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
+
 class CartController extends Controller
 {
     // update
@@ -21,60 +23,66 @@ class CartController extends Controller
         return view('cart', compact('cartItems', 'subtotal'));
     }
       // store
-    public function store(Request $request)
-    {
-        $request->validate([
-            'product_id' => 'required|exists:products,id',
-            'quantity' => 'required',
-        ]);
-    
-        $userId = Auth::id();
-    
-        if (!$userId) {
-            return response()->json(['error' => 'Please login to add products to cart.'], 401);
-        }
-    
-        $existingCartItem = Cart::where('user_id', $userId)
-                                ->where('product_id', $request->product_id)
-                                ->first();
-    
-        if ($existingCartItem) {
-            $existingCartItem->update([
-                'quantity' => $existingCartItem->quantity + $request->quantity
-            ]);
-        } else {
-            Cart::create([
-                'user_id' => $userId,
+      public function sotre(Request $request)
+      {
+          $request->validate([
+              'product_id' => 'required|exists:products,id',
+              'quantity' => 'required|numeric|min:1',
+          ]);
+      
+          $userId = Auth::id();
+      
+          if (!$userId) {
+              return redirect()->route('login');
+          }
+      
+          $cartItem = Cart::updateOrCreate(
+            [
+                'user_id' =>$userId,
                 'product_id' => $request->product_id,
-                'quantity' => $request->quantity,
-            ]);
-        }
-    
-        $cartItems = Cart::where('user_id', $userId)->get();
-        session(['cart' => $cartItems]); 
-
-    return redirect()->route('cart.index')->with('success_message', 'Product added to cart successfully!');
+            ],
+            [
+                'quantity' => DB::raw('quantity + ' . $request->quantity)
+            ]
+        );
+      
+          $cartItems = Cart::where('user_id', $userId)->get();
+          session(['cart' => $cartItems]);
+      
+          return redirect()->route('cart.index')->with('success_message', 'Product added to cart successfully!');
       }
 
+      public function updateCart(Request $request)
+      {
+          $request->validate([
+              'product_id' => 'required|integer',
+              'quantity' => 'required|integer|min:1'
+          ]);
+          
+          $userId = Auth::id();
+          $cartItem = Cart::where('user_id', $userId)->where('id', $request->product_id);
+          $cartItem->update(['quantity' => $request->quantity]);
+      
+          return response()->json(['message' => 'Cart updated successfully!', 'cartItem' => $cartItem]);
+      }
+     
+     
       // update
       public function update(Request $request)
       {
-          $request->validate([
-              'product_id' => 'required',
-              'product_id.*' => 'required|exists:products,id',
-              'quantity' => 'required',
-              'quantity.*' => 'required',
-          ]);
+         
+        $request->validate([
+            'quantity' => 'required|integer|min:1'
+        ]);
+        $userId = Auth::id();
+        $cartItem = Cart::where('user_id', $userId)->where('id', $request->product_id)->firstOrFail();
+        $cartItem->update(['quantity' => $request->quantity]);
       
-          foreach ($request->product_id as $key => $productId) {
-              $cartItem = Cart::where('product_id', $productId)->firstOrFail();
-              $cartItem->update([
-                  'quantity' => $request->quantity[$key],
-              ]);
-          }
-      
-          return redirect()->route('cart.index')->with('success_message', 'Cart items updated successfully.');
+              return redirect()->route('cart.index')->with('success_message', 'تم تحديث كمية المنتج بنجاح!');
+          
       }
+      
+      
       
       // destroy
     public function destroy(Cart $cartItem)
@@ -84,39 +92,29 @@ class CartController extends Controller
         return redirect()->route('cart.index')->with('success_message', 'Item removed from cart successfully!');
     }
     public function addToCart(Request $request)
-    {
-        $request->validate([
-            'product_id' => 'required|exists:products,id',
-            'quantity' => 'required',
-        ]);
-    
-        $userId = Auth::id();
-    
-        if (!$userId) {
-            return response()->json(['error' => 'Please login to add products to cart.'], 401);
-        }
-    
-        $existingCartItem = Cart::where('user_id', $userId)
-                                ->where('product_id', $request->product_id)
-                                ->first();
-    
-        if ($existingCartItem) {
-            $existingCartItem->update([
-                'quantity' => $existingCartItem->quantity + $request->quantity
-            ]);
-        } else {
-            Cart::create([
-                'user_id' => $userId,
-                'product_id' => $request->product_id,
-                'quantity' => $request->quantity,
-            ]);
-        }
-    
-        $cartItems = Cart::where('user_id', $userId)->get();
-        session(['cart' => $cartItems]);
-    
-        return response()->json(['message' => 'Product added to cart successfully.']);
+{
+    $request->validate([
+        'product_id' => 'required|exists:products,id',
+        'quantity' => 'required|integer|min:1',
+    ]);
+
+    $userId = Auth::id();
+
+    if (!$userId) {
+        return redirect()->route('login');
     }
+
+    $cartItem = Cart::updateOrCreate(
+        ['user_id' => $userId, 'product_id' => $request->product_id],
+        ['quantity' => DB::raw('quantity + ' . $request->quantity)]
+    );
+    
+    $cartItems = Cart::where('user_id', $userId)->get();
+    session(['cart' => $cartItems]);
+
+    return response()->json(['message' => 'Product added to cart successfully.']);
+}
+
     
 
 }
