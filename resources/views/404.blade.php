@@ -143,7 +143,7 @@
                                 </div>
                                 <div class="cart-btn">
                                     <a href="{{ route('cart.index') }}">View Cart</a>
-                                    <a href="">Checkout</a>
+                                    <a href="{{url('checkout')}}">Checkout</a>
                                 </div>
                             </div>
                         </li>
@@ -189,7 +189,7 @@
               <h1>404</h1>
               <h2>Opps! PAGE NOT BE FOUND</h2>
               <p>Sorry but the page you are looking for does not exist, have <br> been removed, name changed or is temporarity unavailable.</p>
-              <a class="btn-back" href="index">Back to home page</a>
+              <a class="btn-back" href="{{route('home')}}">Back to home page</a>
             </div>
           </div>
         </div>

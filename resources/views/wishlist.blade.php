@@ -190,11 +190,11 @@
                       <table class="table text-center">
                           <thead>
                               <tr>
-                                  <th class="product-remove">&nbsp;</th>
-                                  <th class="product-thumb">&nbsp;</th>
-                                  <th class="product-name">Product</th>
-                                  <th class="product-price">Price</th>
-                                  <th class="product-action">&nbsp;</th>
+                                <th class="product-remove">&nbsp;</th>
+                                <th class="product-thumb">&nbsp;</th>
+                                <th class="product-name">Product</th>
+                                <th class="product-price">Price</th>
+                                <th class="product-action">&nbsp;</th>                                
                               </tr>
                           </thead>
                           <tbody>
@@ -204,16 +204,21 @@
                                           <form action="{{ route('wishlist.destroy', $item->product_id) }}" method="POST">
                                               @csrf
                                               @method('DELETE')
-                                              <button type="submit"><i class="fa fa-trash-o"></i></button>
+                                              {{-- onclick="deleteWishlist({{$item->product_id}})" --}}
+                                              <button type="submit"    class="btn-wishlist">
+                                                <i class="fa fa-trash-o">
+                                                  </i></button>
                                           </form>
                                       </td>
                                       <td class="product-thumb">
                                           <a href="{{ route('products.single', $item->product->id) }}">
-                                              <img src="/allFiels/{{$item->product->image}}" alt="{{ $item->product->name }}">
+                                              <img src="/allFiels/{{$item->product->image}}" >
                                           </a>
                                       </td>
                                       <td class="product-name">
-                                          <h4 class="title"><a href="{{ route('products.single', $item->product->id) }}">{{ $item->product->name }}</a></h4>
+                                          <h4 class="title">
+                                            <a href="{{ route('products.single', $item->product->id) }}"> {{ $item->product->name }}  </a>
+                                          </h4>
                                       </td>
                                       <td class="product-price">
                                           <span class="price">${{ $item->product->price }}</span>
@@ -421,7 +426,24 @@
 </div>
 
 <!--=======================Javascript============================-->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
+<script>
+  function deleteWishlist(wishlistid) {
+   
+          axios.delete(`/wishlist/${wishlistid}`, {
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                }})
+          .then(response => {
+             console.log(response) 
+          })
+          .catch(error => {
+              console.error(error);
+          });
+      
+  }
+  </script>
 <!--=== jQuery Modernizr Min Js ===-->
 <script src="assets/js/modernizr.js"></script>
 <!--=== jQuery Min Js ===-->

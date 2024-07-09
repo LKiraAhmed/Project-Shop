@@ -41,7 +41,16 @@ class PageController extends Controller
             $averageRating = $reviews->avg('rating');
             $roundedRating = min(5, round($averageRating));
             $user=User::all();
-            return view('404',compact('user','products', 'cartItems', 'latestProduct', 'mostViewedProducts','randomProducts','reviews','roundedRating'));
+            return view($id,compact('user','products', 'cartItems', 'latestProduct', 'mostViewedProducts','randomProducts','reviews','roundedRating'));
+        }else{
+               
+            $cartItems = Cart::where('user_id', Auth::id())->with('product')->get();
+            $subtotal = $cartItems->sum(function($item) {
+                return $item->product->price * $item->quantity;
+            });
+
+            return view('404',compact('cartItems'));
+
         }
     }
     

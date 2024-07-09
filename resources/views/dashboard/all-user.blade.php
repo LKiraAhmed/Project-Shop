@@ -445,10 +445,13 @@
                                         </ul>
                                         <ul class="flex flex-column">
                                             <li class="user-item gap14">
+                                                @php 
+                                                $users= App\Models\User::all();
+                                                @endphp
                                                 @foreach($users as $user)
                                                 <div class="flex items-center justify-between gap20 flex-grow">
                                                     <div class="name">
-                                                        <a href="#" class="body-title-2">{{$user->name}}</a>
+                                                        <a href="{{route('users.edit',$user->id)}}" class="body-title-2">{{$user->name}}</a>
                                                         <div class="text-tiny mt-3"></div>
                                                     </div>
                                                     <div class="body-text">{{$user->phone}}</div>
@@ -467,6 +470,7 @@
                                                             
                                                             {{-- <i class="icon-trash-2"></i> --}}
                                                         </div>
+                                                        
                                                     </div>
                                                 </div>
                                             </li>

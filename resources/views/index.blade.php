@@ -340,7 +340,7 @@
                 <div class="tab-pane fade" id="mostView" role="tabpanel" aria-labelledby="most-view-tab">
                     <div class="row">
                       @php
-                             $mostViewedProducts =App\Models\Product::orderByDesc('views_count')->limit(10)->get();
+                             $mostViewedProducts =App\Models\Product::orderByDesc('views_count')->get();
                       @endphp
                         @foreach($mostViewedProducts as $product)
                         <div class="col-md-3 col-sm-6 mb-4">
@@ -719,13 +719,12 @@
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
-    function addToCart(productId) {
-      const token = '{{ csrf_token() }}';
+ function addToCart(productId) {
       const postData = {
           product_id: productId,
           quantity: 1,
-          _token: token
-      };
+          'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        };
 
       axios.post('{{ route('cart.addToCart') }}', postData)
           .then(response => {
@@ -740,24 +739,22 @@
 </script>
 
 
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 
   <script>
     function addWishlist(productId) {
-        const postData = {
-            product_id: productId,
-            token: '{{ csrf_token() }}'
-        };
-    
-        axios.post('{{ route("wishlist.store") }}', postData)
-            .then(response => {
-                console.log(response.data);
-                window.location.href = '{{ route("wishlist.index") }}'; 
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred. Please try again.');
-              });
+     
+      axios.post(`/wishlist/addwishlist/${productId}`, {
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                }})
+          .then(response => {
+             console.log(response.data)
+          })
+          .catch(error => {
+              console.error(error);
+          });
     }
     </script>
   

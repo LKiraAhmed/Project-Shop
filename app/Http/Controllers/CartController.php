@@ -12,6 +12,21 @@ use Illuminate\Support\Facades\DB;
 
 class CartController extends Controller
 {
+    //addToCart
+    public function addToCart(Request $request)
+    {
+        // $request->validate([
+        //     'product_id' => 'required',
+        // ]);
+
+        $userId = Auth::user()->id;
+      
+        if (!$userId) {
+            return redirect()->route('login');
+        }
+   
+        return response()->json(['message' => 'Product added to cart successfully.']);
+    }
     // update
     public function index()
     {
@@ -91,29 +106,8 @@ class CartController extends Controller
 
         return redirect()->route('cart.index')->with('success_message', 'Item removed from cart successfully!');
     }
-    public function addToCart(Request $request)
-{
-    $request->validate([
-        'product_id' => 'required|exists:products,id',
-        'quantity' => 'required|integer|min:1',
-    ]);
-
-    $userId = Auth::id();
-
-    if (!$userId) {
-        return redirect()->route('login');
-    }
-
-    $cartItem = Cart::updateOrCreate(
-        ['user_id' => $userId, 'product_id' => $request->product_id],
-        ['quantity' => DB::raw('quantity + ' . $request->quantity)]
-    );
     
-    $cartItems = Cart::where('user_id', $userId)->get();
-    session(['cart' => $cartItems]);
-
-    return response()->json(['message' => 'Product added to cart successfully.']);
-}
+ 
 
     
 

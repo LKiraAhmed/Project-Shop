@@ -8,8 +8,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
-use App\Mail\VerificationCodeMail;
-use Illuminate\Support\Facades\Mail;
+use App\Mail\VerifyEmail;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 class UserController extends Controller
 {
     //
@@ -59,30 +60,51 @@ class UserController extends Controller
             ])->withInput();
         }
     }
-    public function showVerificationForm()
-{
-    return view('verify');
-}
+//     public function showVerificationForm()
+// {
+//     return view('verify');
+// }
 
-public function verify(Request $request)
-{
-    $request->validate([
-        'verification_code' => 'required|string|exists:users,verification_code',
-    ]);
+// public function VerifyEmail(Request $request)
+//     {
+//         $validate = Validator::make($request->all(),[
+//             'code' => 'required|numeric'
+//         ]);
 
-    $user = User::where('verification_code', $request->verification_code)->first();
+//         if($validate->fails()){
+//             return response()->json([
+//                 'status' => 400,
+//                 'message' => __("http-statuses.400"),
+//                 'data' => $validate->getMessageBag(),
+//             ], 400);
+//         }
+   
+//         $user = auth()->user();
 
-    if ($user) {
-        $user->email_verified_at = now();
-        $user->verification_code = null; 
-        $user->save();
+//         if(!$user->email_verified_at)
+//         {
+//             if(now() >= $user->expires_at){
+//                 return redirect()->route('register')->with('status', 'Verification code sent to your email.');
+//             }
 
-        return redirect()->route('home')->with('status', 'Email verified successfully.');
-    }
+//             if($request->code && $request->code == $user->email_code){
+//                 $user->email_verified_at = now();
+//                 if($user){
+//                     return view('')
+//                 }
+//             }
 
-    return back()->withErrors(['verification_code' => 'Invalid verification code.']);
-}
+//             return response()->json([
+//                 'status' => 406,
+//                 'message' => __("http-statuses.406")
+//             ], 406);
+//         }
 
+//         return response()->json([
+//             'status' => 403,
+//             'message' => __("http-statuses.403")
+//         ], 403);
+//     }
     
     
 }

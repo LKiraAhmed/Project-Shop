@@ -43,6 +43,23 @@ class WishlistController extends Controller
 
         return redirect()->back()->with('error_message', 'Product not found in wishlist!');
     }
+    public function addwishlist($productId){
+        $userId=Auth::id();
+        if(!$userId){
+            return redirect()->route('login');
+        }
+        $wishlist = Wishlist::where('product_id',$productId)->first();
+        if($wishlist){
+         
+            return response()->json(['message' => 'Product Add wishlist successfully.']);
+        }else{
+            $wishlist->update([
+                'user_id' => Auth::id(),
+                'product_id' => $productId,
+            ]);
+            return response()->json(['message' => 'Product Add Dosen`t wishlist successfully.']);
+        }
+    }
     
 
 }

@@ -19,7 +19,7 @@ class HomeController extends Controller
         // 
         $products = Product::with(['reviews'])->select('*')->get();
         $latestProduct = Product::orderBy('created_at', 'desc')->get();
-        $mostViewedProducts = Product::orderBy('views_count', 'desc')->get(); //      
+        $mostViewedProducts = Product::orderByDesc('views_count')->limit(10)->get();
         $cartItems = Cart::where('user_id', Auth::id())->with('product')->get();
         $subtotal = $cartItems->sum(function ($item) {
             return $item->product->price * $item->quantity;

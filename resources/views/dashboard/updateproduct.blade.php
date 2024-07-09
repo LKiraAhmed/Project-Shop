@@ -437,7 +437,7 @@
                                                 </div>
                                             </fieldset>
                                             <fieldset class="male">
-                                                <div class="body-title mb-10">Sale <span class="tf-color-1">*</span></div>
+                                                <div class="body-title mb-10">Discount <span class="tf-color-1">*</span></div>
                                                 <div class="">
                                                     <input type="text" placeholder="Enter sale price" name="discount" tabindex="0" value="{{ $product->discount }}" aria-required="true" required>
                                                 </div>

@@ -40,6 +40,29 @@
 
     <!--== Main Style CSS ==-->
     <link href="assets/css/style.css" rel="stylesheet" />
+    <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" />
+    <!--== Headroom CSS ==-->
+    <link href="{{ asset('assets/css/headroom.css') }}" rel="stylesheet" />
+    <!--== Animate CSS ==-->
+    <link href="{{ asset('assets/css/animate.css') }}" rel="stylesheet" />
+    <!--== Ionicons CSS ==-->
+    <link href="{{ asset('assets/css/ionicons.css') }}" rel="stylesheet" />
+    <!--== Material Icon CSS ==-->
+    <link href="{{ asset('assets/css/material-design-iconic-font.css') }}" rel="stylesheet" />
+    <!--== Elegant Icon CSS ==-->
+    <link href="{{ asset('assets/css/elegant-icons.css') }}" rel="stylesheet" />
+    <!--== Font Awesome Icon CSS ==-->
+    <link href="{{ asset('assets/css/font-awesome.min.css') }}" rel="stylesheet" />
+    <!--== Swiper CSS ==-->
+    <link href="{{ asset('assets/css/swiper.min.css') }}" rel="stylesheet" />
+    <!--== Fancybox Min CSS ==-->
+    <link href="{{ asset('assets/css/fancybox.min.css') }}" rel="stylesheet" />
+    <!--== Slicknav Min CSS ==-->
+    <link href="{{ asset('assets/css/slicknav.css') }}" rel="stylesheet" />
+
+    <!--== Main Style CSS ==-->
+    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet" />
+
     <style>
       .cart-update-form .btn-save {
           background-color: #222;
@@ -536,7 +559,29 @@
 
 <!--=== jQuery Custom Js ===-->
 <script src="assets/js/custom.js"></script>
+   <!--=== jQuery Modernizr Min Js ===-->
+   <script src="{{ asset('assets/js/modernizr.js') }}"></script>
+   <!--=== jQuery Min Js ===-->
+   <script src="{{ asset('assets/js/jquery-main.js') }}"></script>
+   <!--=== jQuery Migration Min Js ===-->
+   <script src="{{ asset('assets/js/jquery-migrate.js') }}"></script>
+   <!--=== jQuery Popper Min Js ===-->
+   <script src="{{ asset('assets/js/popper.min.js') }}"></script>
+   <!--=== jQuery Bootstrap Min Js ===-->
+   <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+   <!--=== jQuery Headroom Min Js ===-->
+   <script src="{{ asset('assets/js/headroom.min.js') }}"></script>
+   <!--=== jQuery Swiper Min Js ===-->
+   <script src="{{ asset('assets/js/swiper.min.js') }}"></script>
+   <!--=== jQuery Fancybox Min Js ===-->
+   <script src="{{ asset('assets/js/fancybox.min.js') }}"></script>
+   <!--=== jQuery Slick Nav Js ===-->
+   <script src="{{ asset('assets/js/slicknav.js') }}"></script>
+   <!--=== jQuery Countdown Js ===-->
+   <script src="{{ asset('assets/js/countdown.js') }}"></script>
 
+   <!--=== jQuery Custom Js ===-->
+   <script src="{{ asset('assets/js/custom.js') }}"></script>
 </body>
 
 </html>

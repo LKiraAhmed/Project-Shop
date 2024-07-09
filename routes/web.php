@@ -69,22 +69,17 @@ Route::get('/show',[HomeController::class,'show'])->name('shop-3-grid');
 Route::get('/checkout',[HomeController::class,'checkout'])->name('checkout');
 Route::get('/contact',[HomeController::class,'contact'])->name('contact');
 Route::get('/about-us',[HomeController::class,'aboutus'])->name('about-us');
-//
+//// Cart routes
+
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/cart/add', [CartController::class, 'store'])->name('cart.store');
 Route::post('/cart/{cartItem}', [CartController::class, 'destroy'])->name('cart.destroy');
 // Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
 
-//
+//products single
 Route::get('products/single/{id}', [ProductControllerSigle::class, 'index'])->name('products.single');
 Route::get('search', [ProductControllerSigle::class, 'search'])->name('products.search'); 
-Route::get('products/latest', [ProductControllerSigle::class, 'showLatestProduct'])->name('latest');
-Route::get('products/most-viewed', [ProductControllerSigle::class, 'showMostViewedProducts'])->name('most_viewed');
-Route::get('products/create', [ProductControllerSigle::class, 'create'])->name('create');
-Route::post('prodcts/store', [ProductControllerSigle::class, 'store'])->name('store');
-Route::get('products/{id}/edit', [ProductControllerSigle::class, 'edit'])->name('edit');
-Route::put('products/{id}/update', [ProductControllerSigle::class, 'update'])->name('update');
-Route::delete('products/{id}/delte', [ProductControllerSigle::class, 'destroy'])->name('destroy');
+
 
 
 //reviews
@@ -92,13 +87,13 @@ Route::post('/reviews/store', [ReviewController::class, 'store'])->name('reviews
 
 
 
-// Cart routes
 
 
 //wishlist
 Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
-Route::post('/wishlist', [WishlistController::class, 'store'])->name('wishlist.store');
+Route::post('/wishlist/store', [WishlistController::class, 'store'])->name('wishlist.store');
 Route::delete('/wishlist/{id}', [WishlistController::class, 'destroy'])->name('wishlist.destroy');
+Route::post('/wishlist/addwishlist/{productId}', [WishlistController::class, 'addwishlist'])->name('wishlist.addwishlist');
 
 
 
