@@ -255,8 +255,12 @@
                                   <p>{{ $description }}</p>
                               </div>
                               <div class="prices">
-                                  <span class="price">${{ $product->price }}</span>
-                                  <span class="price-old">${{ $product->discount }}</span>
+                                @if ($product->discount > 0)
+                                              <span class="price">{{ $product->price - $product->discount }}</span>
+                                              <span class="price-old">{{ $product->price }}</span>
+                                              @else
+                                              <span class="price">{{ $product->price }}</span>
+                                            @endif
                               </div>
                               <div class="star-content">
                                 @php

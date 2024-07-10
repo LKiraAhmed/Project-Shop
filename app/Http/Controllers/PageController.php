@@ -31,7 +31,6 @@ class PageController extends Controller
 
             $latestProduct = Product::orderBy('created_at', 'desc')->get();
 
-            $mostViewedProducts = Product::orderByDesc('views_count')->limit(10)->get();
             $randomProducts = Product::with(['reviews'])->inRandomOrder()->limit(4)->get();
 
             foreach ($products as $product) {
@@ -41,7 +40,7 @@ class PageController extends Controller
             $averageRating = $reviews->avg('rating');
             $roundedRating = min(5, round($averageRating));
             $user=User::all();
-            return view($id,compact('user','products', 'cartItems', 'latestProduct', 'mostViewedProducts','randomProducts','reviews','roundedRating'));
+            return view($id,compact('user','products', 'cartItems', 'latestProduct','randomProducts','reviews','roundedRating'));
         }else{
                
             $cartItems = Cart::where('user_id', Auth::id())->with('product')->get();

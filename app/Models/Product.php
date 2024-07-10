@@ -14,10 +14,10 @@ class Product extends Model
         'price',
         'discount',
         'description',
-        'views_count',
+        'sales_count',
         'size',
         'catigorie_id',
-        'quantity'
+        'quantity',
     ];
     
     public function carts(){

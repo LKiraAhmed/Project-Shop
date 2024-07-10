@@ -122,24 +122,10 @@
                         <li class="mini-cart">
                             <a class="action-item" href="#/">
                                 <i class="zmdi zmdi-shopping-cart-plus icon"></i>
-                                <span class="cart-quantity">{{ count($cartItems) }}</span>
                             </a>
                             <div class="mini-cart-dropdown">
-                              @foreach($cartItems as $cartItem)
-                              <div class="cart-item">
-                                  <div class="thumb">
-                                      <img class="w-100" src="/allFiels/{{ $cartItem->product->image }}" alt="{{ $cartItem->product->name }}">
-                                  </div>
-                                  <div class="content">
-                                      <h5 class="title"><a href="#/">{{ $cartItem->product->name }}</a></h5>
-                                      <span class="product-quantity">{{ $cartItem->quantity }} ×</span>
-                                      <span class="product-price">${{ number_format($cartItem->product->price, 2) }}</span>
-                                      <a class="cart-trash" href="{{ route('cart.destroy', $cartItem->id) }}"><i class="fa fa-trash"></i></a>
-                                  </div>
-                              </div>
-                          @endforeach                          
+                                                   
                                 <div class="cart-total-money">
-                                    <h5>Total: <span class="money">${{ $cartItems->sum(fn($item) => $item->product->price * $item->quantity) }}</span></h5>
                                 </div>
                                 <div class="cart-btn">
                                     <a href="{{ route('cart.index') }}">View Cart</a>

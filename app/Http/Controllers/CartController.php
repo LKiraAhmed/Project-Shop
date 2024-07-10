@@ -9,24 +9,51 @@ use App\Models\Cart;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class CartController extends Controller
 {
     //addToCart
     public function addToCart(Request $request)
     {
-        // $request->validate([
-        //     'product_id' => 'required',
-        // ]);
+        $rules = [
+            'product_id' => 'required|exists:products,id',
+            'quantity' => 'required|integer|min:1',
+        ];
+        
+        $validator = Validator::make($request->all(), $rules);
 
-        $userId = Auth::user()->id;
-      
-        if (!$userId) {
-            return redirect()->route('login');
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->messages()], 422);
         }
-   
-        return response()->json(['message' => 'Product added to cart successfully.']);
+        
+    
+        $userId = Auth::id();
+    
+        if (!$userId) {
+            return response()->json(['error' => 'Unauthorized. Please login.'], 401);
+        }
+      
+
+        $cartItem = Cart::where('user_id', $userId)
+                        ->where('product_id', $request->product_id)
+                        ->first();
+    
+        if ($cartItem) {
+            $cartItem->quantity += $request->quantity;
+            $cartItem->save();
+        } else {
+            $cartItem = new Cart();
+            $cartItem->user_id = $userId;
+            $cartItem->product_id = $request->product_id;
+            $cartItem->quantity = $request->quantity;
+            $cartItem->save();
+        }
+    
+        return response()->json(['message' => 'Product added to cart successfully.', 'cart_item' => $cartItem]);
     }
+    
+    
     // update
     public function index()
     {
@@ -69,17 +96,35 @@ class CartController extends Controller
 
       public function updateCart(Request $request)
       {
-          $request->validate([
-              'product_id' => 'required|integer',
+          $rules=[
+              'product_id' => 'required|integer|exists:cart,id', 
               'quantity' => 'required|integer|min:1'
-          ]);
-          
+          ];
+          $validator = Validator::make($request->all(), $rules);
+
+          if ($validator->fails()) {
+              return response()->json(['error' => $validator->messages()], 422);
+          }
           $userId = Auth::id();
-          $cartItem = Cart::where('user_id', $userId)->where('id', $request->product_id);
-          $cartItem->update(['quantity' => $request->quantity]);
+      
+          if (!$userId) {
+              return response()->json(['error' => 'Unauthorized. Please login.'], 401);
+          }
+      
+          $cartItem = Cart::where('user_id', $userId)
+                          ->where('id', $request->product_id)
+                          ->first();
+      
+          if (!$cartItem) {
+              return response()->json(['error' => 'Cart item not found.'], 404);
+          }
+      
+          $cartItem->quantity = $request->quantity;
+          $cartItem->save();
       
           return response()->json(['message' => 'Cart updated successfully!', 'cartItem' => $cartItem]);
       }
+      
      
      
       // update

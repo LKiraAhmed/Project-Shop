@@ -53,7 +53,7 @@
                 <div class="section-menu-left">
                     <div class="box-logo">
                         <a href="index " id="site-logo-inner">
-                            <img class="" id="logo_header" alt="" src="" data-light="" data-dark="">
+                            {{-- <img class="" id="logo_header" alt=""  data-light="" data-dark=""> --}}
                         </a>
                         <div class="button-show-hide">
                             <i class="icon-menu-left"></i>
@@ -556,7 +556,7 @@
          <script src="{{ asset('assets/dashboard/js/theme-settings.js') }}"></script>
          <script src="{{ asset('assets/dashboard/js/main.js') }}"></script>
     
-
+         
 </body>
 
 </html>

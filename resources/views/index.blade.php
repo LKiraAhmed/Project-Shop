@@ -257,7 +257,7 @@
                   <button class="nav-link active" id="best-seller-tab" data-bs-toggle="tab" data-bs-target="#bestSeller" type="button" role="tab" aria-controls="bestSeller" aria-selected="true">Best Seller</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="most-view-tab" data-bs-toggle="tab" data-bs-target="#mostView" type="button" role="tab" aria-controls="mostView" aria-selected="false">Most Viewed</button>
+                  <button class="nav-link" id="most-view-tab" data-bs-toggle="tab" data-bs-target="#mostView" type="button" role="tab" aria-controls="mostView" aria-selected="false">Highest rating</button>
                 </li>
                 <li class="nav-item" role="presentation">
                   <button class="nav-link" id="new-arrivals-tab" data-bs-toggle="tab" data-bs-target="#newArrivals" type="button" role="tab" aria-controls="newArrivals" aria-selected="false">New Arrivals</button>
@@ -266,7 +266,10 @@
               <div class="tab-content product-category-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="bestSeller" role="tabpanel" aria-labelledby="best-seller-tab">
                     <div class="row">
-                        @foreach($products as $product)
+                      @php
+                           $bestSellers =  App\Models\Product::orderBy('sales_count', 'desc')->get();
+                        @endphp
+                        @foreach($bestSellers as $product)
                         <div class="col-md-3 col-sm-6 mb-4">
                             <!-- Start Shop Item -->
                             <div class="product-item">
@@ -302,8 +305,12 @@
                                                 <p>{{ $description }}</p>
                                             </div>
                                             <div class="prices">
-                                                <span class="price">${{ $product->price }}</span>
-                                                <span class="price-old">${{ $product->discount }}</span>
+                                              @if ($product->discount > 0)
+                                              <span class="price">{{ $product->price - $product->discount }}</span>
+                                              <span class="price-old">{{ $product->price }}</span>
+                                              @else
+                                              <span class="price">{{ $product->price }}</span>
+                                            @endif
                                             </div>
                                             <div class="star-content">
                                               @php
@@ -340,7 +347,17 @@
                 <div class="tab-pane fade" id="mostView" role="tabpanel" aria-labelledby="most-view-tab">
                     <div class="row">
                       @php
-                             $mostViewedProducts =App\Models\Product::orderByDesc('views_count')->get();
+use App\Models\Product;
+use Illuminate\Support\Facades\DB;
+
+$mostViewedProducts = Product::select('products.id', 'products.name', 'products.image', 'products.description', 'products.price', 'products.discount', DB::raw('AVG(reviews.rating) as average_rating'))
+    ->leftJoin('reviews', 'products.id', '=', 'reviews.product_id')
+    ->groupBy('products.id', 'products.name', 'products.image', 'products.description', 'products.price', 'products.discount')
+    ->orderByDesc('average_rating')
+    ->get();
+
+
+                      
                       @endphp
                         @foreach($mostViewedProducts as $product)
                         <div class="col-md-3 col-sm-6 mb-4">
@@ -379,8 +396,12 @@
                                                 <p>{{ $description }}</p>
                                             </div>
                                             <div class="prices">
-                                                <span class="price">${{ $product->price }}</span>
-                                                <span class="price-old">${{ $product->discount }}</span>
+                                              @if ($product->discount > 0)
+                                              <span class="price">{{ $product->price - $product->discount }}</span>
+                                              <span class="price-old">${{ $product->price }}</span>
+                                              @else
+                                              <span class="price">{{ $product->price }}</span>
+                                            @endif
                                             </div>
                                             <div class="star-content">
                                               @php
@@ -470,8 +491,12 @@
                                                     <p>{{ $description }}</p>
                                                 </div>
                                                 <div class="prices">
-                                                    <span class="price">${{ $product->price }}</span>
-                                                    <span class="price-old">${{ $product->discount }}</span>
+                                                  @if ($product->discount > 0)
+                                                  <span class="price">{{ $product->price - $product->discount }}</span>
+                                                  <span class="price-old">${{ $product->price }}</span>
+                                                  @else
+                                                  <span class="price">{{ $product->price }}</span>
+                                                @endif
                                                 </div>
                                                 <div class="star-content">
                                                   @php
@@ -719,21 +744,23 @@
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
- function addToCart(productId) {
-      const postData = {
+  function addToCart(productId) {
+    const postData = {
           product_id: productId,
           quantity: 1,
-          'X-CSRF-TOKEN': '{{ csrf_token() }}'
-        };
+      };
 
-      axios.post('{{ route('cart.addToCart') }}', postData)
+      const headers = {
+    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+};
+
+      axios.post('/api/cart/addtocart', postData, { headers })
           .then(response => {
               console.log(response.data);
-              window.location.href = '/cart'; 
+              // window.location.href = '/cart'; 
           })
           .catch(error => {
               console.error('Error:', error);
-              alert('An error occurred. Please try again.'); 
           });
   }
 </script>

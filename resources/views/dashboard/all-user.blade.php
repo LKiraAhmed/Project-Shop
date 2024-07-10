@@ -443,61 +443,58 @@
                                                 <div class="body-title">Action</div>
                                             </li>
                                         </ul>
-                                        <ul class="flex flex-column">
-                                            <li class="user-item gap14">
+                                           
+                                            <ul class="flex flex-column">
                                                 @php 
-                                                $users= App\Models\User::all();
+                                                $users = App\Models\User::all();
                                                 @endphp
                                                 @foreach($users as $user)
-                                                <div class="flex items-center justify-between gap20 flex-grow">
-                                                    <div class="name">
-                                                        <a href="{{route('users.edit',$user->id)}}" class="body-title-2">{{$user->name}}</a>
-                                                        <div class="text-tiny mt-3"></div>
-                                                    </div>
-                                                    <div class="body-text">{{$user->phone}}</div>
-                                                    <div class="body-text">{{$user->email}}</div>
-                                                    <div class="list-icon-function">
-                                                        <div class="item edit">
-                                                            <a  href="{{route('users.edit',  $user->id)}}">
-                                                                <i class="icon-edit-3">
-                                                                </i>
-                                                            </a>                                                        
+                                                <li class="user-item gap14">
+                                                    <div class="flex items-center justify-between gap20 flex-grow">
+                                                        <div class="name">
+                                                            <a href="{{ route('users.edit', $user->id) }}" class="body-title-2">{{ $user->name }}</a>
                                                         </div>
-                                                        <div class="item trash">
-                                                            <a href="#" onclick="deleteUser({{ $user->id }})" >
-                                                                <i class="icon-trash-2"></i>
-                                                            </a>                                                            
-                                                            
-                                                            {{-- <i class="icon-trash-2"></i> --}}
+                                                        <div class="body-text">{{ $user->phone }}</div>
+                                                        <div class="body-text">{{ $user->email }}</div>
+                                                        <div class="list-icon-function">
+                                                            <div class="item edit">
+                                                                <a href="{{ route('users.edit', $user->id) }}">
+                                                                    <i class="icon-edit-3"></i>
+                                                                </a>
+                                                            </div>
+                                                            <div class="item trash">
+                                                                <a href="#" onclick="deleteUser({{ $user->id }})">
+                                                                    <i class="icon-trash-2"></i>
+                                                                </a>
+                                                            </div>
                                                         </div>
-                                                        
                                                     </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                        @endforeach
-                                    </div>
-                                    <div class="divider"></div>
-                                    <div class="flex items-center justify-between flex-wrap gap10">
-                                        <div class="text-tiny">Showing 10 entries</div>
-                                        <ul class="wg-pagination">
-                                            <li>
-                                                <a href="#"><i class="icon-chevron-left"></i></a>
-                                            </li>
-                                            <li>
-                                                <a href="#">1</a>
-                                            </li>
-                                            <li class="active">
-                                                <a href="#">2</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">3</a>
-                                            </li>
-                                            <li>
-                                                <a href="#"><i class="icon-chevron-right"></i></a>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                                </li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                        <div class="divider"></div>
+                                        <div class="flex items-center justify-between flex-wrap gap10">
+                                            <div class="text-tiny">Showing {{ $users->count() }} entries</div>
+                                            <ul class="wg-pagination">
+                                                <li>
+                                                    <a href="#"><i class="icon-chevron-left"></i></a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">1</a>
+                                                </li>
+                                                <li class="active">
+                                                    <a href="#">2</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">3</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#"><i class="icon-chevron-right"></i></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        
                                 </div>
                                 <!-- /all-user -->
                             </div>

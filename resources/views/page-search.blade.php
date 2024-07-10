@@ -232,7 +232,11 @@
                                   }
                               ?>
                               <p>{{ $description }}</p>
-                              <p>Price: ${{ $product->price }}</p>
+                              @if ($product->discount > 0)
+                              <p >{{ $product->price - $product->discount }}</span>
+                              @else
+                              <p >{{ $product->price }}</span>
+                            @endif
                           </div>
                       </div>
                   @endforeach

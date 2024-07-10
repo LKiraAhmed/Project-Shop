@@ -30,35 +30,31 @@ use App\Http\Controllers\Admin\ProductController as ProductControllerSigle;
 // / Dashbords  
 // Route::post('/dashboard/add-product/update', [ProductaddController::class, 'update'])->name('dashboard.update');
 
-//products
-Route::get('/dashboard',function(){
+Route::get('/dashboard', function () {
     return view('dashboard.index');
 })->name('dashboard.index');
+
 Route::get('/dashboard/add-product', [ProductaddController::class, 'index'])->name('dashboard.add-product');
 Route::get('/dashboard/productlist', [ProductaddController::class, 'show'])->name('dashboard.show');
-
-
 Route::post('/dashboard/add-product/store', [ProductaddController::class, 'store'])->name('dashboard.store');
-
 Route::get('/dashboard/add-product/{id}', [ProductaddController::class, 'edit'])->name('dashboard.edit');
-
 Route::post('/dashboard/add-product/update/{id}', [ProductaddController::class, 'update'])->name('dashboard.update');
 Route::delete('/dashboard/add-product/destroy/{id}', [ProductaddController::class, 'destroy'])->name('dashboard.destroy');
-//category
-Route::get('/dashboard/category',[CategoryController::class,'index'])->name('category.index');
-Route::post('/dashboard/category/store',[CategoryController::class,'store'])->name('category.store');
-Route::get('/dashboard/category/add',[CategoryController::class,'add'])->name('category.add');
 
-// users
-Route::get('/dashboard/allusers',[DashboardUserController::class,'index'])->name('users.index');
-Route::get('/dashboard/add-new-user',[DashboardUserController::class,'add'])->name('add-new-user');
+// Category
+Route::get('/dashboard/category', [CategoryController::class, 'index'])->name('category.index');
+Route::post('/dashboard/category/store', [CategoryController::class, 'store'])->name('category.store');
+Route::get('/dashboard/category/add', [CategoryController::class, 'add'])->name('category.add');
 
-Route::get('/dashboard/alluser',[DashboardUserController::class,'create'])->name('users.create');
+// Users
+Route::get('/dashboard/allusers', [DashboardUserController::class, 'index'])->name('users.index');
+Route::get('/dashboard/add-new-user', [DashboardUserController::class, 'add'])->name('add-new-user');
+Route::get('/dashboard/alluser', [DashboardUserController::class, 'create'])->name('users.create');
 Route::get('/dashboard/users/{id}/edit', [DashboardUserController::class, 'edit'])->name('users.edit');
 Route::post('/dashboard/users/{id}', [DashboardUserController::class, 'update'])->name('users.update');
 Route::delete('/dashboard/users/{id}', [DashboardUserController::class, 'destroy'])->name('users.destroy');
 
-//dashpord pages
+// Dashboard Pages
 Route::get('/dashboard/{page}', [DashboardPageController::class, 'index'])->name('dashboard.page');
 
 

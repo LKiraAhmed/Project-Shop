@@ -54,8 +54,7 @@
                 <div class="section-menu-left">
                     <div class="box-logo">
                         <a href="{{route('dashboard.index')}}" id="site-logo-inner">
-                            <img class=""  alt="" src=""
-                                data-light="" data-dark="">
+                            <img class="" alt="" src="" data-light="" data-dark="">
                         </a>
                         <div class="button-show-hide">
                             <i class="icon-menu-left"></i>
@@ -77,13 +76,12 @@
                                                     <div class="text">Home</div>
                                                 </a>
                                             </li>
-
                                         </ul>
                                     </li>
                                 </ul>
                             </div>
                             <div class="center-item">
-                                <div class="center-heading">All page</div>
+                                <div class="center-heading">All Pages</div>
                                 <ul class="menu-list">
                                     <li class="menu-item has-children">
                                         <a href="javascript:void(0);" class="menu-item-button">
@@ -92,12 +90,12 @@
                                         </a>
                                         <ul class="sub-menu">
                                             <li class="sub-menu-item">
-                                                <a href="{{route('dashboard.add-product')}}" class="">
+                                                <a href="{{route('dashboard.add-product')}}">
                                                     <div class="text">Add Product</div>
                                                 </a>
                                             </li>
                                             <li class="sub-menu-item">
-                                                <a href="{{route('dashboard.show')}}|" class="">
+                                                <a href="{{route('dashboard.show')}}">
                                                     <div class="text">Product List</div>
                                                 </a>
                                             </li>
@@ -110,13 +108,13 @@
                                         </a>
                                         <ul class="sub-menu">
                                             <li class="sub-menu-item">
-                                                <a href="{{route('category.index')}}" class="">
-                                                    <div class="text">Category list</div>
+                                                <a href="{{route('category.index')}}">
+                                                    <div class="text">Category List</div>
                                                 </a>
                                             </li>
                                             <li class="sub-menu-item">
-                                                <a href="{{route('category.add')}}" class="">
-                                                    <div class="text">New category</div>
+                                                <a href="{{route('category.add')}}">
+                                                    <div class="text">New Category</div>
                                                 </a>
                                             </li>
                                         </ul>
@@ -128,13 +126,13 @@
                                         </a>
                                         <ul class="sub-menu">
                                             <li class="sub-menu-item">
-                                                <a href="{{route('users.index')}}" class="">
-                                                    <div class="text">All user</div>
+                                                <a href="{{route('users.index')}}">
+                                                    <div class="text">All Users</div>
                                                 </a>
                                             </li>
                                             <li class="sub-menu-item">
-                                                <a href="{{route('add-new-user')}}" class="">
-                                                    <div class="text">Add new user</div>
+                                                <a href="{{route('add-new-user')}}">
+                                                    <div class="text">Add New User</div>
                                                 </a>
                                             </li>
                                         </ul>
@@ -145,17 +143,17 @@
                                 <div class="center-heading">Setting</div>
                                 <ul class="menu-list">
                                     <li class="menu-item">
-                                        <a href="setting" class="">
+                                        <a href="{{route('dashboard.page', ['page' => 'setting'])}}">
                                             <div class="icon"><i class="icon-settings"></i></div>
                                             <div class="text">Setting</div>
                                         </a>
                                     </li>
                                 </ul>
                             </div>
-
                         </div>
                     </div>
                 </div>
+                
                 <!-- /section-menu-left -->
                 <!-- section-content-right -->
                 <div class="section-content-right">

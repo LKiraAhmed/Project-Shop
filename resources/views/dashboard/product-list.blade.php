@@ -473,10 +473,11 @@
                                         </ul>
                                         <ul class="flex flex-column">
                                             @php
-                                                use App\Models\Product; 
-                                            $products=Product::all();
+                                            use App\Models\Product; 
+                                            $products = Product::all();
                                             @endphp
                                             @foreach($products as $product)
+                               
 
                                             <li class="product-item gap14">
                                                 <div class="image no-bg">
@@ -488,8 +489,9 @@
                                                     <div class="name">
                                                         <a href="product-list" class="body-title-2">{{ $product->name }}</a>
                                                     </div>
-                                                    <div class="body-text">#{{ $product->id }}</div>
-                                                    <div class="body-text">${{ $product->price }}</div>
+                                                    
+                                                    <div class="body-text">#{{ $loop->iteration }}</div>
+                                                    <div class="body-text">{{ $product->price }}</div>
                                                     <div class="body-text">{{ $product->quantity }}</div>
                                                     <div class="body-text">{{ $product->discount }}</div>
                                                     <div>

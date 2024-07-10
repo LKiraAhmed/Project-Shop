@@ -166,8 +166,12 @@
                                 <div class="product-single-info">
                                     <h4 class="title">{{$products->name}}</h4>
                                     <div class="prices">
-                                        <span class="price">{{$products->price}}</span>
-                                        <span class="price-old">{{$products->discount}}</span>
+                                        @if ($products->discount > 0)
+                                        <span class="price">{{ $products->price - $products->discount }}</span>
+                                        <span class="price-old">{{ $products->price }}</span>
+                                        @else
+                                        <span class="price">{{ $products->price }}</span>
+                                      @endif
                                     </div>
                                     <div class="rating-box-wrap">
                                         <div class="rating-box">
@@ -489,9 +493,12 @@
                                             </div>
                                            
                                             <div class="prices">
-                                                <span class="price">${{ $randomProduct->price }}</span>
-                                      
-                                                    <span class="price-old">${{ $randomProduct->discount }}</span>
+                                                @if ($randomProduct->discount > 0)
+                                                <span class="price">{{ $randomProduct->price - $randomProduct->discount }}</span>
+                                                <span class="price-old">{{ $randomProduct->price }}</span>
+                                                @else
+                                                <span class="price">{{ $randomProduct->price }}</span>
+                                              @endif
                                             </div>
                                         </div>
                                     </div>

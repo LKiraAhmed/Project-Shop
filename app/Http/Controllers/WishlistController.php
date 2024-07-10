@@ -7,6 +7,8 @@ use App\Models\Wishlist;
 use App\Models\Product;
 use App\Models\Cart;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 class WishlistController extends Controller
 {
     //
@@ -43,22 +45,49 @@ class WishlistController extends Controller
 
         return redirect()->back()->with('error_message', 'Product not found in wishlist!');
     }
-    public function addwishlist($productId){
+    public function addwishlist(Request $request){
+        $rules = [
+            'product_id' => 'required|exists:products,id',
+        ];
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->messages()], 422);
+        }
         $userId=Auth::id();
         if(!$userId){
-            return redirect()->route('login');
+            return response()->json(['error' => 'Unauthorized. Please login.'], 401);
         }
-        $wishlist = Wishlist::where('product_id',$productId)->first();
+        
+
+        $wishlist= Wishlist::create([
+            'user_id' => Auth::id(),
+            'product_id' => $request->product_id,
+        ]);     
+
         if($wishlist){
-         
-            return response()->json(['message' => 'Product Add wishlist successfully.']);
-        }else{
-            $wishlist->update([
-                'user_id' => Auth::id(),
-                'product_id' => $productId,
-            ]);
-            return response()->json(['message' => 'Product Add Dosen`t wishlist successfully.']);
+            try {
+                if (!$wishlist->save()) {
+                    throw new \Exception('Failed to save wishlist item.');
+                }
+            } catch (\Exception $e) {
+                return response()->json(['error' => $e->getMessage()], 500);
+            }        
+         }else{
+            $wishlist=new Wishlist;
+            $wishlist->user_id=$userId;
+            $wishlist->product_id= $request->product_id;
+            try {
+                if (!$wishlist->save()) {
+                    throw new \Exception('Failed to save wishlist item.');
+                }
+            } catch (\Exception $e) {
+                return response()->json(['error' => $e->getMessage()], 500);
+            }     
+        
         }
+        return response()->json(['message' => 'Product added to wishlist successfully.', 'wishlist' => $wishlist]);
+
     }
     
 

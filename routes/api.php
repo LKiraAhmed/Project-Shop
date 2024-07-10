@@ -4,6 +4,7 @@ use App\Http\Controllers\CartController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\WishlistController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +20,10 @@ use App\Http\Controllers\ReviewController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+//reviews
 Route::post('/reviews/store', [ReviewController::class, 'store'])->name('reviews.store');
-// Route::post('/cart/update', [CartController::class, 'updateCart'])->name('cart.updateCart');
-Route::post('/cart/updateCart', [CartController::class, 'updateCart'])->name('cart.updateCart');
-Route::post('/cart/addToCart', [CartController::class, 'addToCart'])->name('cart.addToCart');
+//cart     
+Route::post('/cart/updateCart', [CartController::class, 'updateCart'])->name('cart.updateCart');//updateCart update quantity
+Route::post('/cart/addtocart', [CartController::class, 'addToCart'])->name('cart.addToCart');/// ceate cart api 
+//wishlist
+Route::post('/wishlist/addwishlist', [WishlistController::class, 'addwishlist'])->name('wishlist.addwishlist');// create wishlist api
