@@ -757,10 +757,12 @@ $mostViewedProducts = Product::select('products.id', 'products.name', 'products.
       axios.post('/api/cart/addtocart', postData, { headers })
           .then(response => {
               console.log(response.data);
-              // window.location.href = '/cart'; 
+             location.href = '/cart'; 
           })
           .catch(error => {
               console.error('Error:', error);
+              location.href = '/login'; 
+
           });
   }
 </script>

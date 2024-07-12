@@ -31,7 +31,8 @@ class CartController extends Controller
         $userId = Auth::id();
     
         if (!$userId) {
-            return response()->json(['error' => 'Unauthorized. Please login.'], 401);
+
+            return route('login');
         }
       
 
