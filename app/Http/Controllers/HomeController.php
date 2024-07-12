@@ -18,12 +18,10 @@ public function viewCount($id)
 {
     $product = Product::findOrFail($id);
 
-    // تحقق إذا كان المستخدم قد فتح المنتج من قبل
     $cookieName = 'product_view_' . $product->id;
     if (!Cookie::has($cookieName)) {
-        // زيادة عدد مشاهدات المنتج إذا لم يفتح من قبل
         $product->increment('views_count');
-        Cookie::queue($cookieName, true, 60*24*30); // احفظ الكوكي لمدة 30 يوم
+        Cookie::queue($cookieName, true, 60*24*30); 
     }
 
     return view('products.show', compact('product'));
@@ -73,9 +71,6 @@ public function viewCount($id)
 
      
 
-        foreach ($products as $product) {
-            $product->increment('views_count');
-        }
         $reviews = Review::all(); 
         $averageRating = $reviews->avg('rating');
         $roundedRating = min(5, round($averageRating));
@@ -97,11 +92,7 @@ public function viewCount($id)
             $product->averageRating = $reviews->avg('rating');
         }
 
-      
 
-        foreach ($products as $product) {
-            $product->increment('views_count');
-        }
         $reviews = Review::all(); 
         $averageRating = $reviews->avg('rating');
         $roundedRating = min(5, round($averageRating));
@@ -124,9 +115,7 @@ public function viewCount($id)
 
     
 
-        foreach ($products as $product) {
-            $product->increment('views_count');
-        }
+    
         $reviews = Review::all(); 
         $averageRating = $reviews->avg('rating');
         $roundedRating = min(5, round($averageRating));
@@ -148,9 +137,6 @@ public function viewCount($id)
         }
 
 
-        foreach ($products as $product) {
-            $product->increment('views_count');
-        }
         $reviews = Review::all(); 
         $averageRating = $reviews->avg('rating');
         $roundedRating = min(5, round($averageRating));

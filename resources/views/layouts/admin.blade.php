@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Products </title>
+    <title>@yield('title')</title> 
 
     <!--== Favicon ==-->
     <link rel="shortcut icon" href="{{ asset('assets/img/be-unique-logo.jpg') }}" type="image/x-icon" />
@@ -46,11 +46,123 @@
 </head>
 
 <body>
-    <div id="scroll-to-top" class="scroll-to-top"><span class="fa fa-angle-double-up"></span></div>
+  <!--wrapper start-->
+<div class="wrapper">
 
-    <main class="py-4">
-        @yield('content')
-    </main>
+  <!--== Start Preloader Content ==-->
+  <div class="preloader-wrap">
+    <div class="preloader">
+      <span class="dot"></span>
+      <div class="dots">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </div>
+  <!--== End Preloader Content ==-->
+
+    <header class="header-area header-default">
+      <div class="container">
+          <div class="row align-items-center">
+              <div class="col-6 col-sm-4 col-lg-3">
+                  <div class="header-logo-area">
+                      <a href="index">
+                          <img class="logo-main" src="{{asset('assets/img/be-unique-logo.jpg')}}" alt="Logo" />
+                          <img class="logo d-none" src="{{asset('assets/img/logo-light.png')}}" alt="Logo" />
+                      </a>
+                  </div>
+              </div>
+              <div class="col-sm-4 col-lg-7 d-none d-lg-block">
+                  <div class="header-navigation-area">
+                      <ul class="main-menu nav position-relative">
+                          <li class="has-submenu"><a href="#/">Home</a>
+                              <ul class="submenu-nav">
+                                  <li><a href="{{route('home')}}">Home</a></li>
+                              </ul>
+                          </li>
+                          <li class="has-submenu full-width"><a href="">Shop</a>
+                              <ul class="submenu-nav submenu-nav-mega">
+                                  <li class="mega-menu-item"><a href="" class="mega-title">Shop Layouts</a>
+                                      <ul>
+                                          <li><a href="{{route('shop-3-grid')}}">Shop All</a></li>
+                                      </ul>
+                                  </li>
+                                  <li class="mega-menu-item"><a href="#" class="mega-title">Shop Pages</a>
+                                      <ul>
+                                        @auth
+                                        <li><a href="{{ url('login') }}">{{ Auth::user()->name }}</a></li>
+                                         @else
+                                        <li><a href="{{ url('login') }}">Login</a></li>
+                                         @endauth     
+                                          <li><a href="{{url('login')}}"></a></li>
+                                          <li><a href="{{route('wishlist.index')}}">Wishlist</a></li>
+                                          <li><a href="{{route('cart.index')}}">Cart</a></li>
+                                          <li><a href="{{url('checkout')}}">Checkout</a></li>
+                                      </ul>
+                                  </li>
+                              </ul>
+                          </li>
+                          <li><a href="{{url('contact')}}">Contact</a></li>
+                          <li><a href="{{urL('about-us')}}">About</a></li>
+                      </ul>
+                  </div>
+              </div>
+              <div class="col-sm-7 col-lg-2 d-none d-sm-block text-end">
+                  <div class="header-action-area">
+                      <ul class="header-action">
+                          <li class="search-item">
+                            <a class="action-item" href="{{url('search')}}">
+                              <i class="zmdi zmdi-search icon"></i>
+                          </a> 
+                          </li>
+                       
+                          <li class="mini-cart">
+                              <a class="action-item" href="#/">
+                                  <i class="zmdi zmdi-shopping-cart-plus icon"></i>
+                                  <span class="cart-quantity">{{ count($cartItems) }}</span>
+                              </a>
+                              <div class="mini-cart-dropdown">
+                                @foreach($cartItems as $cartItem)
+                                <div class="cart-item">
+                                    <div class="thumb">
+                                        <img class="w-100" src="/allFiels/{{ $cartItem->product->image }}" alt="{{ $cartItem->product->name }}">
+                                    </div>
+                                    <div class="content">
+                                        <h5 class="title"><a href="#/">{{ $cartItem->product->name }}</a></h5>
+                                        <span class="product-quantity">{{ $cartItem->quantity }} ×</span>
+                                        <span class="product-price">${{ number_format($cartItem->product->price, 2) }}</span>
+                                        <a class="cart-trash" href="{{ route('cart.destroy', $cartItem->id) }}"><i class="fa fa-trash"></i></a>
+                                    </div>
+                                </div>
+                            @endforeach                          
+                                  <div class="cart-total-money">
+                                      <h5>Total: <span class="money">${{ $cartItems->sum(fn($item) => $item->product->price * $item->quantity) }}</span></h5>
+                                  </div>
+                                  <div class="cart-btn">
+                                      <a href="{{ route('cart.index') }}">View Cart</a>
+                                      <a href="">Checkout</a>
+                                  </div>
+                              </div>
+                          </li>
+                      </ul>
+                  </div>
+              </div>
+              <div class="col-6 col-sm-1 d-block d-lg-none text-end">
+                  <button class="btn-menu" type="button"><i class="zmdi zmdi-menu"></i></button>
+              </div>
+          </div>
+      </div>
+  </header>
+  @yield('content')
+
+    <!--== Start Brand Logo Area Wrapper ==-->
+
+    <!--== End Brand Logo Area Wrapper ==-->
+
+    <!--== Start Blog Area Wrapper ==-->
+    <!--== End Blog Area Wrapper ==-->
+  </main>
 
   <!--== Start Footer Area Wrapper ==-->
   <footer class="footer-area">
@@ -63,7 +175,7 @@
               <div class="about-widget">
                 <div class="footer-logo-area">
                   <a href="index">
-                    <img class="logo-main footer-logo" src="{{asset('assets/img/be-unique-logo.jpg')}}" alt="Logo" />
+                    <img class="logo-main footer-logo" src="{{asset('assets/img/be-unique-logo.png')}}" alt="Logo" />
                   </a>
                 </div>
                 <p class="desc">Lorem ipsum dolor sit amet, consectet adipi elit, sed do eius tempor incididun ut labore gthydolore.</p>
@@ -139,6 +251,98 @@
     </div>
     <!--== End Footer Bottom ==-->
   </footer>
+  <!--== End Footer Area Wrapper ==-->
+
+  <!--== Scroll Top Button ==-->
+  <div id="scroll-to-top" class="scroll-to-top"><span class="fa fa-angle-double-up"></span></div>
+
+  <!--== Start Quick View Menu ==-->
+  <aside class="product-quick-view-modal">
+    <div class="product-quick-view-inner">
+      <div class="product-quick-view-content">
+        <button type="button" class="btn-close">
+          <span class="close-icon"><i class="fa fa-close"></i></span>
+        </button>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-12">
+            <div class="thumb">
+              <img src="assets/img/shop/quick-view1.jpg" alt="Alan-Shop">
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-12">
+            <div class="content">
+              <h4 class="title">Meta Slevless Dress</h4>
+              <div class="prices">
+                <del class="price-old">$85.00</del>
+                <span class="price">$70.00</span>
+              </div>
+              <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia,</p>
+              <div class="quick-view-select">
+                <div class="quick-view-select-item">
+                  <label for="forSizes" class="form-label">Size:</label>
+                  <select class="form-select" id="forSizes" required>
+                    <option selected value="">s</option>
+                    <option>m</option>
+                    <option>l</option>
+                    <option>xl</option>
+                  </select>
+                </div>
+                <div class="quick-view-select-item">
+                  <label for="forColors" class="form-label">Color:</label>
+                  <select class="form-select" id="forColors" required>
+                    <option selected value="">red</option>
+                    <option>green</option>
+                    <option>blue</option>
+                    <option>yellow</option>
+                    <option>white</option>
+                  </select>
+                </div>
+              </div>
+              <div class="action-top">
+                <div class="pro-qty">
+                  <input type="text" id="quantity4" title="Quantity" value="1" />
+                </div>
+                <button class="btn btn-black">Add to cart</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="canvas-overlay"></div>
+  </aside>
+  <!--== End Quick View Menu ==-->  
+
+  <!--== Start Side Menu ==-->
+  <aside class="off-canvas-wrapper">
+    <div class="off-canvas-inner">
+      <div class="off-canvas-overlay"></div>
+      <!-- Start Off Canvas Content Wrapper -->
+      <div class="off-canvas-content">
+        <!-- Off Canvas Header -->
+        <div class="off-canvas-header">
+          <div class="close-action">
+            <button class="btn-menu-close">menu <i class="fa fa-chevron-left"></i></button>
+          </div>
+        </div>
+
+        <div class="off-canvas-item">
+          <!-- Start Mobile Menu Wrapper -->
+          <div class="res-mobile-menu menu-active-one">
+            <!-- Note Content Auto Generate By Jquery From Main Menu -->
+          </div>
+          <!-- End Mobile Menu Wrapper -->
+        </div>
+      </div>
+      <!-- End Off Canvas Content Wrapper -->
+    </div>
+  </aside>
+  <!--== End Side Menu ==-->
+
+</div>
+
+  @yield('footer')
+
   <!--== End Footer Area Wrapper ==-->
 
   <!--== Scroll Top Button ==-->
@@ -254,10 +458,7 @@
 <!--=== jQuery Custom Js ===-->
 <script src="assets/js/custom.js"></script>
 
-<script>
-  // Images Zoom
-  $('.zoom-hover').zoom();
-</script>
+
 
     <!--=======================Javascript============================-->
 
