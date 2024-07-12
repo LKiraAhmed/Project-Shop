@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 04, 2024 at 11:09 AM
+-- Generation Time: Jul 12, 2024 at 11:45 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -81,7 +81,9 @@ INSERT INTO `categories` (`id`, `name`, `created_at`, `updated_at`) VALUES
 (1, 'shirt', NULL, NULL),
 (2, 'bantlon', '2024-07-01 13:06:53', '2024-07-01 13:06:53'),
 (3, 'test', '2024-07-04 15:54:46', '2024-07-04 15:54:46'),
-(4, 'sd', '2024-07-04 15:56:21', '2024-07-04 15:56:21');
+(4, 'sd', '2024-07-04 15:56:21', '2024-07-04 15:56:21'),
+(5, 'shirt', '2024-07-08 08:50:17', '2024-07-08 08:50:17'),
+(6, 'Dress', '2024-07-10 11:51:39', '2024-07-10 11:51:39');
 
 -- --------------------------------------------------------
 
@@ -140,7 +142,11 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (23, '2024_07_01_001020_create_carts_table', 1),
 (24, '2024_07_01_001056_create_reviews_table', 1),
 (25, '2024_07_01_001134_create_wishlists_table', 1),
-(26, '2024_07_01_001249_add_views_count_to_products_table', 1);
+(26, '2024_07_01_001249_add_views_count_to_products_table', 1),
+(27, '2024_07_08_224520_add_views_count_to_users_table', 2),
+(28, '2024_07_10_011225_add_views_count_to_products_table', 3),
+(29, '2024_07_10_013919_add_views_count_to_products_table', 4),
+(30, '2024_07_10_014153_add_views_count_to_products_table', 5);
 
 -- --------------------------------------------------------
 
@@ -203,17 +209,25 @@ CREATE TABLE `products` (
   `catigorie_id` bigint(20) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `views_count` bigint(20) UNSIGNED NOT NULL DEFAULT 0
+  `sales_count` bigint(20) UNSIGNED NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `name`, `image`, `price`, `discount`, `description`, `size`, `quantity`, `catigorie_id`, `created_at`, `updated_at`, `views_count`) VALUES
-(29, 'test', 0x313732303037383737382e6a7067, 20.00, 10.00, 'You need to add at least 4 images. Pay attention to the quality of the pictures you add, comply with the background color standards. Pictures must be in certain dimensions. Notice that the product shows all the details.', 'md', 1, 1, '2024-07-04 14:39:39', '2024-07-04 14:42:58', 1),
-(30, 'test2', 0x313732303038333636332e6a7067, 20.00, 10.00, 'You need to add at least 4 images. Pay attention to the quality of the pictures you add, comply with the background color standards. Pictures must be in certain dimensions. Notice that the product shows all the details.', 'sm', 7, 2, '2024-07-04 16:01:03', '2024-07-04 16:01:03', 0),
-(31, 'test2', 0x313732303038333938352e6a7067, 20.00, 10.00, 'You need to add at least 4 images. Pay attention to the quality of the pictures you add, comply with the background color standards. Pictures must be in certain dimensions. Notice that the product shows all the details.', 'sm', 7, 2, '2024-07-04 16:06:25', '2024-07-04 16:06:25', 0);
+INSERT INTO `products` (`id`, `name`, `image`, `price`, `discount`, `description`, `size`, `quantity`, `catigorie_id`, `created_at`, `updated_at`, `sales_count`) VALUES
+(34, 'T-Shirt', 0x313732303538343738302e6a7067, 500.00, 200.00, 'Skirts come in an array of styles, including pencil, A-line, pleated, and maxi skirts. They can be made from various materials like denim, cotton, leather, and silk. Skirts offer flexibility in styling, making them suitable for both professional settings and casual outings. The right skirt can highlight your silhouette and provide comfort and style.', 'md', 1, 5, '2024-07-10 11:13:00', '2024-07-10 11:13:00', 0),
+(36, 'bantlon', 0x313732303538343837322e6a7067, 900.00, 400.00, 'Women\'s pants, also known as pantolon, are a versatile and essential piece in any wardrobe. They come in various styles, cuts, and fabrics, catering to different occasions and preferences. Common styles include tailored trousers, casual chinos, skinny jeans, wide-leg pants, and leggings. Pants can be made from materials like cotton, denim, wool, and synthetic blends, offering comfort and flexibility. Whether you\'re looking for professional attire, casual wear, or something sporty, there\'s a perfect pair of pants to match your needs. Pair them with blouses, t-shirts, blazers, or sweaters to create a range of stylish and functional outfits.', 'sm', 1, 2, '2024-07-10 11:14:32', '2024-07-10 11:14:32', 0),
+(43, 'Jeans', 0x313732303538353236332e6a7067, 600.00, 500.00, 'A pair of well-fitting jeans is an essential item in any woman’s wardrobe. They come in various cuts such as skinny, straight-leg, bootcut, and wide-leg. Jeans are typically made from denim and can range from classic blue to various colors and washes. They are perfect for casual wear but can be dressed up with a stylish blouse and heels.', 'lg', 2, 1, '2024-07-10 11:21:03', '2024-07-10 11:21:03', 0),
+(44, 'Dress', 0x313732303538363139332e6a7067, 400.00, 200.00, 'A versatile and timeless piece, the dress is a wardrobe staple for every woman. Available in various lengths, styles, and fabrics, it can be perfect for any occasion, from casual daywear to formal evening events. Popular styles include A-line, sheath, wrap, and maxi dresses, each offering a unique silhouette and level of comfort.', 'lg', 1, 6, '2024-07-10 11:36:33', '2024-07-10 11:52:14', 0),
+(45, 'Dress', 0x313732303538363234372e6a7067, 500.00, 200.00, 'A versatile and timeless piece, the dress is a wardrobe staple for every woman. Available in various lengths, styles, and fabrics, it can be perfect for any occasion, from casual daywear to formal evening events. Popular styles include A-line, sheath, wrap, and maxi dresses, each offering a unique silhouette and level of comfort.', 'md', 1, 1, '2024-07-10 11:37:27', '2024-07-10 11:54:31', 0),
+(46, 'Dress', 0x313732303538363238342e6a7067, 600.00, 100.00, 'A versatile and timeless piece, the dress is a wardrobe staple for every woman. Available in various lengths, styles, and fabrics, it can be perfect for any occasion, from casual daywear to formal evening events. Popular styles include A-line, sheath, wrap, and maxi dresses, each offering a unique silhouette and level of comfort.', 'md', 1, 1, '2024-07-10 11:38:04', '2024-07-10 11:38:04', 0),
+(47, 'Dress', 0x313732303538363331382e6a7067, 700.00, 400.00, 'A versatile and timeless piece, the dress is a wardrobe staple for every woman. Available in various lengths, styles, and fabrics, it can be perfect for any occasion, from casual daywear to formal evening events. Popular styles include A-line, sheath, wrap, and maxi dresses, each offering a unique silhouette and level of comfort.', 'lg', 1, 1, '2024-07-10 11:38:38', '2024-07-10 11:38:38', 0),
+(48, 'Shorts', 0x313732303538363430352e6a7067, 500.00, 200.00, 'Cardigans are versatile layering pieces that can add warmth and style to any outfit. They come in various lengths and styles, from cropped to long, and can be made from different materials like wool, cotton, and cashmere. Cardigans can be worn over dresses, blouses, or t-shirts for a cozy yet fashionable look.', 'sm', 1, 1, '2024-07-10 11:40:05', '2024-07-10 11:40:05', 0),
+(49, 'Sweater', 0x313732303538363532362e6a7067, 500.00, 200.00, 'The blouse is a chic and feminine top that can easily transition from office wear to evening wear. Often made from lightweight fabrics like silk, cotton, or chiffon, blouses can feature various details such as ruffles, pleats, and lace. Pairing a blouse with tailored pants or a skirt can create a polished and elegant look.', 'md', 1, 1, '2024-07-10 11:42:06', '2024-07-10 11:42:06', 0),
+(50, 'Jumpsuit', 0x313732303538363537352e6a7067, 1000.00, 500.00, 'The blouse is a chic and feminine top that can easily transition from office wear to evening wear. Often made from lightweight fabrics like silk, cotton, or chiffon, blouses can feature various details such as ruffles, pleats, and lace. Pairing a blouse with tailored pants or a skirt can create a polished and elegant look.', 'sm', 1, 1, '2024-07-10 11:42:55', '2024-07-10 11:42:55', 0),
+(51, 'bantlon', 0x313732303538373339302e6a7067, 900.00, 400.00, 'A versatile and timeless piece, the dress is a wardrobe staple for every woman. Available in various lengths, styles, and fabrics, it can be perfect for any occasion, from casual daywear to formal evening events. Popular styles include A-line, sheath, wrap, and maxi dresses, each offering a unique silhouette and level of comfort.', 'lg', 1, 2, '2024-07-10 11:56:30', '2024-07-10 11:56:30', 0);
 
 -- --------------------------------------------------------
 
@@ -232,13 +246,6 @@ CREATE TABLE `reviews` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `reviews`
---
-
-INSERT INTO `reviews` (`id`, `user_id`, `product_id`, `rating`, `title`, `body`, `created_at`, `updated_at`) VALUES
-(2, 3, 29, 5, 'sssssssssssssssss', 'trest', '2024-07-04 14:43:18', '2024-07-04 14:43:18');
-
 -- --------------------------------------------------------
 
 --
@@ -254,16 +261,19 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL,
   `remember_token` varchar(100) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `email_code` bigint(20) DEFAULT NULL,
+  `code` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `phone`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(2, 'ahmed', 'lkiraww2@gmail.com', '012889613263', NULL, '$2y$12$1f5E41eXzrSsFAjo7kM21.3ayYb0YGBLEZqQ/5cxE9gmcc862WcQe', NULL, '2024-07-01 17:40:59', '2024-07-01 17:49:48'),
-(3, 'ahmed', 'wega03726@gmail.com', 'wega03726@gmail.com', NULL, '$2y$12$lyqJAv1RXmoq2jFHScmnTugw.Ujl.kZRGsma9C3ujDKaBhnoayPeO', NULL, '2024-07-02 14:50:04', '2024-07-02 14:50:04');
+INSERT INTO `users` (`id`, `name`, `email`, `phone`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `email_code`, `code`) VALUES
+(3, 'ahmed', 'wega03726@gmail.com', 'wega03726@gmail.com', NULL, '$2y$12$lyqJAv1RXmoq2jFHScmnTugw.Ujl.kZRGsma9C3ujDKaBhnoayPeO', NULL, '2024-07-02 14:50:04', '2024-07-02 14:50:04', NULL, NULL),
+(4, 'ahmed24rk', 'ahmed24rkg@gmail.com', '01288913263', NULL, '$2y$12$w/1sbfBdGlSqW9IHGVQROu/ID8A4LrdupPTuSBJN2GaoCKfb9hKaS', NULL, '2024-07-05 23:35:44', '2024-07-05 23:35:44', NULL, NULL),
+(5, 'Test', 'test@gmail.com', '016424+8284656', NULL, '$2y$12$ftjmYfHFByPoQPpa9Yfq9Ob2a/Hr9o3Oimfdlt2l1fAa.0SuWNW/y', NULL, '2024-07-09 06:04:25', '2024-07-09 06:04:25', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -386,13 +396,13 @@ ALTER TABLE `wishlists`
 -- AUTO_INCREMENT for table `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -410,7 +420,7 @@ ALTER TABLE `image`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -422,25 +432,25 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `wishlists`
 --
 ALTER TABLE `wishlists`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Constraints for dumped tables
