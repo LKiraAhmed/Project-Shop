@@ -33,9 +33,7 @@ class PageController extends Controller
 
             $randomProducts = Product::with(['reviews'])->inRandomOrder()->limit(4)->get();
 
-            foreach ($products as $product) {
-                $product->increment('views_count');
-            }
+        
             $reviews = Review::all(); 
             $averageRating = $reviews->avg('rating');
             $roundedRating = min(5, round($averageRating));

@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.header')
 
 @section('title', 'About :: Be Unique – Minimal Fashion Bootstrap 5 Template') 
 
@@ -92,13 +92,10 @@
       @endif
   </div>
 </section>
+@include('layouts.footer')
 
 
   <!--== End Search Results Wrapper ==-->
 </main>
-
-
-@section('footer')
-@endsection
 
 @endsection

@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.header')
 
 @section('title', 'Be Unique – Unique Fashion ') 
 
@@ -376,13 +376,15 @@ $mostViewedProducts = Product::select('products.id', 'products.name', 'products.
                     </div>
                 </section>
                 
-  
+              </main>
+
   
   
     <!--== End Product Area Wrapper ==-->
-    @section('footer')
-    @endsection
-<!--=======================Javascript============================-->
+
+    @include('layouts.footer')
+
+    <!--=======================Javascript============================-->
 {{-- <script>
 
   function addToCart(event, productId) {

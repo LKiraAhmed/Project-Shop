@@ -87,8 +87,7 @@
             </section>
             <!--== End Account Area Wrapper ==-->
         </main>
-        @section('footer')
-        @endsection
-    
+        @include('layouts.footer')
+
         @endsection
     

@@ -1,5 +1,5 @@
 
-@extends('layouts.admin')
+@extends('layouts.header')
 
 @section('title', 'About :: Be Unique – Minimal Fashion Bootstrap 5 Template') 
 
@@ -121,12 +121,9 @@
   
     <!--== End Product Area Wrapper ==-->
   </main>
-
-  @section('footer')
-  @endsection
+  @include('layouts.footer')
 
 <!--=======================Javascript============================-->
-<!-- Include Axios library -->
 <!-- Include Axios library -->
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 

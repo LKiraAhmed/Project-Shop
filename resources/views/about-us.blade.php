@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.header')
 
 @section('title', 'About :: Be Unique – Minimal Fashion Bootstrap 5 Template') 
 
@@ -107,7 +107,11 @@
     </section>
     <!--== End Team Area Wrapper ==-->
   </main>
+  @include('layouts.footer')
 
-  @section('footer')
   @endsection
-@endsection
+
+{{-- 
+  @section('footer')
+  @endsection --}}
+

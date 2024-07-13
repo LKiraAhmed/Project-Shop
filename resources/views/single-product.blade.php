@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.header')
 @section('title', 'About :: Be Unique – Minimal Fashion Bootstrap 5 Template') 
 
 @section('content')
@@ -450,6 +450,8 @@
   </div>
   <div class="canvas-overlay" onclick="closeQuickViewModal()"></div>
 </aside>
+@include('layouts.footer')
+
 <script>
     document.addEventListener('DOMContentLoaded', (event) => {
         const stars = document.querySelectorAll('.star');

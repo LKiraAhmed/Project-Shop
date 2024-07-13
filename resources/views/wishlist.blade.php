@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.header')
 
 @section('title', 'Remos eCommerce Admin Dashboard HTML Template') 
 
@@ -93,10 +93,11 @@
   </section>
     <!--== End Wishlist Area Wrapper ==-->
   </main>
+  @include('layouts.footer')
 
- 
+{{--  
   @section('footer')
-  @endsection
+  @endsection --}}
 
 
 <!--=======================Javascript============================-->
