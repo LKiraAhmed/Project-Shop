@@ -141,12 +141,14 @@
                             </ul>
                         </div>
                         <div class="center-item">
-                            <div class="center-heading">Setting</div>
+                            <div class="center-heading">Order</div>
                             <ul class="menu-list">
                                 <li class="menu-item">
-                                    <a href="{{route('dashboard.page', ['page' => 'setting'])}}">
-                                        <div class="icon"><i class="icon-settings"></i></div>
-                                        <div class="text">Setting</div>
+                                    <a href="{{route('orders')}}">
+                                        <div class="icon">
+                                            <i class="icon-file-plus"></i>
+                                        </div>
+                                        <div class="text">order</div>
                                     </a>
                                 </li>
                             </ul>

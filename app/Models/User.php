@@ -59,6 +59,8 @@ class User extends Authenticatable
     public function Wishlist(){
         return $this->hasMany(Wishlist::class,'id','user_id');
     }
+
+   
     // public function generate_email_code()
     // {
     //     $this->timestamps = false;

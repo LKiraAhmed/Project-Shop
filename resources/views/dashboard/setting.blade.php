@@ -183,7 +183,9 @@
                                     </li>
                                     <li class="menu-item has-children">
                                         <a href="javascript:void(0);" class="menu-item-button">
-                                            <div class="icon"><i class="icon-file-plus"></i></div>
+                                            <div class="icon">
+                                                <i class="icon-file-plus"></i>
+                                            </div>
                                             <div class="text">Order</div>
                                         </a>
                                         <ul class="sub-menu">

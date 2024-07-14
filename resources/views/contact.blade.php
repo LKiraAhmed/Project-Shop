@@ -88,11 +88,9 @@
     </section>
     <!--== End Contact Area Wrapper ==-->
   </main>
+
+
   @include('layouts.footer')
 
-{{-- 
-
-    @section('footer')
-    @endsection --}}
 
     @endsection

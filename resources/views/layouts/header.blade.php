@@ -137,11 +137,11 @@
                                 </div>
                             @endforeach                          
                                   <div class="cart-total-money">
-                                      <h5>Total: <span class="money">${{ $cartItems->sum(fn($item) => $item->product->price * $item->quantity) }}</span></h5>
+                                      <h5>Total: <span class="money">{{ $cartItems->sum(fn($item) => $item->product->price * $item->quantity) }}</span></h5>
                                   </div>
                                   <div class="cart-btn">
                                       <a href="{{ route('cart.index') }}">View Cart</a>
-                                      <a href="">Checkout</a>
+                                      <a href="{{route('checkout')}}">Checkout</a>
                                   </div>
                               </div>
                           </li>

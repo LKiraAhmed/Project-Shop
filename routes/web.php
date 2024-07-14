@@ -15,6 +15,7 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\Admin\ProductController as ProductControllerSigle;
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,7 +62,12 @@ Route::get('/dashboard/{page}', [DashboardPageController::class, 'index'])->name
 // Home page
 Route::get('/',[HomeController::class,'index'])->name('home');
 Route::get('/show',[HomeController::class,'show'])->name('shop-3-grid');
+// Route for creating an order
+// Route::post('/orders/create', [OrderController::class, 'createOrder'])->name('orders.create');
 
+// // Route for showing an order
+// Route::get('/orders', [OrderController::class, 'showOrder'])->name('orders');
+//
 Route::get('/checkout',[HomeController::class,'checkout'])->name('checkout');
 Route::get('/contact',[HomeController::class,'contact'])->name('contact');
 Route::get('/about-us',[HomeController::class,'aboutus'])->name('about-us');
@@ -89,7 +95,6 @@ Route::post('/reviews/store', [ReviewController::class, 'store'])->name('reviews
 Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
 Route::post('/wishlist/store', [WishlistController::class, 'store'])->name('wishlist.store');
 Route::delete('/wishlist/{id}', [WishlistController::class, 'destroy'])->name('wishlist.destroy');
-Route::post('/wishlist/addwishlist/{productId}', [WishlistController::class, 'addwishlist'])->name('wishlist.addwishlist');
 
 
 

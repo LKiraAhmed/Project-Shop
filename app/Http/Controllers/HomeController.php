@@ -123,6 +123,7 @@ public function viewCount($id)
         return view('contact',compact('user','products', 'cartItems','reviews','roundedRating'));
     }
     public function aboutus(){
+        
         $cartItems = Cart::where('user_id', Auth::id())->with('product')->get();
         $subtotal = $cartItems->sum(function($item) {
             return $item->product->price * $item->quantity;

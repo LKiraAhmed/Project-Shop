@@ -120,14 +120,12 @@
                                                 <div class="product-action-simple">
                                                     <div class="product-quick-action">
                                                         <div class="product-quick-qty">  
+                                                         
                                                             <form action="{{ route('cart.store') }}" method="POST" class="product-form">
                                                                 @csrf
                                                                         <div class="pro-qty">
                                                                             <input type="number" id="quantity5" name="quantity" title="Quantity" class="form-control" value="{{ $products->quantity }}">
-                                                                        </div>                  
-                                                                    </div>
-                                                                    
-                                                                    
+                                                                        </div>                                                                                     
                                                                         <input type="hidden" name="product_id" value="{{ $products->id }}">
                                                                         <button type="submit" class="btn btn-primary btn-product-add">ADD TO CART</button>
                                                                     </form>
@@ -336,10 +334,10 @@
                                         @endif
                                         <div class="product-action">
                                             <div class="addto-wrap">
-                                                <a href="#" class="add-cart" onclick="addToCart({{ $randomProduct->id }});">
+                                                <a href="" class="add-cart" onclick="addToCart({{ $randomProduct->id }});">
                                                     <i class="zmdi zmdi-shopping-cart-plus icon"></i>
                                                 </a>
-                                                <a class="add-wishlist" href="#" onclick="addWishlist({{ $randomProduct->id }})">
+                                                <a class="add-wishlist" href="" onclick="addWishlist({{ $randomProduct->id }})">
                                                     <i class="zmdi zmdi-favorite-outline zmdi-hc-fw icon"></i>
                                                 </a>
                                             </div>
@@ -477,15 +475,16 @@
       const postData = {
           product_id: productId,
           quantity: 1,
-          _token: '{{ csrf_token() }}'
       };
 
-      axios.post('{{ route('cart.store') }}', postData)
+      axios.post('', postData)
           .then(response => {
               console.log(response.data);
-              window.location.href = '/cart'; 
+              //window.location.href = '/cart'; 
           })
           .catch(error => {
+            console.error(error);
+
           });
   }
 </script>
@@ -500,7 +499,7 @@
             token: '{{ csrf_token() }}'
         };
     
-        axios.post('{{ route("wishlist.store") }}', postData)
+        axios.post('', postData)
             .then(response => {
                 console.log(response.data);
                 window.location.href = '{{ route("wishlist.index") }}'; 
