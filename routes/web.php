@@ -55,18 +55,22 @@ Route::get('/dashboard/users/{id}/edit', [DashboardUserController::class, 'edit'
 Route::post('/dashboard/users/{id}', [DashboardUserController::class, 'update'])->name('users.update');
 Route::delete('/dashboard/users/{id}', [DashboardUserController::class, 'destroy'])->name('users.destroy');
 
+// Route for creating an order
+Route::post('/orders/create', [OrderController::class, 'createOrder'])->name('orders.create');
+Route::post('/order/create', [OrderController::class, 'create'])->name('order.create');
+Route::delete('/dashboard/orders/delete/{id}', [OrderController::class, 'deleteOrder'])->name('deleteOrder');
+
+// // Route for showing an order
+Route::get('/dashboard/orders', [OrderController::class, 'showOrder'])->name('orders');
+//
+
 // Dashboard Pages
 Route::get('/dashboard/{page}', [DashboardPageController::class, 'index'])->name('dashboard.page');
-
 
 // Home page
 Route::get('/',[HomeController::class,'index'])->name('home');
 Route::get('/show',[HomeController::class,'show'])->name('shop-3-grid');
-// Route for creating an order
-// Route::post('/orders/create', [OrderController::class, 'createOrder'])->name('orders.create');
 
-// // Route for showing an order
-// Route::get('/orders', [OrderController::class, 'showOrder'])->name('orders');
 //
 Route::get('/checkout',[HomeController::class,'checkout'])->name('checkout');
 Route::get('/contact',[HomeController::class,'contact'])->name('contact');
@@ -103,14 +107,12 @@ Route::get('/registration', [UserController::class, 'index'])->name('registratio
 Route::post('/register', [UserController::class, 'create'])->name('register');
 Route::get('/login', [UserController::class, 'showLoginForm'])->name('login.form');
 Route::post('/login', [UserController::class, 'login'])->name('login');
+Route::get('/emai-page', [UserController::class, 'email'])->name('email-page');
+Route::post('/email-page', [UserController::class, 'sendResetLink'])->name('email-page-post');
+Route::get('password/reset', [UserController::class, 'reset'])->name('password.reset');
+Route::post('password/reset/update', [UserController::class, 'passwordUpdate'])->name('password.update');
 
-Route::get('/verify', [UserController::class, 'showVerificationForm'])->name('verification.notice');
-Route::post('/verify', [UserController::class, 'verify'])->name('verification.verify');
 
-Route::get('password/forgot', [PasswordResetController::class, 'showForgotPasswordForm'])->name('password.request');
-Route::post('password/email', [PasswordResetController::class, 'sendResetLinkEmail'])->name('password.email');
-Route::get('password/reset/{token}', [PasswordResetController::class, 'showResetForm'])->name('password.reset');
-Route::post('password/reset', [PasswordResetController::class, 'reset'])->name('password.update');
 
 // Fallback route for 404
 Route::get('/{page}', [PageController::class, 'index'])->name('page');

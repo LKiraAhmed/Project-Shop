@@ -35,10 +35,10 @@
               <!--== Start Login Form ==-->
               <div class="login-form">
                 <div class="content">
-                  <h4 class="title">Login</h4>
-                  <p>Please login using account detail bellow.</p>
+                  <h4 class="title">Email</h4>
+                  <p>Please Email using account detail bellow.</p>
                 </div>
-                <form action="{{ route('login.form') }}" method="POST">
+                <form action="{{route('email-page-post')}}" method="POST">
                   @csrf
                   <div class="row">
                       <div class="col-12">
@@ -47,19 +47,13 @@
                           </div>
                       </div>
                       <div class="col-12">
-                          <div class="form-group">
-                              <input class="form-control" type="password" name="password" placeholder="Password">
-                          </div>
-                      </div>
-                      <div class="col-12">
                           <div class="login-form-group">
-                              <button class="btn-sign" type="submit">Sign In</button>
-                              <a class="btn-pass-forgot" href="{{route('email-page')}}">Forgot your password?</a>
+                              <button class="btn-sign" type="submit">Email</button>
                             </div>
                       </div>
                       <div class="col-12">
                           <div class="account-optional-group">
-                              <a class="btn-create" href="{{ route('registration') }}">Create account</a>
+                              <a class="btn-create" href="{{ route('login') }}">Login</a>
                           </div>
                       </div>
                   </div>

@@ -16,44 +16,33 @@ class CartController extends Controller
     //addToCart
     public function addToCart(Request $request)
     {
-        $rules = [
-            'product_id' => 'required|exists:products,id',
-            'quantity' => 'required|integer|min:1',
-        ];
-        
-        $validator = Validator::make($request->all(), $rules);
 
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->messages()], 422);
-        }
+        // echo $request->product_id;
         
-    
-        $userId = Auth::id();
-    
+        $cart= new Cart();
+        $userId=$request->user_id;
         if (!$userId) {
-
-            return route('login');
+            return response()->json(['error' => 'Unauthorized.'], 401);
         }
-      
-
-        $cartItem = Cart::where('user_id', $userId)
-                        ->where('product_id', $request->product_id)
-                        ->first();
-    
-        if ($cartItem) {
-            $cartItem->quantity += $request->quantity;
-            $cartItem->save();
-        } else {
-            $cartItem = new Cart();
-            $cartItem->user_id = $userId;
-            $cartItem->product_id = $request->product_id;
-            $cartItem->quantity = $request->quantity;
-            $cartItem->save();
+        $cart->create([
+            'user_id'=>$userId,
+            'product_id'=>$request->product_id,
+            'quantity'=>$request->quantity
+        ]);  $cart= new Cart();
+        $userId=$request->user_id;
+        if (!$userId) {
+            return response()->json(['error' => 'Unauthorized.'], 401);
         }
-    
-        return response()->json(['message' => 'Product added to cart successfully.', 'cart_item' => $cartItem]);
+
+        $cart->create([
+            'user_id'=>$userId,
+            'product_id'=>$request->product_id,
+            'quantity'=>$request->quantity
+        ]);
+        
+        // Return response
+        return response()->json(['message' => 'Product added to cart successfully.']);
     }
-    
     
     // update
     public function index()
@@ -98,32 +87,24 @@ class CartController extends Controller
       public function updateCart(Request $request)
       {
           $rules=[
-              'product_id' => 'required|integer|exists:cart,id', 
               'quantity' => 'required|integer|min:1'
           ];
           $validator = Validator::make($request->all(), $rules);
 
           if ($validator->fails()) {
-              return response()->json(['error' => $validator->messages()], 422);
+              return response()->json(['error' => $validator->messages()]);
           }
           $userId = Auth::id();
       
           if (!$userId) {
-              return response()->json(['error' => 'Unauthorized. Please login.'], 401);
+              return response()->json(['error' => 'Unauthorized. Please login.']);
           }
+       
+          $cart=Cart::where('product_id',$request->product_id)->update([
+            'quantity' =>$request->quantity
+          ]);
       
-          $cartItem = Cart::where('user_id', $userId)
-                          ->where('id', $request->product_id)
-                          ->first();
-      
-          if (!$cartItem) {
-              return response()->json(['error' => 'Cart item not found.'], 404);
-          }
-      
-          $cartItem->quantity = $request->quantity;
-          $cartItem->save();
-      
-          return response()->json(['message' => 'Cart updated successfully!', 'cartItem' => $cartItem]);
+          return response()->json(['message' => 'Cart updated successfully!']);
       }
       
      

@@ -54,14 +54,14 @@ class WishlistController extends Controller
         if ($validator->fails()) {
             return response()->json(['error' => $validator->messages()], 422);
         }
-        $userId=Auth::id();
+        $userId=$request->user_id;
         if(!$userId){
             return response()->json(['error' => 'Unauthorized. Please login.'], 401);
         }
         
 
         $wishlist= Wishlist::create([
-            'user_id' => Auth::id(),
+            'user_id' => $userId,
             'product_id' => $request->product_id,
         ]);     
 

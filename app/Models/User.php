@@ -60,7 +60,9 @@ class User extends Authenticatable
         return $this->hasMany(Wishlist::class,'id','user_id');
     }
 
-   
+    public function orders(){
+        return $this->hasMany(Order::class,'id','user_id');
+    }
     // public function generate_email_code()
     // {
     //     $this->timestamps = false;

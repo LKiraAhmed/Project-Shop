@@ -168,44 +168,57 @@
 <!--=== jQuery Modernizr Min Js ===-->
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
-  function addToCart(productId) {
-      const postData = {
-          product_id: productId,
-          quantity: 1,
-          _token: '{{ csrf_token() }}'
-      };
+  @if(auth()->check())
+    var userId = @json(auth()->user()->id);
+  @else
+    var userId = null; 
+  @endif
 
-      axios.post('{{ route('cart.store') }}', postData)
-          .then(response => {
-              console.log(response.data);
-              window.location.href = '/cart'; 
-          })
-          .catch(error => {
-              console.error('Error:', error);
-              alert('An error occurred. Please try again.'); 
-          });
+  function addToCart(productId) {
+    if (userId) {
+      axios.post(`/api/cart/addtocart`, {
+        user_id: userId,
+        product_id: productId,
+        quantity: 1
+      })
+      .then(response => {
+          console.log(response.data);
+          window.location.href='/cart';
+      })
+      .catch(error => {
+          console.error(error);
+      });
+    } else {
+
+       location.href = '/login';
+    }
   }
 </script>
-
-
-
-
   <script>
+     @if(auth()->check())
+    var userId = @json(auth()->user()->id);
+  @else
+    var userId = null; 
+  @endif
+
     function addWishlist(productId) {
-        const postData = {
-            product_id: productId,
-            token: '{{ csrf_token() }}'
-        };
-    
-        axios.post('{{ route("wishlist.store") }}', postData)
-            .then(response => {
-                console.log(response.data);
-                window.location.href = '{{ route("wishlist.index") }}'; 
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred. Please try again.');
-              });
+     
+      if(userId){
+        axios.post(`/api/wishlist/addwishlist`,{
+        user_id:userId,
+        product_id:productId
+      })
+          .then(response => {
+             console.log(response.data)
+             window.location.href='/wishlist';
+          })
+          .catch(error => {
+              console.error(error);
+          });
+      }else{
+      location.href = '/login';
+      }
     }
     </script>
+
     @endsection

@@ -87,11 +87,11 @@
                                               </h4>
                                           </td>
                                           <td class="indecor-product-price">
-                                              <span class="price">${{ number_format($product->price, 2) }}</span>
+                                              <span class="price">{{ number_format($product->price, 2) }}</span>
                                           </td>
                                           <td class="indecor-product-quantity">
                                               <div class="pro-qty">
-                                                  <input type="text" id="quantity {{ $cartItem->id }}" title="Quantity" value="{{ $cartItem->quantity }}" oninput="updateCart({{ $cartItem->id }})">
+                                                  <input type="text" id="quantity" title="Quantity" value="{{ $cartItem->quantity }}"  oninput="updateCart({{ $cartItem->quantity }})">
                                               </div>
                                           </td>
                                           <td class="indecor-product-subtotal">
@@ -126,38 +126,33 @@
 <!--=======================Javascript============================-->
 <!-- Include Axios library -->
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
 <script>
-  async function updateCart(productId) {
-      const quantityInput = document.getElementById(`quantity${productId}`);
-      const quantity = quantityInput.value;
-      const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+async function updateCart(productId) {
+    const quantityInput = document.getElementById(`quantity${productId}`);
+    const quantity = quantityInput.value;
+    const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-      try {
-          const response = await fetch('{{ route('cart.updateCart') }}', {
-              method: 'POST',
-              headers: {
-                  'Content-Type': 'application/json',
-                  'X-CSRF-TOKEN': token
-              },
-              body: JSON.stringify({
-                  product_id: productId,
-                  quantity: quantity
-              })
-          });
+    try {
+        const response = await axios.post('/api/cart/updateCart', {
+            product_id: productId,
+            quantity: quantity
+        }, {
+            headers: {
+                'X-CSRF-TOKEN': token
+            }
+        });
 
-          const data = await response.json();
-
-          if (response.ok) {
-              console.log(data.message);
-          } else {
-              console.error(data.message);
-          }
-      } catch (error) {
-          console.error('Error:', error);
-      }
-  }
+        console.log(response.data.message);
+    } catch (error) {
+        if (error.response) {
+            console.error(error.response.data.message);
+        } else {
+            console.error('Error:', error);
+        }
+    }
+}
 </script>
+
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {

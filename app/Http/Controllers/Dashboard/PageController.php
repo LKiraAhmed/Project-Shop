@@ -7,6 +7,7 @@ use App\Models\Catigory;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\Order;
 
 class PageController extends Controller
 {
@@ -19,8 +20,9 @@ class PageController extends Controller
 
         if (view()->exists($viewPath)) {
             $products=Product::all();
+            $latestOrders = Order::orderBy('created_at', 'desc')->get();
 
-            return view($viewPath, compact('products','users','categories'));
+            return view($viewPath, compact('products','users','categories','latestOrders'));
         } else {
             return view('dashboard.404');
         }

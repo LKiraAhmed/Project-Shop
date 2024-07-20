@@ -124,7 +124,7 @@
                                                             <form action="{{ route('cart.store') }}" method="POST" class="product-form">
                                                                 @csrf
                                                                         <div class="pro-qty">
-                                                                            <input type="number" id="quantity5" name="quantity" title="Quantity" class="form-control" value="{{ $products->quantity }}">
+                                                                            <input type="number" id="quantity" name="quantity" title="Quantity" class="form-control" value="1">
                                                                         </div>                                                                                     
                                                                         <input type="hidden" name="product_id" value="{{ $products->id }}">
                                                                         <button type="submit" class="btn btn-primary btn-product-add">ADD TO CART</button>
@@ -145,7 +145,16 @@
                                                             </div>
                                                 
                                                             <div class="payment-button">
-                                                                <a href="{{ route('checkout') }}" class="btn-payment">Buy it now</a>
+                                                                @auth
+                                                                <form action="{{ route('order.create') }}" method="POST" id="checkoutForm">
+                                                                    @csrf
+                                                                    <input type="hidden" name="product_id" value="{{ $products->id }}">
+                                                                    <input type="hidden" id="order_quantity" name="quantity" value="">
+                                                                    <button type="submit" class="btn-payment" onclick="updateOrderQuantity()" >Buy it now</button>
+                                                                </form>
+                                                                @else
+                                                                    <a href="{{ route('login') }}" class="btn-payment">Buy it now</a>
+                                                                @endauth
                                                             </div>
                                                         </div>
                                                     </div>
@@ -449,7 +458,16 @@
   <div class="canvas-overlay" onclick="closeQuickViewModal()"></div>
 </aside>
 @include('layouts.footer')
-
+<script>
+    function updateOrderQuantity() {
+        var myVariable = document.getElementById('quantity').value;
+        
+        var orderQuantityElement = document.getElementById('order_quantity');
+        
+        orderQuantityElement.value = myVariable;
+        
+    }
+    </script>
 <script>
     document.addEventListener('DOMContentLoaded', (event) => {
         const stars = document.querySelectorAll('.star');
@@ -471,47 +489,58 @@
 </script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
+  @if(auth()->check())
+    var userId = @json(auth()->user()->id);
+  @else
+    var userId = null; 
+  @endif
+
   function addToCart(productId) {
-      const postData = {
-          product_id: productId,
-          quantity: 1,
-      };
-
-      axios.post('', postData)
-          .then(response => {
-              console.log(response.data);
-              //window.location.href = '/cart'; 
-          })
-          .catch(error => {
-            console.error(error);
-
-          });
+    if (userId) {
+      axios.post(`/api/cart/addtocart`, {
+        user_id: userId,
+        product_id: productId,
+        quantity: 1
+      })
+      .then(response => {
+          console.log(response.data);
+          window.location.href='/cart';
+      })
+      .catch(error => {
+          console.error(error);
+      });
+    } else{
+        window.location.href = '/login';
+    }
   }
 </script>
+ <script>
+     @if(auth()->check())
+    var userId = @json(auth()->user()->id);
+  @else
+    var userId = null; 
+  @endif
 
-
-
-
-  <script>
     function addWishlist(productId) {
-        const postData = {
-            product_id: productId,
-            token: '{{ csrf_token() }}'
-        };
-    
-        axios.post('', postData)
-            .then(response => {
-                console.log(response.data);
-                window.location.href = '{{ route("wishlist.index") }}'; 
-            })
-            .catch(error => {
-              });
+     
+      if(userId){
+        axios.post(`/api/wishlist/addwishlist`,{
+        user_id:userId,
+        product_id:productId
+      })
+          .then(response => {
+             console.log(response.data)
+             window.location.href='/wishlist';
+          })
+          .catch(error => {
+              console.error(error);
+          });
+      }else{
+        window.location.href = '/login';
+    }
     }
     </script>
 
-
-
-<!-- End Quick View Menu -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         @foreach ($randomProducts as $randomProduct)

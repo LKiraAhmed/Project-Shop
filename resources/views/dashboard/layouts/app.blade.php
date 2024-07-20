@@ -31,6 +31,7 @@
     <!-- Favicon and Touch Icons  -->
     <link rel="shortcut icon" href="{{ asset('assets/dashboard/images/favicon.png') }}">
     <link rel="apple-touch-icon-precomposed" href="{{ asset('assets/dashboard/images/favicon.png') }}">
+    <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
 
 </head>
 
@@ -297,41 +298,62 @@
                             </form>
                         </div>
                         <div class="header-grid">
+                          
                             <div class="header-item button-dark-light">
                                 <i class="icon-moon"></i>
                             </div>
                             <div class="popup-wrap noti type-header">
                                 <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button"
-                                        id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                         <span class="header-item">
                                             <span class="text-tiny">1</span>
                                             <i class="icon-bell"></i>
                                         </span>
                                     </button>
+                            
+                                    <ul class="dropdown-menu dropdown-menu-end has-content" aria-labelledby="dropdownMenuButton1" >
+                                        <li>
+                                            <h6>Message</h6>
+                                        </li>
+                                        <li>
+                                            <div class="noti-item w-full wg-user active">
+                                                <div class="image">
+                                                    <img src=""  alt="">
+                                                </div>
+                                                <div class="flex-grow">
+                                                    <div class="flex items-center justify-between">
+                                                        <a href="#" class="body-title"></a>
+                                                        <div class="time"></div>
+                                                    </div>
+                                                    <div class="text-tiny">Hello?</div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                       
+                                    </ul>
                                 </div>
                             </div>
+                          
                             <div class="header-item button-zoom-maximize">
                                 <div class="">
                                     <i class="icon-maximize"></i>
                                 </div>
                             </div>
+          
                             <div class="popup-wrap user type-header">
                                 <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button"
-                                        id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">
                                         <span class="header-user wg-user">
                                             <span class="image">
                                                 <img src="images/avatar/user-1.png" alt="">
                                             </span>
                                             <span class="flex flex-column">
-                                                <span class="body-title mb-2">Be-unique</span>
+                                                <span class="body-title mb-2">Kristin Watson</span>
                                                 <span class="text-tiny">Admin</span>
                                             </span>
                                         </span>
                                     </button>
-                                    <ul class="dropdown-menu dropdown-menu-end has-content"
-                                        aria-labelledby="dropdownMenuButton3">
+                                    <ul class="dropdown-menu dropdown-menu-end has-content" aria-labelledby="dropdownMenuButton3" >
                                         <li>
                                             <a href="#" class="user-item">
                                                 <div class="icon">
@@ -358,7 +380,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="setting" class="user-item">
+                                            <a href="setting.html" class="user-item">
                                                 <div class="icon">
                                                     <i class="icon-settings"></i>
                                                 </div>
@@ -374,7 +396,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="login" class="user-item">
+                                            <a href="login.html" class="user-item">
                                                 <div class="icon">
                                                     <i class="icon-log-out"></i>
                                                 </div>

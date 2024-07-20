@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
 use App\Mail\VerifyEmail;
+use App\Mail\ResetPassword;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 class UserController extends Controller
@@ -69,6 +71,49 @@ class UserController extends Controller
         $request->session()->flush();
  
         return redirect('login');
+    }
+
+    public function email(){
+        return view('emai-page');
+    }
+
+    
+    public function sendResetLink(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email'
+        ]);
+    
+        $email = $request->input('email');
+        $user = User::where('email', $email)->first();
+    
+        if ($user) {
+            Mail::to($email)->send(new ResetPassword($user));
+            return redirect()->back()->with('success', 'Reset link sent successfully!');
+        } else {
+            return redirect()->back()->with('error', 'User not found!');
+        }
+    }
+    
+ 
+    public function reset(){
+        return view('password-rest');
+    }
+
+    public function passwordUpdate(Request $request)
+    {
+        $request->validate([
+            'password' => 'required',
+        ]);
+
+        $user = Auth::user();
+
+        if ($user) {
+            $user->password = Hash::make($request->input('password'));
+            $user->save();
+        }
+
+        return redirect()->route('login')->with('success', 'Password updated successfully!');
     }
 
 //     public function showVerificationForm()

@@ -125,46 +125,49 @@
                                 <label class="form-check-label" for="inlineCheckbox1">Keep me up to date on news and exclusive offers</label>
                             </div>
                             <div class="edit-checkout-form">
+                         
                                 <h4 class="title">Shipping address</h4>
                                 <form action="{{ route('orders.create') }}" method="POST">
-                                    @csrf
-                                    @foreach($cartItems as $cartItem)
-                                    <input type="hidden" name="product_id[]" value="{{ $cartItem->product_id }}">
-                                    <input type="hidden" name="quantity[]" value="{{ $cartItem->quantity }}">
-                                @endforeach
-                                    <div class="row row-gutter-12">
-                                        <div class="col-lg-6">
-                                            <div class="form-floating">
-                                                <input type="text" class="form-control" id="floatingInputGrid" placeholder="First name" name="first_name" value="{{ old('first_name') }}">
-                                                <label for="floatingInputGrid">First name (optional)</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="form-floating">
-                                                <input type="text" class="form-control" id="floatingInput2Grid" placeholder="Last name" name="last_name" value="{{ old('last_name') }}">
-                                                <label for="floatingInput2Grid">Last name</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-12">
-                                            <div class="form-floating">
-                                                <input type="text" class="form-control" id="floatingInput3Grid" placeholder="Address" name="address" value="{{ old('address') }}">
-                                                <label for="floatingInput3Grid">Address</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-12">
-                                            <div class="form-floating">
-                                                <input type="text" class="form-control" id="floatingInput5Grid" placeholder="Phone" name="phone" value="{{ old('phone') }}">
-                                                <label for="floatingInput5Grid">Phone</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="btn-box">
-                                                <button type="submit" class="btn-shipping">Continue to shipping</button>
-                                                <a class="btn-return" href="{{ route('cart.index') }}">Return to cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
+                                  @csrf
+                                  @foreach($cartItems as $cartItem)
+                                      <input type="hidden" name="product_id[]" value="{{ $cartItem->product_id }}">
+                                      <input type="hidden" name="quantity[]" value="{{ $cartItem->quantity }}">
+                                  @endforeach
+                                  <div class="row row-gutter-12">
+                                      <div class="col-lg-6">
+                                          <div class="form-floating">
+                                              <input type="text" class="form-control" id="floatingInputGrid" placeholder="First name" name="first_name" value="{{ old('first_name') }}">
+                                              <label for="floatingInputGrid">First name (optional)</label>
+                                          </div>
+                                      </div>
+                                      <div class="col-lg-6">
+                                          <div class="form-floating">
+                                              <input type="text" class="form-control" id="floatingInput2Grid" placeholder="Last name" name="last_name" value="{{ old('last_name') }}">
+                                              <label for="floatingInput2Grid">Last name</label>
+                                          </div>
+                                      </div>
+                                      <div class="col-lg-12">
+                                          <div class="form-floating">
+                                              <input type="text" class="form-control" id="floatingInput3Grid" placeholder="Address" name="address" value="{{ old('address') }}">
+                                              <label for="floatingInput3Grid">Address</label>
+                                          </div>
+                                      </div>
+                                      <div class="col-lg-12">
+                                          <div class="form-floating">
+                                              <input type="text" class="form-control" id="floatingInput5Grid" placeholder="Phone" name="phone" value="{{ old('phone') }}">
+                                              <label for="floatingInput5Grid">Phone</label>
+                                          </div>
+                                      </div>
+                                      <div class="col-12">
+                                          <div class="btn-box">
+                                              <button type="submit" class="btn-shipping">Continue to shipping</button>
+                                              <a class="btn-return" href="{{ route('cart.index') }}">Return to cart</a>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </form>
+                              
+                              
                             </div>
                         </div>
                     </div>

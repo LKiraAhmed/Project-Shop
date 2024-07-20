@@ -112,9 +112,31 @@
                 <div class="tab-pane fade show active" id="bestSeller" role="tabpanel" aria-labelledby="best-seller-tab">
                     <div class="row">
                       @php
-                           $bestSellers =  App\Models\Product::orderBy('sales_count', 'desc')->get();
-                        @endphp
-                        @foreach($bestSellers as $product)
+                   
+                  
+                      $bestSellers =  App\Models\Order::select('product_id', \DB::raw('COUNT(*) as total_orders'))
+                                          ->groupBy('product_id')
+                                          ->orderByDesc('total_orders')
+                                          ->get();
+                  
+                      $productIds = [];
+                  
+                      foreach ($bestSellers as $item) {
+                          $ids = json_decode($item->product_id);
+                  
+                          $productIds = array_merge($productIds, $ids);
+                      }
+                  
+                      $productIds = array_unique($productIds);
+                      $productIds = array_map('intval', $productIds);
+                  
+                      $products = App\Models\Product::whereIn('id', $productIds)->get();
+                  
+                      // dd($productIds, $products);
+                  @endphp
+                  
+                  
+                        @foreach($products as $product)
                         <div class="col-md-3 col-sm-6 mb-4">
                             <!-- Start Shop Item -->
                             <div class="product-item">
@@ -407,48 +429,58 @@ $mostViewedProducts = Product::select('products.id', 'products.name', 'products.
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
+  @if(auth()->check())
+    var userId = @json(auth()->user()->id);
+  @else
+    var userId = null; 
+  @endif
+
   function addToCart(productId) {
-    const postData = {
-          product_id: productId,
-          quantity: 1,
-      };
+    if (userId) {
+      axios.post(`/api/cart/addtocart`, {
+        user_id: userId,
+        product_id: productId,
+        quantity: 1
+      })
+      .then(response => {
+          console.log(response.data);
+          window.location.href='/cart';
+      })
+      .catch(error => {
+          console.error(error);
+      });
+    } else {
 
-      const headers = {
-    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-};
-
-      axios.post('/api/cart/addtocart', postData, { headers })
-          .then(response => {
-              console.log(response.data);
-             location.href = '/cart'; 
-          })
-          .catch(error => {
-              console.error('Error:', error);
-              location.href = '/login'; 
-
-          });
+       window.location.href = '/login';
+    }
   }
 </script>
-
-
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
-
   <script>
+     @if(auth()->check())
+    var userId = @json(auth()->user()->id);
+  @else
+    var userId = null; 
+  @endif
+
     function addWishlist(productId) {
      
-      axios.post(`/wishlist/addwishlist/${productId}`, {
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                }})
+      if(userId){
+        axios.post(`/api/wishlist/addwishlist`,{
+        user_id:userId,
+        product_id:productId
+      })
           .then(response => {
              console.log(response.data)
+             window.location.href='/wishlist';
           })
           .catch(error => {
               console.error(error);
           });
+      }else{
+        window.location.href = '/login';
+      }
     }
     </script>
   
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 @endsection
