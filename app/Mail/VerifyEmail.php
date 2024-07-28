@@ -8,20 +8,22 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use App\Models\User;
 
 class VerifyEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $code;
+    public $user;
+
     /**
      * Create a new message instance.
      */
-    public $code = null;
-
-    public function __construct($code)
+    public function __construct($code, User $user)
     {
-        //
-        $this->code= $code;
+        $this->code = $code;
+        $this->user = $user;
     }
 
     /**
@@ -40,7 +42,8 @@ class VerifyEmail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view:'email',
+            view: 'vetriyemailcode',
+            with: ['code' => $this->code, 'user' => $this->user],
         );
     }
 

@@ -107,6 +107,11 @@ Route::get('/registration', [UserController::class, 'index'])->name('registratio
 Route::post('/register', [UserController::class, 'create'])->name('register');
 Route::get('/login', [UserController::class, 'showLoginForm'])->name('login.form');
 Route::post('/login', [UserController::class, 'login'])->name('login');
+
+Route::get('/verify', [UserController::class, 'showVerifyForm'])->name('verify.form');
+Route::post('/send-otp', [UserController::class, 'sendOtp'])->name('send.otp');
+Route::post('/verify-otp', [UserController::class, 'verifyOtp'])->name('verify.otp');
+////
 Route::get('/emai-page', [UserController::class, 'email'])->name('email-page');
 Route::post('/email-page', [UserController::class, 'sendResetLink'])->name('email-page-post');
 Route::get('password/reset', [UserController::class, 'reset'])->name('password.reset');

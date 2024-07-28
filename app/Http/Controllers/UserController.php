@@ -13,6 +13,8 @@ use App\Mail\ResetPassword;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Redis;
+
 class UserController extends Controller
 {
     //
@@ -24,22 +26,28 @@ class UserController extends Controller
     public function create(Request $request)
     {
         $validate = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')],
+            'name' => ['required'],
+            'email' => ['required', 'email', 'unique:users,email'],
             'password' => ['required'],
-            'phone' => ['nullable', 'string'],
+            'phone' => ['nullable'],
         ]);
-
+    
         $user = new User;
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->phone = $request->phone;
-        $user->save();
-
-        return redirect()->route('login')->with('status', 'Verification code sent to your email.');
+        $user->save(); 
+    
+        // Generate OTP code
+        $code = rand(100000, 999999);
+        session(['otp' => $code, 'otp_email' => $user->email]);
+    
+        // Send the OTP via email
+        Mail::to($user->email)->send(new VerifyEmail($code, $user));
+    
+        return redirect()->route('verify.form', ['email' => $user->email])->with('status', 'Verification code sent to your email.');
     }
-
     public function showLoginForm()
     {
         return view('login');
@@ -115,52 +123,34 @@ class UserController extends Controller
 
         return redirect()->route('login')->with('success', 'Password updated successfully!');
     }
+    public function showVerifyForm(Request $request)
+    {
+        $email = $request->query('email');
+        return view('verify', ['email' => $email]);
+    }
 
-//     public function showVerificationForm()
-// {
-//     return view('verify');
-// }
+    public function verifyOtp(Request $request)
+    {
+        $request->validate(['code' => 'required|numeric']);
+        $inputCode = $request->input('code');
+        $sessionCode = session('otp');
+        $sessionEmail = session('otp_email');
 
-// public function VerifyEmail(Request $request)
-//     {
-//         $validate = Validator::make($request->all(),[
-//             'code' => 'required|numeric'
-//         ]);
-
-//         if($validate->fails()){
-//             return response()->json([
-//                 'status' => 400,
-//                 'message' => __("http-statuses.400"),
-//                 'data' => $validate->getMessageBag(),
-//             ], 400);
-//         }
-   
-//         $user = auth()->user();
-
-//         if(!$user->email_verified_at)
-//         {
-//             if(now() >= $user->expires_at){
-//                 return redirect()->route('register')->with('status', 'Verification code sent to your email.');
-//             }
-
-//             if($request->code && $request->code == $user->email_code){
-//                 $user->email_verified_at = now();
-//                 if($user){
-//                     return view('')
-//                 }
-//             }
-
-//             return response()->json([
-//                 'status' => 406,
-//                 'message' => __("http-statuses.406")
-//             ], 406);
-//         }
-
-//         return response()->json([
-//             'status' => 403,
-//             'message' => __("http-statuses.403")
-//         ], 403);
-//     }
+        if ($inputCode == $sessionCode && $request->input('email') == $sessionEmail) {
     
+            session()->forget(['otp', 'otp_email']);
+            return redirect()->route('login')->with('success', 'Email verified successfully! Please login.');
+        } else {
+            return redirect()->route('verify.form', ['email' => $request->input('email')])->withErrors(['code' => 'Invalid OTP code.']);
+        }
+    }
+
+
+
+
+
+
+
+
     
 }
